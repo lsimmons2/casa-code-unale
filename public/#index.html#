@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<base href='/'>
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js'></script>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js'></script>
+	<script type='text/javascript' src='/public/homeCtrl.js'></script>
+	<script type='text/javascript' src='/public/notifyCtrl.js'></script>
+	<script type='text/javascript' src='/public/boardCtrl.js'></script>
+	<script type='text/javascript' src='/public/angRoutes.js'></script>
+	<script type='text/javascript' src='/public/ang.js'></script>
+	<link rel='stylesheet' href='/public/style.css'>
+	<title> Casa Code-unale </title>
+</head>
+
+<body ng-app='App' ng-controller='HomeController'>
+	<a id='casaLogo' href='/'><img src='/public/casaLogo.png'></a>
+	<div ng-view> </div>
+</body>
+</html>

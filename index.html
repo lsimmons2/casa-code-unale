@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<base href='/'>
+	<title> Casa Code-unale </title>
+	<!--====================Angular====================-->
+	<!--<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.js'></script>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js'></script>-->
+	<script type='text/javascript' src='/libs/angular.min.js'></script>
+	<script type='text/javascript' src='/libs/angular-route.min.js'></script>
+	<script type='text/javascript' src='/libs/angular-animate.min.js'></script>
+	<!--====================Angular-strap====================-->
+	<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.9/angular-strap.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.9/angular-strap.tpl.min.js'></script>-->
+	<script type='text/javascript' src='/libs/angular-strap.min.js'></script>
+	<script type='text/javascript' src='/libs/angular-strap.tpl.min.js'></script>
+	<!--====================Bootstrap/jQuery====================-->
+	<!--<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+	<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>-->
+	<script type='text/javascript' src='/libs/jquery.min.js'></script>
+	<script type='text/javascript' src='/libs/bootstrap.min.js'></script>
+	<link rel='stylesheet' href='/libs/bootstrap.min.css'>
+	<!--====================Bootstrap/typeahead====================-->
+	<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js'></script>-->
+	<script type='text/javascript' src='/libs/bootstrap3-typeahead.min.js'></script>
+	<!--====================Custom====================-->
+	<script type='text/javascript' src='/public/ctrls/homeCtrl.js'></script>
+	<script type='text/javascript' src='/public/ctrls/signUpCtrl.js'></script>
+	<script type='text/javascript' src='/public/ctrls/boardCtrl.js'></script>
+	<script type='text/javascript' src='/public/angRoutes.js'></script>
+	<script type='text/javascript' src='/public/ang.js'></script>
+	<link rel='stylesheet' href='/public/style.css'>
+	
+</head>
+
+<body ng-app='App' ng-controller='HomeController'>
+	<a id='casaLogo' href='#/'><img class='img-responsive' src='/public/casaLogo.png'></a>
+	<div ng-view class='container'> </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div>
+	<!--<form class='form-inline' role='form'>
+	  <div class='form-group'>
+	    <label><i class='fa fa-globe'></i> State</label>
+	    <input type='text' class='form-control' ng-model='selectedSkill' bs-options='state for state in skillsList' placeholder='Enter state' bs-typeahead>
+	  </div>
+	</form>-->
+	<!--{{skillsList}}-->
+	<form id='signUp' name='signUpForm' ng-submit='submitUserData(signUpForm)'>
+		<span>First name:</span>
+		<input class='form-control' type='text' id='firstName' ng-model='firstName' placeholder='First name' required><br>
+
+		<span>Last name:</span>
+		<input class='form-control' type='text' id='lastName' ng-model='lastName' placeholder='Last name' required><br>
+
+		<span>User ID:</span>
+		<input class='form-control' type='text' id='userID' ng-model='userID' placeholder='User ID' required><br>
+
+		<span>Email:</span>
+		<input class='form-control' name='ctrl.email'  type='email' id='userEmail' ng-model='email' placeholder='Email'  required><br>
+
+		Technologies that you would like help with:
+		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead required>
+		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
+		<br>
+
+		Technologies that you could help other users with:
+		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead required>
+		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
+		<br>
+
+		More details about what you can offer and/or what you're looking for (optional):
+		<textarea type='text' id='bio' class='form-control' ng-model='bio' placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
+		<br>
+
+		Enter URL of picture to use as avatar (optional):
+		<input class='form-control' type='text' ng-model='avatar' placeholder='Enter URL of avatar'>	
+		<br>
+
+		Enter password:
+		<input class='form-control' placeholder='Enter password' type='password' required>
+		<br>
+		Confirm password:
+		<input class='form-control' placeholder='Confirm password' type='password' required>
+		<br>
+
+		<input type='submit' value='Sign Up'>
+	</form>
+</div>
+
+<!--ng-click='sendUserData()'-->

@@ -1,0 +1,3 @@
+angular.module('boardCtrl', []).controller('BoardController', function($scope, $location, $http){
+
+});

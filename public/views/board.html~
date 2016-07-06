@@ -1,0 +1,31 @@
+<p>Welcome to the board!</p>
+<table id='board' class='table' style='width:100%'>
+	<thead>
+		<tr>
+		<td></td>
+		<td>
+		Search users by technologies they know: <input type='text' ng-model='search.skillsTO'>
+		</td>
+		<td>
+		Search users by technologies they need help with: <input type='text' ng-model='search.skillsTL'>
+		</td>
+		<td></td>
+		<tr>
+	<thead>
+	<thead>
+		<tr>
+			<th style='width: 10%'></th>
+			<th style='width: 10%'>User ID</th>
+			<th style='width: 25%'h>Technologies user knows</th>
+			<th style='width: 25%'>Technologies user needs help with</th>
+			<th style='width: 30%'>User message</th>
+		</tr>
+	</thead>
+	<tr ng-repeat='user in users | filter: search:strict'>
+		<td><img src={{user.avatar}} alt='Image not found'></td>
+		<td>{{user.userID}}</td>
+		<td><span class='boardSkills' ng-repeat='skill in user.skillsTO track by $index'>{{skill}}</span></td>
+		<td><span class='boardSkills' ng-repeat='skill in user.skillsTL track by $index'>{{skill}}</span></td>
+		<td>{{user.bio}}</td>
+	</tr>
+</table>
