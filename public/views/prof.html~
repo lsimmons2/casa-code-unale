@@ -1,0 +1,21 @@
+<h2>Edit Profile</h2>
+<button ng-click='test()'>Test button</button>
+<h5>General information</h5>
+<ul>
+  <li><span>Username: </span><span>{{userData.username}}</span></li>
+  <li><span>Name: </span><span>{{userData.firstName}} {{userData.lastName}}</span></li>
+  <li><span>Email: </span><span>{{userData.email}}</span></li>
+</ul>
+<h5>Technologies you need help with</h5>
+<ul>
+  <li ng-repeat='skill in userData.skillsTL'>{{skill}}</li>
+</ul>
+<h5>Technologies you can help others wtih</h5>
+<ul>
+  <li ng-repeat='skill in userData.skillsTO'>{{skill}}</li>
+</ul>
+<h5>Detailed description of what you're looking for and/or what you can offer</h5>
+<p>{{userData.bio}}</p>
+
+<p>skillz</p>
+{{skills}}

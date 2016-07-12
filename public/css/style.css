@@ -1,0 +1,208 @@
+  .affix {
+      top: 0;
+      width: 100%;
+  }
+
+  .affix + .container-fluid {
+      padding-top: 70px;
+  }
+
+
+
+
+
+
+
+
+/*=================Nav=================*/
+#casaLogo {
+	/*display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	height: auto;*/
+	height: 100px;
+}
+.navbar.navbar-default {
+	 cursor: pointer;
+}
+
+/*=================Sign Up=================*/
+/*=================Board=================*/
+#boardHead {
+	   background: white;
+	   width: 940px;
+	   z-index: 2;
+}
+
+#tbody {
+       height: 1100;
+}
+#bio {
+	width: 500px;
+	height: 100px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#contactGlyph {
+	      color: #F57676;
+	      cursor: pointer;
+}
+
+#board img{
+	height: 70px;
+	width: 70px;
+
+}
+
+#casaLogo {
+	margin-top: 25px;
+}
+
+#firstName {
+	width: 500px;
+}
+#signUp {
+	margin: 30px auto 30px auto;
+}
+
+#signUp img, a, p, form, input, button {
+	max-width: 500px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#skillsTL {
+
+}
+
+
+.boardSkills {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F57676;
+	margin: 1px;
+	display: inline-block;
+	padding: 1px 3px 1px 3px;
+}
+
+
+.form-control {
+	margin-bottom: 8px;
+}
+
+.skillButton {
+	color: black;
+	cursor: pointer;
+}
+
+.skillsToShow {
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	color: #F57676;
+	margin: 3px;
+	padding: 4px;
+	display: inline-block;
+}
+
+
+/*=================Profile=================*/
+
+
+.buttonTL, .buttonTO, .buttonBasic, #bioEditButton {
+	     display: none;
+	     cursor: pointer;
+}
+
+ul {
+	list-style-type: none;
+}
+#profGenInfoCon {
+	margin-bottom: 40px;
+}
+
+#profSkillsTLCon, #profSkillsTOCon{
+	margin-bottom: 15px;
+}
+
+#bioEditInput{
+	display: none;
+
+}
+
+#firstNameEdit, #lastNameEdit, #emailEdit, #skillsTLInput, #skillsTOInput {
+	display: none;
+}
+
+#confirm {
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	color: green;
+}
+
+#updateButton {
+	float: left;
+}
+
+/*#skillsTLCon {
+	min-height: 80px;
+}
+
+#skillsTOCon {
+	min-height: 80px;
+}*/
+#showSkillsTLInput, #showSkillsTOInput {
+	height: 20px;
+}
+#profSkillTLInputHolder, #profSkillTOInputHolder {
+	min-height: 20px;
+}
+
+/*textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+	border-radius: 3px;   
+    border-color: rgba(229, 103, 23, 0.8);
+    box-shadow: 0 1px 1px #F57676 inset, 0 0 8px #F57676;
+    outline: 0 none;
+}*/
+
+@media only screen and(max-width: 768px){
+	#profile {
+		text-align: center;
+	}
+
+	/*.boardSkillSearch {
+		border-color: #F57676;
+	}*/
+
+	/*.buttonTL, .buttonTO {
+		display: inline;
+	}
+
+	#bioButton {
+		display: inline;
+	}*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

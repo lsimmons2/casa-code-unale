@@ -1,5 +1,5 @@
 angular.module('homeCtrl', [])
-    .controller('HomeController', function($scope, $http, AuthService){
+	.controller('HomeController', function($scope, $http){
 		$scope.message = 'hello';
 		$scope.getUsers = function(){
 		$http({

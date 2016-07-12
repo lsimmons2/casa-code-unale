@@ -3,7 +3,7 @@ angular.module('boardCtrl', []).controller('BoardController', function($scope, $
 	$scope.skillsTOSearch = '';
 	$scope.skillsTLSearch = '';
 	$scope.test = function() {
-	    console.log('test button not assigned to anything');
+]	    console.log('test button not assigned to anything');
 	};
 	$scope.open = function (userEmail) {
 	    var modalTemplate = '';

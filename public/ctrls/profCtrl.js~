@@ -1,0 +1,19 @@
+angular.module('profCtrl', []).controller('ProfileController', function($scope, $http, userData, tags){
+	/*$scope.test = function(){
+	    //console.log(userData);
+	    $http.get('/users')
+	    .then(function(res){
+		    console.log(res.data);
+		}, function(err){
+		    console.log(err);
+		});
+	};*/
+	$scope.userData = userData;
+	console.log($scope.userData);
+	$scope.skills = tags;
+	/*$scope.remSkill = function(place) {
+	    userData.skillsTO.splice(place, 1);
+	*/  
+
+
+    });	

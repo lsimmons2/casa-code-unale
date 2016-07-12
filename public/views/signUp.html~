@@ -1,12 +1,5 @@
 <div>
-	<!--<form class='form-inline' role='form'>
-	  <div class='form-group'>
-	    <label><i class='fa fa-globe'></i> State</label>
-	    <input type='text' class='form-control' ng-model='selectedSkill' bs-options='state for state in skillsList' placeholder='Enter state' bs-typeahead>
-	  </div>
-	</form>-->
-	<!--{{skillsList}}-->
-	<form id='signUp' name='signUpForm' ng-submit='submitUserData(signUpForm)'>
+	<form id='signUp' name='signUpForm'>
 		<span>First name:</span>
 		<input class='form-control' type='text' id='firstName' ng-model='firstName' placeholder='First name' required><br>
 
@@ -14,18 +7,18 @@
 		<input class='form-control' type='text' id='lastName' ng-model='lastName' placeholder='Last name' required><br>
 
 		<span>User ID:</span>
-		<input class='form-control' type='text' id='userID' ng-model='userID' placeholder='User ID' required><br>
+		<input class='form-control' type='text' id='username' ng-model='username' placeholder='User ID' required><br>
 
 		<span>Email:</span>
 		<input class='form-control' name='ctrl.email'  type='email' id='userEmail' ng-model='email' placeholder='Email'  required><br>
 
 		Technologies that you would like help with:
-		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead required>
+		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead>
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
 		<br>
 
 		Technologies that you could help other users with:
-		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead required>
+		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead>
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
 		<br>
 
@@ -38,14 +31,13 @@
 		<br>
 
 		Enter password:
-		<input class='form-control' placeholder='Enter password' type='password' required>
+		<input class='form-control' ng-model='password' placeholder='Enter password' type='password' required>
 		<br>
 		Confirm password:
-		<input class='form-control' placeholder='Confirm password' type='password' required>
+		<input class='form-control' placeholder='Confirm password' type='password' >
 		<br>
-
-		<input type='submit' value='Sign Up'>
+		<span class='termsWarning' style='display:none;'>Need to acknowledge that you have read and understand the terms of use and privacy policy<span class='glyphicon glyphicon-arrow-right'></span></span>
+		<label class='checkbox-inline'><input type='checkbox' ng-model='terms'>I have read and understand the terms of use and privacy policy</label>
+		<input type='submit' value='Sign Up' ng-click='register()'>
 	</form>
 </div>
-
-<!--ng-click='sendUserData()'-->
