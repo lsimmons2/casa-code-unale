@@ -7,21 +7,26 @@ angular.module('logInCtrl', []).controller('LogInController', function($http, $l
             // call login from service
             AuthService.login($scope.username, $scope.password)
             // handle success
-            .then(function () {
+            .then(function (res) {
                     console.log('controller function cb success');
                     $location.path('/profile');
                     $rootScope.in = true;
                     $scope.disabled = false;
                     $scope.loginForm = {};
+		    console.log(res);
                 })
             // handle error
-            .catch(function () {
+            .catch(function (res) {
                     console.log('controller function cb error');
                     $scope.error = true;
-                    $scope.errorMessage = "Invalid username and/or password";
+		    angular.element('#loginWarning').css('display', 'block');
                     $scope.disabled = false;
                     $scope.loginForm = {};
+		    console.log(res);
                 });
+	    $scope.closeLoginWarning = function(){
+		angular.element('#loginWarning').css('display', 'none');
+	    }
 
 	};
 

@@ -1,4 +1,4 @@
-angular.module('App', [/*'$strap.directives', */'ngScrollSpy',  'ui.bootstrap', 'ngRoute', /*'mgcrea.jquery', 'mgcrea.bootstrap.affix',*/ 'angRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'profCtrl', 'modalCtrl', 'myServ']).run(function ($rootScope, $location, $route, AuthService) {
+angular.module('App', [/*'$strap.directives', */'ngScrollSpy',  'ui.bootstrap', 'ngRoute', /*'mgcrea.jquery', 'mgcrea.bootstrap.affix',*/ 'angRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ']).run(function ($rootScope, $location, $route, AuthService) {
 	$rootScope.$on('$routeChangeStart',
 		       function (event, next, current) {
 			   console.log(event);

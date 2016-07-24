@@ -1,4 +1,4 @@
-  .affix {
+.affix {
       top: 0;
       width: 100%;
   }
@@ -9,30 +9,98 @@
 
 
 
+#termsCon input  {
+    display: inline;
+}
 
+#termsCon a  {
+    display: inline;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-
-
+#termsCon span {
+    display: inline;
+}
 
 /*=================Nav=================*/
+.navbar-brand {
+    padding: 0px;
+}
 #casaLogo {
 	/*display: block;
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
 	height: auto;*/
-	height: 100px;
+	height: 40px;
+	margin: 4px 0px 0px 20px;
+}
+
+#beta {
+    color: #A5B1B5;
+    margin-right: 20px;
+    font-size:150%;
 }
 .navbar.navbar-default {
 	 cursor: pointer;
 }
 
+
+/*=================Login=================*/
+#loginWarning {
+    text-align: center;
+    display: none;
+    width: 70%;
+    margin: 20px auto;
+}
+
+#loginWarning strong {
+    margin-right: 10px;
+}
+
+
+/*=================Home=================*/
+
+#homeHeader {
+    width: 50%;
+    margin-bottom: 25px;
+}
+
+
+
+
 /*=================Sign Up=================*/
+
+#termsList {
+    list-style-type: disc;
+}
+
+.termsWarning {
+    color: red;
+}
+
+/*#signUpSubmit {
+    display: inline-block;
+    margin: auto;
+}*/
 /*=================Board=================*/
+#boardHeader {
+    margin: 0 auto 30px auto;
+    width: 40%;
+    text-align: center;
+}
+
 #boardHead {
 	   background: white;
-	   width: 940px;
+	   width: 100%;
 	   z-index: 2;
+}
+
+thead#boardHead.ng-isolate-scope.affix {
+    width: 720px;
 }
 
 #tbody {
@@ -46,9 +114,14 @@
 	margin-right: auto;
 }
 
+#contact {
+    text-align: center;
+}
+
 #contactGlyph {
 	      color: #F57676;
 	      cursor: pointer;
+	      margin: 0 auto;
 }
 
 #board img{
@@ -57,9 +130,6 @@
 
 }
 
-#casaLogo {
-	margin-top: 25px;
-}
 
 #firstName {
 	width: 500px;
@@ -155,7 +225,7 @@ ul {
 
 #skillsTOCon {
 	min-height: 80px;
-}*/
+ws}*/
 #showSkillsTLInput, #showSkillsTOInput {
 	height: 20px;
 }

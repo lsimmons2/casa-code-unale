@@ -1,4 +1,4 @@
-//modules
+//moduless
 //================================================================================================
 var express = require('express');
 var app = express();
@@ -19,7 +19,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 //configuration
 //================================================================================================
-//var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 var uri = 'mongodb://localhost:27017/test';
 mongoose.connect(uri);
 
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(cookieParser())
+app.use(cookieParser());
 //app.use(session({ secret: 'scotch', resave: true, saveUninitialized: true})); // session secret
 //REDUNDANT - HAVE ALREADY INITIALIZDE EXPRESS-SESSION?
 app.use(require('express-session')({
@@ -52,19 +52,33 @@ passport.deserializeUser(Account.deserializeUser());
 var basicRouter = express.Router();
 basicRouter.use(function(req, res, next){
 	console.log(req.method, req.url);
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        res.setHeader("Expires", "0");
 	next();
 });
 
 
-app.get('/logout', function(req, res){
+/*app.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/');
-    });
+    });*/
 
 
-app.get('/welcome', function(req, res){
+/*app.get('/welcome', function(req, res){
 	res.redirect('/welcome');
-    });
+    });*/
+
+basicRouter.get('/welcome', function(req, res){
+    res.redirect('/welcome');
+});
+
+
+basicRouter.route('/logout')
+	.get(function(req, res){
+	    req.logout();
+	    res.redirect('/');
+	});
 
 
 basicRouter.get('/', function(req, res){
@@ -83,10 +97,14 @@ basicRouter.route('/login')
 			console.log('error authenticating user');
 			return next(err);
 		    }
-		    if (!user) {
+		    else if (!user) {
 			console.log('user not in db');
-			return res.redirect('/login');
+			res.json({message: 'This combination of user and password does not exist'});
+			res.end();
+			//return res.redirect('/login');
 		    }
+		else {
+		console.log('reached here');
 		    req.logIn(user, function(err) {
 			    console.log('reached last step of authenticate');
 			    if (err) {
@@ -98,6 +116,7 @@ basicRouter.route('/login')
 				    status: 'Registration successful!'
 					});
 			});
+		    }
 		})(req, res, next);
 	});
 
@@ -142,9 +161,7 @@ basicRouter.route('/register')
 			});
 		});
 	});
-
-
-app.get('/status', function(req, res) {
+basicRouter.get('/status', function(req, res){
 	//	console.log(req);
 	if (!req.isAuthenticated()) {
 	    return res.status(200).json({
@@ -154,7 +171,21 @@ app.get('/status', function(req, res) {
 	res.status(200).json({
 		status: true
 		    });
-    });
+   
+});
+
+
+/*app.get('/status', function(req, res) {
+	//	console.log(req);
+	if (!req.isAuthenticated()) {
+	    return res.status(200).json({
+		    status: false
+			});
+	}
+	res.status(200).json({
+		status: true
+		    });
+    });*/
 
 
 basicRouter.route('/users')
@@ -245,11 +276,20 @@ app.use('/', basicRouter);
 //================================================================================================
 //app.listen(port);
 //console.log('App connected to port ' + port);
+/*app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});*/
 
-app.listen(3000, function(){
+app.listen(port);
+console.log('listening on port ' + port);
+
+/*app.listen(3000, function(){
 	console.log('App running on port 3000');
-})
+})*/
 
 
 //WHY DO YOU NEED 'exports ='
-exports = module.exports = app;
+//exports = module.exports = app;

@@ -92,7 +92,7 @@ var Account = new Schema({
 	bio: {
 		type: String,
 		required: false,
-		lowercase: true
+		lowercase: false
 	}
     });
 

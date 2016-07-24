@@ -1,13 +1,13 @@
-angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', function($scope, $rootScope, $location, $http, tags, AuthService){
+angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', function($scope, $rootScope, $location, $http, tags, AuthService, $uibModal){
 	console.log(tags);
 	
-	$scope.firstName = 'leo';
-	$scope.lastName = 'simmons';
-	$scope.username = 'leo';
-	$scope.email = 'ls@ls.com';
+	$scope.firstName = '';
+	$scope.lastName = '';
+	$scope.username = '';
+	$scope.email = '';
 	$scope.bio = '';
 	$scope.avatar = '';
-	$scope.password = 'leo';
+	$scope.password = '';
 	
 	$scope.skillsListTO = tags;
 	$scope.skillsListTL = tags;
@@ -61,7 +61,7 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 	    $http.post('/signup', userData)
 	    .success(function(data){
 		    //$scope.status = 'We\'ll notify you when the site is up and running!';
-		    $location.path('/signedUp');
+		$location.path('/signedup');
 		    console.log('/signup POST sent successfuly from front');
 		})
 	    .error(function(data){
@@ -115,7 +115,7 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 	
 
 	$scope.register = function () {
-	    if($scope.terms){
+	    if($scope.terms && $scope.password == $scope.passwordConf){
 			var userData = {
 			    'firstName': $scope.firstName,
 			    'lastName': $scope.lastName,
@@ -129,14 +129,42 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 			};
 			AuthService.register(userData);
 			$rootScope.in = true;
+	    } else if(!$scope.terms) {
+		angular.element('#termsWarning').css('display', 'block');
 	    } else {
-		angular.element('.termsWarning').css('display', 'block');
+		angular.element('#passConfWarning').css('display', 'block');
 	    };
-
-
 	};
+
+        $scope.open = function() {
+	    $uibModal.open({
+		templateUrl: "termsOfUseModal.html",
+		controller: 'SignUpModalController'
+		});
+		};
+              /*.then(function(data){
+                    if(data.data.status){
+                        modalTemplate = 'loggedInModal.html';
+                    } else {
+                        modalTemplate = 'notLoggedInModal.html';
+                    }
+                    $uibModal.open({
+                            templateUrl: modalTemplate,
+                                controller: 'ModalController',
+                                resolve: {
+                                userEmail: function () {
+                                    return userEmail;
+                                }
+                            }
+                        });
+                }, function(error){
+                    console.log(error);
+                });*/
+
 });
 
-
-
-
+angular.module('signUpModalCtrl', []).controller('SignUpModalController', function ($scope, $uibModalInstance) {
+        $scope.close = function () {
+            $uibModalInstance.dismiss();
+        };
+    });

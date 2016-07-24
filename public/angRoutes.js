@@ -7,7 +7,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 			    restricted: false
 				}
 		})
-	    .when('/signUp', {
+	    .when('/signup', {
 		    templateUrl: 'public/views/signUp.html',
 			controller: 'SignUpController',
 			access: {
@@ -31,7 +31,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 			    }]
 			    }*/
 		})
-	    .when('/signedUp', {
+	    .when('/signedup', {
 		    templateUrl: 'public/views/signedUp.html',
 			controller: 'SignUpController',
 			access: {
@@ -91,6 +91,9 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
        	    	}]
        	    }
 		});
-
-	//$locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
+    /*$locationProvider.html5Mode({
+	enabled: true,
+	requireBase: false
+    });*/
 }]);

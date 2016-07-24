@@ -3,7 +3,7 @@
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<base href='/'>
+	<!--<base href='/'>-->
 	<title> Casa Code-unale </title>
 	<script type='text/javascript' src='/libs/jquery.min.js'></script>
 	<!--====================Angular====================-->
@@ -52,8 +52,38 @@
 </head>
 
 <body ng-app='App'>
-<!--  <a id='casaLogo' href='#/'><img class='img-responsive' src='/public/casaLogo.png'></a>-->
-	<nav class='navbar navbar-default' ng-controller='NavController'>
+
+
+<nav class="navbar navbar-default" ng-controller="NavController">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/"><img id='casaLogo' src='/public/casaLogo.png'></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+	<li><a href='#/' id='beta'><i>Beta</i></a></li>
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/board">Board</a></li>
+	<li ng-show="in"><a href="#/profile">Profile</a></li>
+	<li ng-show="in"><a ng-click="logout()">Log out</a></li>
+	<li ng-hide="in"><a href="#/login">Log in</a></li>
+	<li ng-hide="in"><a href="#/signup">Sign up</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<!--	<nav class='navbar navbar-default' ng-controller='NavController'>
 	  <div class='container-fluid'>
 	    <div class='navbar-header'>
 	      <a href='#/'><img class='img-responsive' id='casaLogo' src='/public/casaLogo.png'></a>
@@ -68,24 +98,15 @@
 	    <li>
 			<a href='#/board'>Board</a>
 		</li>
-	    <li>
-			<a ng-click='loggedIn()'>Logged in?</a>
-		</li>
 	    <li ng-show='in'>
 			<a href='#/profile'>View my profile</a>
 		</li>
 	    <li ng-show='in'>
 			<a ng-click='logout()'>Log out</a>
 		</li>
-	    <li>
-			<a ng-click='masterTest()'>Test button</a>
-		</li>
 	    </ul>
 	  </div>
-	</nav>
-<!--	<span><a href='#/signUp'>Sign up</a></span>
-	<span><a href='#/login'>Log in</a></span>
-	<span><a href='#/board'>Board</a></span>-->
+	</nav>-->
 	<div ng-view ng-controller='HomeController' class='container'> </div>
 </body>
 </html>

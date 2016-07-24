@@ -1,24 +1,26 @@
 <div>
+  <br>
+  <p>All fields required unless otherwise noted</p>
 	<form id='signUp' name='signUpForm'>
 		<span>First name:</span>
-		<input class='form-control' type='text' id='firstName' ng-model='firstName' placeholder='First name' required><br>
+		<input class='form-control' type='text' id='firstName' ng-model='firstName' placeholder='Enter first name' required><br>
 
 		<span>Last name:</span>
-		<input class='form-control' type='text' id='lastName' ng-model='lastName' placeholder='Last name' required><br>
+		<input class='form-control' type='text' id='lastName' ng-model='lastName' placeholder='Enter last name' required><br>
 
 		<span>User ID:</span>
-		<input class='form-control' type='text' id='username' ng-model='username' placeholder='User ID' required><br>
+		<input class='form-control' type='text' id='username' ng-model='username' placeholder='Enter user ID' required><br>
 
 		<span>Email:</span>
-		<input class='form-control' name='ctrl.email'  type='email' id='userEmail' ng-model='email' placeholder='Email'  required><br>
+		<input class='form-control' name='ctrl.email'  type='email' id='userEmail' ng-model='email' placeholder='Enter email'  required><br>
 
 		Technologies that you would like help with:
-		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=10>
+		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=10 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
 		<br>
 
 		Technologies that you could help other users with:
-		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=10>
+		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=10 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
 		<br>
 
@@ -26,18 +28,42 @@
 		<textarea type='text' id='bio' class='form-control' ng-model='bio' placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
 		<br>
 
-		Enter URL of picture to use as avatar (optional):
+		<!--Enter URL of picture to use as avatar (optional):
 		<input class='form-control' type='text' ng-model='avatar' placeholder='Enter URL of avatar'>	
-		<br>
+		<br>-->
 
 		Enter password:
 		<input class='form-control' ng-model='password' placeholder='Enter password' type='password' required>
 		<br>
 		Confirm password:
-		<input class='form-control' placeholder='Confirm password' type='password' >
+		<input class='form-control' placeholder='Confirm password' type='password' ng-model='passwordConf'>
 		<br>
-		<span class='termsWarning' style='display:none;'>Need to acknowledge that you have read and understand the terms of use and privacy policy<span class='glyphicon glyphicon-arrow-right'></span></span>
-		<label class='checkbox-inline'><input type='checkbox' ng-model='terms'>I have read and understand the terms of use and privacy policy</label>
-		<input type='submit' value='Sign Up' ng-click='register()'>
+
+		<center class='termsWarning' id='passConfWarning' style='display:none;'><span class='glyphicon glyphicon-arrow-up'></span><br>Passwords do not match</center>
+		<br>
+		<center class='termsWarning' id='termsWarning' style='display:none;'>Need to acknowledge that you have read and understand the terms of use<br><span class='glyphicon glyphicon-arrow-down'></span></center>
+
+		<center id="termsCon"><input type='checkbox' ng-model='terms'><span> I have read and understand the </span><a ng-click="open()"> terms of use</a></center><br>
+		<center><input type='submit' id='signUpSubmit' class='btn btn-default' value='Sign Up' ng-click='register()'></center>
 	</form>
 </div>
+
+
+<script type='text/ng-template' id='termsOfUseModal.html'>
+        <div class='modal-header'>
+            <h3 class='modal-title'>Terms of Use</h3>
+        </div>
+        <div class='modal-body'>
+          <p>
+	    By signing up you understand and agree to the following terms:
+	  </p>
+	  <ul id='termsList'>
+<li>You are using this site is at your own discretion and Casa is not responsible or liable for any misfortune or harm you may experience as a result of using the site</li>
+<li>As a user of the site you accept that you may be contacted by other users with the contact information you provide</li>
+<li>As a user of casa you agree to be respectful of other users</li>
+	  </ul>
+        </div>
+        <div class='modal-footer'>
+            <button class='btn btn-default'' type='button' ng-click='close()'>Close</button>
+        </div>
+    </script>

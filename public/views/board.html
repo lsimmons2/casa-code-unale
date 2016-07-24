@@ -1,6 +1,6 @@
-<p>Welcome to the board!</p>
+<h3 id='boardHeader'>Welcome to the board!</h3>
 <table id='board' class='table'>
-	<thead affix affix-options="{placeholder: true}" id='boardHead'>
+	<thead id='boardHead'>
 		<tr class='row'>
 			<th class='col-md-1'>
 				User ID
@@ -29,7 +29,7 @@
 			<td class='col-md-3'><span class='boardSkills' ng-repeat='skill in user.skillsTO track by $index'>{{skill}}</span></td>
 			<td class='col-md-3'><span class='boardSkills' ng-repeat='skill in user.skillsTL track by $index'>{{skill}}</span></td>
 			<td class='col-md-4'>{{user.bio}}</td>
-			<td class='col-md-1'><a ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></td>
+			<td class='col-md-1'><a id='contact' ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></td>
 		</tr>
 	</tbody>
 </table>
@@ -54,7 +54,7 @@
         <div class='modal-body'>
 	  <p>Need to be logged in to contact user</p>
 	  <span><a href='#/login' ng-click='close()'>Log in</a></span>
-	  <span><a href='#/signUp' ng-click='close()'>Sign up</a></span>
+	  <span><a href='#/signup' ng-click='close()'>Sign up</a></span>
         </div>
         <div class='modal-footer'>
             <button class='btn' type='button' ng-click='close()'>Close</button>

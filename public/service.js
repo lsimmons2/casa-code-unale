@@ -77,6 +77,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 			if(status === 200 && data.status){
 			    console.log('status === 200');
 			    user = true;
+			    console.log(data);
 			    deferred.resolve();
 			} else {
 			    console.log(data);
@@ -88,6 +89,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 		    })
 		.error(function (data) {
 			console.log('cb error function() activated');
+		        console.log(data);
 			user = false;
 			deferred.reject();
 		    });
