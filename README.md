@@ -1,5 +1,4 @@
 # casacodeunale
-First MEAN app!
 <b>Casa Code-unale</b>
 Visit at leosimmons.me/#/app
 
