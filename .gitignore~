@@ -1,3 +1,4 @@
 .notes*
 .scraps*
 node_modules
+.gitignore*
