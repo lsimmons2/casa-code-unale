@@ -67,37 +67,7 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 	    .error(function(data){
 		    console.log('Error: ' + data);
 		});
-		//		console.log('valid');
-		    /*	    else{
-		console.log('Please make sure you have entered a valid email address');
-		}
-	    var answer=this.email.$valid;
-	    console.log(answer);
-	    };
-	    $scope.submitUserData = function(data){*/
-	    /*if(data.$valid){
-		console.log('valid');
-	    }
-	    else{
-		console.log('invalid');
-		}*/
 	};
-	/*	$scope.login = function(){
-		console.log('login() from front')
-		var userData = JSON.stringify({
-		    'username': $scope.username,
-		    'password': $scope.password
-		});
-	    $http.post('/login', userData)
-	    .success(function(data){
-		    //$location.path('/');
-		    console.log('Success: ' + data);
-		})
-	    .error(function(data){
-		    console.log('Error: ' + data)
-			});
-	};*/
-
 	$scope.terms = false;
 	$scope.test = function () {
 	    console.log('test function!!!');
@@ -142,25 +112,6 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 		controller: 'SignUpModalController'
 		});
 		};
-              /*.then(function(data){
-                    if(data.data.status){
-                        modalTemplate = 'loggedInModal.html';
-                    } else {
-                        modalTemplate = 'notLoggedInModal.html';
-                    }
-                    $uibModal.open({
-                            templateUrl: modalTemplate,
-                                controller: 'ModalController',
-                                resolve: {
-                                userEmail: function () {
-                                    return userEmail;
-                                }
-                            }
-                        });
-                }, function(error){
-                    console.log(error);
-                });*/
-
 });
 
 angular.module('signUpModalCtrl', []).controller('SignUpModalController', function ($scope, $uibModalInstance) {

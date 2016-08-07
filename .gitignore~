@@ -2,3 +2,4 @@
 .scraps*
 node_modules
 .gitignore*
+mongo

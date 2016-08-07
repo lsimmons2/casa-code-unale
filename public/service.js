@@ -40,7 +40,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 
 	function isLoggedIn() {
 	    if(user) {
-		//console.log('user logged in');
+
 		return true;
 	    } else {
 		//console.log('user not logged in');
@@ -114,51 +114,6 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 	    return deferred.promise;
 	};
 
-	
-	/*function stackCaller() {
-	    tags1 = function() {
-		let deferred = $q.defer();
-		$http.get('https://api.stackexchange.com/2.2/tags?page=1&pagesize=100&order=desc&sort=popular&site=stackoverflow')
-	    .then(function(res){
-		    deferred.resolve(response);
-		    //return res.data.items;
-		}, function(err){
-		    console.log(err);
-		    deferred.reject(err);
-		});
-		return defferred.promise;
-	    };
-	    tags2 = function(){
-		let deferred = $q.defer();
-		$http.get('https://api.stackexchange.com/2.2/tags?page=2&pagesize=100&order=desc&sort=popular&site=stackoverflow')
-	    .then(function(res){
-		    return res.data.items;
-		}, function(err){
-		    console.log(err);
-		    deferred.reject(err);
-		});
-		return deferred.promise;
-	    };
-	    tags3 = function(){
-		let deferred = $q.defer();
-		$http.get('https://api.stackexchange.com/2.2/tags?page=3&pagesize=100&order=desc&sort=popular&site=stackoverflow')
-	    .then(function(res){
-		    return res.data.items;
-		}, function(err){
-		    console.log(err);
-		    deferred.reject(err);
-		});
-		return deferred.promise;
-	    };
-	    $q.all([tags1, tags2, tags3]).then(function(returnedTags){
-		    console.log(returnedTags);
-		    //return returnedTags[0];
-		    //complete();
-		}
-		)
-	    //console.log($scope.tags);
-	};*/
-	
 	function stackCaller() {
 	    var tags1 = $http({method: 'GET', url: 'https://api.stackexchange.com/2.2/tags?page=1&pagesize=100&order=desc&sort=popular&site=stackoverflow', cache: 'true'});
 	    var tags2 = $http({method: 'GET', url: 'https://api.stackexchange.com/2.2/tags?page=2&pagesize=100&order=desc&sort=popular&site=stackoverflow', cache: 'true'});

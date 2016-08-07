@@ -1,4 +1,5 @@
 angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, userData, $uibModal, AuthService){
+	$scope.greeting = 'Hello, world';
 	$scope.users = userData;
 	$scope.skillsTOSearch = '';
 	$scope.skillsTLSearch = '';

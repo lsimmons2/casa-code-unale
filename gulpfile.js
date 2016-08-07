@@ -7,7 +7,7 @@ gulp.task('test', function(){
 	      });
 
 gulp.task('watch', function(){
-	gulp.watch('./server.js', ['test']);
+	gulp.watch('*', ['test']);
     });
 
 

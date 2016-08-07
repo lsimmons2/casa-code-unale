@@ -1,6 +1,5 @@
 angular.module('profCtrl', []).controller('ProfileController', function($scope, $http, userData/*, tags*/){
 	/*$scope.test = function(){
-	    //console.log(userData);
 	    $http.get('/users')
 	    .then(function(res){
 		    console.log(res.data);

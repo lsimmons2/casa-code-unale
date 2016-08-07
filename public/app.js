@@ -19,23 +19,5 @@ angular.module('App', [/*'$strap.directives', */'ngScrollSpy',  'ui.bootstrap', 
 			   		$rootScope.in = false;
 			   		$location.path('/login');
 			   	})
-			   /*AuthService.getUserStatus()
-			       .then(function(user){
-				       if (next.restricted && !AuthService.isLoggedIn()){
-				       $rootScope.in = false;
-					   $location.path('/login');
-					   console.log(user);
-					   $route.reload();
-				   } else {
-				   	console.log(user);
-				   	$rootScope.in = true;
-				   };
-				   });*/
-			   /*$rootScope.backStatus = AuthService.getUserStatus();
-			   console.log($rootScope.backStatus);
-			   if ($rootScope.backStatus  && !AuthService.isLoggedIn()){
-			       $location.path('/login');
-			       $route.reload();
-			       };*/
 		       });
     });

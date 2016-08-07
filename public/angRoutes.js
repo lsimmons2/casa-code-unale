@@ -60,7 +60,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 					function(err){
 					    console.log(err);
 					});
-			    }]/*,
+			    }]/*
 			tags: function(AuthService){
 			    return AuthService.stackCaller()
 				.then(function(res){
@@ -86,6 +86,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 			userData: ['$http', function($http){
 				return $http.get('/board')
 				    .then(function(response){
+					console.log(response.data);
        	    				return response.data;
        	    			});
        	    	}]
