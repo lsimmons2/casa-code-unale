@@ -58,7 +58,6 @@
 
 <nav class="navbar navbar-default" ng-controller="NavController">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -69,7 +68,6 @@
       <a class="navbar-brand" href="#/"><img id='casaLogo' src='/public/casaLogo.png'></a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 	<li><a href='#/' id='beta'><i>Beta</i></a></li>
@@ -84,31 +82,6 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-
-<!--	<nav class='navbar navbar-default' ng-controller='NavController'>
-	  <div class='container-fluid'>
-	    <div class='navbar-header'>
-	      <a href='#/'><img class='img-responsive' id='casaLogo' src='/public/casaLogo.png'></a>
-	      </div>
-	    <ul>
-	    	<li ng-hide='in'>
-				<a href='#/signUp'>Sign up</a>
-			</li>
-	    <li ng-hide='in'>
-			<a href='#/login'>Log in</a>
-		</li>
-	    <li>
-			<a href='#/board'>Board</a>
-		</li>
-	    <li ng-show='in'>
-			<a href='#/profile'>View my profile</a>
-		</li>
-	    <li ng-show='in'>
-			<a ng-click='logout()'>Log out</a>
-		</li>
-	    </ul>
-	  </div>
-	</nav>-->
 	<div ng-view ng-controller='HomeController' class='container'> </div>
 </body>
 </html>
