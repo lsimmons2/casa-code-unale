@@ -19,11 +19,25 @@ describe('BoardController', function(){
 				    }];
 				    });
 				    }));
-	var $controller;
+	/*var $controller;
 	beforeEach(inject(function(_$controller_){
 		    $controller = _$controller_;
+		    }));*/
+
+	var $scope, $controller;
+	beforeEach(inject(function($rootScope, $controller){
+		    $scope = $rootScope.$new();
+		    $controller('BoardController', {
+			    $scope: $scope
+			});
+
 		}));
-	it('Controller defined', function(){
+	describe('open()', function(){
+		it('Function defined', function(){
+			expect($scope.open).toBeDefined();
+		    });
+	    });
+	/*it('Controller defined', function(){
 		expect($controller).toBeDefined();
 	    });
 	describe('$scope.open()', function(){
@@ -36,5 +50,5 @@ describe('BoardController', function(){
 		it('Function defined', function(){
 			expect($scope.open).toBeDefined();
 		    });
-		    });
+		    });*/
     });
