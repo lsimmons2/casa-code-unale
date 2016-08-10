@@ -26,6 +26,15 @@
 }
 
 /*=================Nav=================*/
+/*#nav{
+	width: 100%;
+
+	top: 0px;
+}*/
+#board{
+	table-layout:fixed;
+	width:100%;
+}
 .navbar-brand {
     padding: 0px;
 }
@@ -41,8 +50,12 @@
 
 #beta {
     color: #A5B1B5;
+    float: left;
+    margin-left: 15px;
     margin-right: 20px;
     font-size:150%;
+    line-height: 50px;
+
 }
 .navbar.navbar-default {
 	 cursor: pointer;
@@ -98,11 +111,14 @@
 	   width: 100%;
 	   z-index: 2;
 }
-
+#boardCon{
+	
+}
+/*
 thead#boardHead.ng-isolate-scope.affix {
     width: 720px;
 }
-
+*/
 #tbody {
        height: 1100;
 }
