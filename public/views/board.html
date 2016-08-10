@@ -1,46 +1,14 @@
 <h3 id='boardHeader'>Welcome to the board!</h3>
 
-<div class='container' id='boardCon' style='overflow: auto;'>
-<!--<table id='board' class='table' style='table-layout: fixed;'>
-	<thead id='boardHead'>
-		<tr class='row'>
-			<th class='col-md-1 col-xs-12'>
-				User ID
-			</th>
-			<th class='col-md-3 col-xs-6'>
-				Search users by technologies they know: 
-				<input class='boardSkillSearch' type='text' ng-model='search.skillsTO'><br>
-				User knows:
-			</th>
-			<th class='col-md-3 col-xs-6'>
-				Search users by technologies they need help with: 
-				<input class='boardSkillSearch' type='text' ng-model='search.skillsTL'><br>
-				User needs help with:
-			</th>
-			<th class='col-md-4 col-xs-12'>
-				User message
-			</th>
-			<th class='col-md-1 col-xs-12'>
-				Contact
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class='row' ng-repeat='user in users | filter: search:strict | orderObjectBy : "username"'>
-			<td class='col-md-1 col-xs-12'>{{user.username}}</td>
-			<td class='col-md-3 col-xs-6 '><span class='boardSkills' ng-repeat='skill in user.skillsTO track by $index'>{{skill}}</span></td>
-			<td class='col-md-3 col-xs-6'><span class='boardSkills' ng-repeat='skill in user.skillsTL track by $index'>{{skill}}</span></td>
-			<td class='col-md-4 col-xs-12'>{{user.bio}}</td>
-			<td class='col-md-1 col-xs-12'><a id='contact' ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></td>
-		</tr>
-	</tbody>
-</table>-->
+<div class='container-fluid' id='boardCon' style='overflow: auto;'>
 <div id='board' class='table' style='table-layout: fixed;'>
+  <!--side-by-side search-->
+  <div class='hidden-xs'>
   <div class='row' id='searchLabels'>
 	<b class='col-xs-6'>Search users by technologies they know: </b>
 	<b class='col-xs-6'>Search users by technologies they need help with: </b>
   </div>
-  <div class='row'>
+  <div class='row mobileSearch'>
     <div class='col-xs-6'>
       <input class='boardSkillSearch' type='text' ng-model='search.skillsTO'><br>
     </div>
@@ -48,6 +16,19 @@
       <input class='boardSkillSearch' type='text' ng-model='search.skillsTL'><br>
     </div>
   </div>
+  </div>
+  <!--stacked search-->
+  <div class='visible-xs'>
+  <div class='row mobileSearch'>
+    <b>Search users by technologies they know: </b>
+    <input class='boardSkillSearch' type='text' ng-model='search.skillsTO'><br>
+  </div>
+  <div class='row mobileSearch'>
+    <b>Search users by technologies they need help with: </b>
+    <input class='boardSkillSearch' type='text' ng-model='search.skillsTL'><br>
+  </div>
+  </div>
+
   <div class='row hidden-xs' id='boardHead'>
     <label class='col-sm-1 col-xs-12'>
       User:
@@ -82,38 +63,6 @@
     <div class='col-sm-1 hidden-xs'><a id='contact' ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></div>
   </div>
 
-<!--
-<div class="container">
-  <h2>Basic Table</h2>
-  <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
--->
 <script type='text/ng-template' id='loggedInModal.html'>
         <div class='modal-header'>
             <h3 class='modal-title'>Contact User</h3>
