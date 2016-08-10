@@ -107,13 +107,53 @@
 }
 
 #boardHead {
-	   background: white;
+	   /*background: white;
 	   width: 100%;
-	   z-index: 2;
+	   z-index: 2;*/
+	   /*border-bottom-style: solid;
+	   border-bottom-width: 2px;
+	   border-bottom-color: #E1DFDF;*/
+	   padding-bottom: 5px;
+
 }
-#boardCon{
-	
+
+#boardLine{
+	height:0px;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #E1DFDF;	
 }
+
+#searchLabels{
+	text-align: center;
+}
+
+#boardRow{
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #E1DFDF;
+	padding: 5px 0px 5px 0px;
+}
+
+#boardRow:last-of-type{
+	border-bottom-width: 0px;
+}
+
+.searchBoard {
+	     width: 50%;
+	     margin: 0 auto;
+}
+.mobileLabel{
+	margin-top: 8px;
+}
+
+#bigContactLabel{
+	text-align: right;
+}
+#mobileContactLabel{
+	margin-right: 4px;
+}
+
 /*
 thead#boardHead.ng-isolate-scope.affix {
     width: 720px;
