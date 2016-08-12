@@ -31,9 +31,4 @@ describe('AuthService=====================', function(){
 			expect(AuthService.logout).toBeDefined();
 		    });
 	    });
-	describe('stackCaller()', function(){
-		it('Function defined', function(){
-			expect(AuthService.stackCaller).toBeDefined();
-		    });
-	    });
     });
