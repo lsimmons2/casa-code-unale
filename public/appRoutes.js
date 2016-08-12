@@ -1,4 +1,4 @@
-angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider, $http, AuthService){
+angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider, $http, AuthService){
 	$routeProvider
 		.when('/', {
 			templateUrl: 'public/views/home.html',
@@ -12,24 +12,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'SignUpController',
 			access: {
 			restricted: false
-			    },
-			resolve: {
-			tags: function(AuthService){
-			    return AuthService.stackCaller()
-				.then(function(res){
-					return res;
-				    });
-			}
-			}
-			/*resolve: {
-			tags: ['$http', function($http){
-				return $http.get('https://api.stackexchange.com/2.2/tags?pagesize=100&order=desc&sort=popular&site=stackoverflow')
-				    .then(function(response){
-					    console.log(response);
-					    return response;
-					});
-			    }]
-			    }*/
+			    }
 		})
 	    .when('/signedup', {
 		    templateUrl: 'public/views/signedUp.html',
@@ -60,13 +43,7 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 					function(err){
 					    console.log(err);
 					});
-			    }]/*
-			tags: function(AuthService){
-			    return AuthService.stackCaller()
-				.then(function(res){
-					return res;
-				    });
-				    }*/
+			    }]
 		}
 		})
 	    .when('/welcome', {
@@ -86,15 +63,9 @@ angular.module('angRoutes', []).config(['$routeProvider', '$locationProvider', f
 			userData: ['$http', function($http){
 				return $http.get('/board')
 				    .then(function(response){
-					console.log(response.data);
        	    				return response.data;
        	    			});
        	    	}]
        	    }
 		});
-    //$locationProvider.html5Mode(true);
-    /*$locationProvider.html5Mode({
-	enabled: true,
-	requireBase: false
-    });*/
 }]);

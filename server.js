@@ -1,5 +1,5 @@
 //moduless
-//===============================================================================================
+//===============================================================
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ var expressSession = require('express-session');
 var connect = require('connect');
 
 //configuration
-//================================================================================================
+//=============================================================
 var port = process.env.PORT || 80;
 var uri = 'mongodb://localhost:27017/test';
 mongoose.connect(uri);
@@ -42,12 +42,13 @@ passport.deserializeUser(Account.deserializeUser());
 
 
 //routes
-//================================================================================================
+//==========================================================================
 var router = express.Router();
-app.use('/', router);
+
 
 //Don't cache anything returned from server
 router.use(function(req, res, next){
+	console.log(req.method, req.url);
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
         res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
         res.setHeader("Expires", "0");
@@ -112,6 +113,7 @@ router.route('/register')
 			    }),
 		req.body.password, function(err, account) {
 		    if (err) {
+			console.log(err);
 			return res.status(500).json({
 				err: err
 				    });
@@ -136,10 +138,45 @@ router.get('/status', function(req, res){
    
 });
 
+router.route('/users')
+    .get(function(req, res){
+	    console.log(req.user);
+	    Account.findOne({username: req.user.username}, function(error, user){
+		    if(error){
+			console.log(error);
+			res.send(error);
+		    }
+		    else{
+			console.log('user sent: ' + user);
+			res.json(user);
+			console.log(user);
+		    }
+		});
+	})
+    .put(function(req, res){
+	    //console.log(req.body);
+	    Account.findOneAndUpdate({username: req.user.username}, {$set:{
+                        firstName:req.body.firstName,
+			    lastName:req.body.lastName,
+			    email:req.body.email,
+			    skillsTL:req.body.skillsTL,
+			    skillsTO:req.body.skillsTO,
+			    bio:req.body.bio
+			    }}, {new: true}, function(err, doc){
+		    if(err){
+			console.log('Couldn\'t update: ' + err);
+		    }
+		    console.log('worked?');
+		    console.log(doc);
+                })
+                //console.log(req.user);
+                //console.log(req.body)
+		});
+
 router.get('/welcome', function(req, res){
     res.redirect('/welcome');
 });
-
+app.use('/', router);
 
 
 

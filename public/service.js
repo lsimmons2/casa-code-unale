@@ -4,7 +4,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 	     // create user variable
 	     var user = null;
 	     
-	     function register(userData) {
+	     /*    function register(userData) {
 		 $http.post('/register',
 			    {
 				firstName: userData.firstName,
@@ -27,7 +27,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 			console.log('Message: ' + response.data.err.message);
 		    });
 
-	}
+	}*/
 	     function loggedIn(req, res, next){
 		 if(req.user){
 		     console.log('logged in');
@@ -139,7 +139,6 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 		    getUserStatus: getUserStatus,
 		    login: login,
 		    logout: logout,
-		    register: register,
 		    stackCaller: stackCaller,
 		    user: user
 		    });

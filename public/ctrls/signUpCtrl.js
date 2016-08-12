@@ -1,5 +1,4 @@
-angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', function($scope, $rootScope, $location, $http, tags, AuthService, $uibModal){
-	console.log(tags);
+angular.module('signUpCtrl', ['mgcrea.ngStrap', 'tagsMod']).controller('SignUpController', function($scope, $rootScope, $location, $http, AuthService, $uibModal, tags){
 	
 	$scope.firstName = '';
 	$scope.lastName = '';
@@ -8,13 +7,13 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 	$scope.bio = '';
 	$scope.avatar = '';
 	$scope.password = '';
-	
-	$scope.skillsListTO = tags;
-	$scope.skillsListTL = tags;
+	$scope.passwordConf = '';
+	$scope.skillsListTO = $scope.skillsListTL = tags;
 	$scope.selectedSkillTO = '';
 	$scope.selectedSkillsTO = [];
 	$scope.selectedSkillTL = '';
 	$scope.selectedSkillsTL = [];
+	$scope.terms = false;
 	$scope.$on('$typeahead.select', function(event, value, index, elem){
 	        if(elem.$id == 'skillsTO'){
 	        	$scope.selectedSkillsTO.push(value);
@@ -57,24 +56,17 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 			'skillsTL': $scope.selectedSkillsTL,
 			'bio': $scope.bio,
 		});
-		//console.log(userData);
 	    $http.post('/signup', userData)
 	    .success(function(data){
-		    //$scope.status = 'We\'ll notify you when the site is up and running!';
 		$location.path('/signedup');
-		    console.log('/signup POST sent successfuly from front');
 		})
 	    .error(function(data){
 		    console.log('Error: ' + data);
 		});
 	};
 	$scope.terms = false;
-	$scope.test = function () {
-	    console.log('test function!!!');
-	}
 
 	$scope.logout = function () {
-	    console.log('$scope.logout() activated');
 	    AuthService.logout()
 	    .then(function(){
 		    $location.path('/login');
@@ -82,9 +74,12 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 		    $location.path('/login');
 		});
 	};
-	
-
+	$scope.userExists = false;
+	//using 'pressed' b/c I can't get ng-dirty to work
+	$scope.pressed = false;
 	$scope.register = function () {
+	    $scope.pressed = true;
+	    $scope.userExists = false;
 	    if($scope.terms && $scope.password == $scope.passwordConf){
 			var userData = {
 			    'firstName': $scope.firstName,
@@ -97,8 +92,19 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap']).controller('SignUpController', 
 			    'skillsTL': $scope.selectedSkillsTL,
 			    'bio': $scope.bio,
 			};
-			AuthService.register(userData);
-			$rootScope.in = true;
+			$http.post('/register', userData)
+			.then(function(res){
+				$location.path('/board');
+				$rootScope.in = true;
+			    }, function(res){
+				console.log(res.data.err.name);
+				if(res.data.err.name == 'UserExistsError'){
+				    $scope.userExists = true;
+				}
+				else{
+				    console.log(res.data.err.message);
+				}
+			    });
 	    } else if(!$scope.terms) {
 		angular.element('#termsWarning').css('display', 'block');
 	    } else {

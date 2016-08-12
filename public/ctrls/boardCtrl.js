@@ -1,11 +1,8 @@
-angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, userData, $uibModal, AuthService){
+angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, userData, $uibModal, $filter, AuthService){
 	$scope.greeting = 'Hello, world';
 	$scope.users = userData;
 	$scope.skillsTOSearch = '';
 	$scope.skillsTLSearch = '';
-	$scope.test = function() {
-	    console.log('test button not assigned to anything');
-	};
 	$scope.open = function (userEmail) {
 	    var modalTemplate = '';
 	    AuthService.getUserStatus()
@@ -29,6 +26,21 @@ angular.module('boardCtrl', []).controller('BoardController', function($scope, $
 		});
 		};
 });
+
+//should make this filter part of the 'boardCtrl' module?
+angular.module('boardFilter', []).filter('orderObjectBy', function() {
+	return function(items, field, reverse) {
+	    var filtered = [];
+	    angular.forEach(items, function(item) {
+		    filtered.push(item);
+		});
+	    filtered.sort(function (a, b) {
+		    return (a[field] > b[field] ? 1 : -1);
+		});
+	    if(reverse) filtered.reverse();
+	    return filtered;
+	};
+    });
 
 
 angular.module('modalCtrl', []).controller('ModalController', function ($scope, $uibModalInstance, userEmail) {

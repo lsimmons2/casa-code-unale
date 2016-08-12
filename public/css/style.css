@@ -84,10 +84,7 @@
 }
 
 
-
-
 /*=================Sign Up=================*/
-
 #termsList {
     list-style-type: disc;
 }
@@ -95,6 +92,20 @@
 .termsWarning {
     color: red;
 }
+
+.signUpWarning{
+	color: red;
+	text-align: center;
+	
+}
+
+.typeahead.dropdown-menu.ng-scope.am-fade.bottom-left{
+	cursor: pointer;
+}
+/*.signUpWarning.ng-hide{
+	display: block !important;
+	visibility: hidden;
+}*/
 
 /*#signUpSubmit {
     display: inline-block;
@@ -155,7 +166,7 @@
 
 #bigContactLabel{
 	text-align: right;
-}
+s}
 #mobileContactLabel{
 	margin-right: 4px;
 }
@@ -194,7 +205,7 @@ thead#boardHead.ng-isolate-scope.affix {
 
 
 #firstName {
-	width: 500px;
+	width: 500px
 }
 #signUp {
 	margin: 30px auto 30px auto;

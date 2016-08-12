@@ -1,59 +1,6 @@
-angular.module('profCtrl', []).controller('ProfileController', function($scope, $http, userData/*, tags*/){
-	/*$scope.test = function(){
-	    $http.get('/users')
-	    .then(function(res){
-		    console.log(res.data);
-		}, function(err){
-		    console.log(err);
-		});
-	};*/
+angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function($scope, $http, userData, tags){
 	$scope.userData = userData;
-	console.log($scope.userData);
-	//$scope.skillsListTL = tags;
-	//$scope.skillsListTO = tags;
-	$scope.skillsListTO = [".htaccess", ".net", "actionscript-3", "ajax", "algorithm",
-			       "android", "angularjs", "apache", "api", "arrays", "asp.net",
-			       "asp.net-mvc", "bash", "c", "c#", "c++", "class", "codeigniter",
-			       "cordova", "css", "css3", "database", "django", "eclipse",
-			       "entity-framework", "excel", "excel-vba", "facebook", "file",
-			       "forms", "function", "git", "google-chrome", "google-maps",
-			       "hibernate", "html", "html5", "image", "ios", "iphone",
-			       "java", "javascript", "jquery", "json", "jsp", "laravel",
-			       "linq", "linux", "list", "matlab", "maven", "mongodb",
-			       "multithreading", "mysql", "node.js", "objective-c",
-			       "oracle", "osx", "performance", "perl", "php",
-			       "postgresql", "python", "python-2.7", "qt", "r", "regex",
-			       "rest", "ruby", "ruby-on-rails", "ruby-on-rails-3",
-			       "scala", "shell", "sockets", "spring", "sql",
-			       "sql-server", "sql-server-2008", "sqlite", "string",
-			       "swift", "swing", "symfony2", "twitter-bootstrap",
-			       "uitableview", "unit-testing", "validation", "vb.net",
-			       "vba", "visual-studio", "visual-studio-2010", "wcf",
-			       "web-services", "windows", "winforms", "wordpress",
-			       "wpf", "xaml", "xcode", "xml"];
-
-        $scope.skillsListTL = [".htaccess", ".net", "actionscript-3", "ajax", "algorithm",
-			       "android", "angularjs", "apache", "api", "arrays", "asp.net",
-			       "asp.net-mvc", "bash", "c", "c#", "c++", "class", "codeigniter",
-			       "cordova", "css", "css3", "database", "django", "eclipse",
-			       "entity-framework", "excel", "excel-vba", "facebook", "file",
-			       "forms", "function", "git", "google-chrome", "google-maps",
-			       "hibernate", "html", "html5", "image", "ios", "iphone",
-			       "java", "javascript", "jquery", "json", "jsp", "laravel",
-			       "linq", "linux", "list", "matlab", "maven", "mongodb",
-			       "multithreading", "mysql", "node.js", "objective-c",
-			       "oracle", "osx", "performance", "perl", "php",
-			       "postgresql", "python", "python-2.7", "qt", "r", "regex",
-			       "rest", "ruby", "ruby-on-rails", "ruby-on-rails-3",
-			       "scala", "shell", "sockets", "spring", "sql",
-			       "sql-server", "sql-server-2008", "sqlite", "string",
-			       "swift", "swing", "symfony2", "twitter-bootstrap",
-			       "uitableview", "unit-testing", "validation", "vb.net",
-			       "vba", "visual-studio", "visual-studio-2010", "wcf",
-			       "web-services", "windows", "winforms", "wordpress",
-			       "wpf", "xaml", "xcode", "xml"];
-
-
+	$scope.skillsListTL = $scope.skillsListTO = tags;
 	$scope.modified = false;
 	angular.element('.basicInfoInput').keydown(function(event) {
         if (event.keyCode == 13) {
@@ -68,6 +15,7 @@ angular.module('profCtrl', []).controller('ProfileController', function($scope, 
 	
 
 //=================General Info Buttons=================
+//There is probably a much more efficient way to do all this...
 	$scope.showButtonsBasic = function() {
 	    angular.element('.buttonBasic').css('display', 'inline');
 	}

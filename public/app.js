@@ -1,12 +1,8 @@
-angular.module('App', [/*'$strap.directives', */'ngScrollSpy',  'ui.bootstrap', 'ngRoute', /*'mgcrea.jquery', 'mgcrea.bootstrap.affix',*/ 'angRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ']).run(function ($rootScope, $location, $route, AuthService) {
+angular.module('App', ['ngScrollSpy',  'ui.bootstrap', 'ngRoute', 'appRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ', 'boardFilter']).run(function ($rootScope, $location, $route, AuthService) {
 	$rootScope.$on('$routeChangeStart',
 		       function (event, next, current) {
-			   console.log(event);
-			   console.log(next);
-			   console.log(current);
 			   AuthService.getUserStatus()
 			   .then(function(res){
-			   	console.log(res.data.status);
 			   	if(res.data.status && AuthService.isLoggedIn()){
 			   		$rootScope.in = true;
 			   	} else {
@@ -21,3 +17,4 @@ angular.module('App', [/*'$strap.directives', */'ngScrollSpy',  'ui.bootstrap', 
 			   	})
 		       });
     });
+

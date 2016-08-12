@@ -1,4 +1,4 @@
-describe('AuthService', function(){
+describe('AuthService=====================', function(){
 	var Auth;
 	beforeEach(module('myServ'));
 	beforeEach(inject(function(_AuthService_){
@@ -19,11 +19,6 @@ describe('AuthService', function(){
 	describe('getUserStatus()', function(){
 		it('Function defined', function(){
 			expect(AuthService.getUserStatus).toBeDefined();
-		    });
-	    });
-	describe('register()', function(){
-		it('Function defined', function(){
-			expect(AuthService.register).toBeDefined();
 		    });
 	    });
 	describe('login()', function(){

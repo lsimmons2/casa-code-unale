@@ -26,6 +26,7 @@ module.exports = function(config) {
 	    './bower_components/angular-strap/dist/angular-strap.tpl.js',
 	    './bower_components/ngScrollSpy/dist/ngScrollSpy.js',
 	    './public/service.js',
+	    './public/tags.js',
 	    './public/ctrls/boardCtrl.js',
 	    './public/ctrls/navCtrl.js',
 	    './public/ctrls/profCtrl.js',
