@@ -78,6 +78,10 @@
     margin-bottom: 25px;
 }
 
+#visitBoard {
+  color: black;
+  text-decoration: none;
+}
 
 /*=================Sign Up=================*/
 #termsList {
