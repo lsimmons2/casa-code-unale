@@ -36,7 +36,6 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
-//REDUNDANT - HAVE ALREADY INITIALIZDE EXPRESS-SESSION?
 app.use(require('express-session')({
   secret: 'fakesecret',
   resave: false,
@@ -208,13 +207,9 @@ router.route('/users')
     bio:req.body.bio
   }}, {new: true}, function(err, doc){
     if(err){
-    //console.log('Couldn\'t update: ' + err);
+    console.log('Error updating user: ' + err);
     }
-    //console.log('worked?');
-    //console.log(doc);
   })
-  //console.log(req.user);
-  //console.log(req.body)
 });
 
 router.get('/welcome', function(req, res){
