@@ -1,4 +1,0 @@
-<p>Welcome, user</p>
-        <form>
-        <input type='submit' value='Log out' ng-click='logout()'>
-        </form>

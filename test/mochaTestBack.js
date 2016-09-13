@@ -1,5 +1,6 @@
 var chai = require('chai');
 var assert = chai.assert;
+//var request = chai.request();
 var should = chai.should();
 var chaiHttp = require('chai-http');
 var server = require('../server');
@@ -63,4 +64,3 @@ describe('API', function(){
 			});
 	    });
     });
-

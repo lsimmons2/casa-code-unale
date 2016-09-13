@@ -36,7 +36,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			    },
 			resolve: {
 			userData : ['$http', function($http){
-				return $http.get('/users')
+				return $http.get('/app/users')
 				    .then(function(res){
 					    return res.data;
 					},
@@ -61,7 +61,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			    },
 			resolve: {
 			userData: ['$http', function($http){
-				return $http.get('/board')
+				return $http.get('/app/board')
 				    .then(function(response){
        	    				return response.data;
        	    			});

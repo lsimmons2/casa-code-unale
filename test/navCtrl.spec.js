@@ -1,9 +1,21 @@
 describe('NavController', function(){
+
 	beforeEach(module('navCtrl'));
-	beforeEach(inject(function(_$controller_){
-		    $controller = _$controller_;
-		}));
-	it('Controller defined', function(){
-		expect($controller).toBeDefined();
-	    });
-    });
+	beforeEach(module('myServ'));
+
+	var $scope;
+	beforeEach(inject(function($rootScope, $controller){
+		$scope = $rootScope.$new();
+		$controller('NavController', {
+			$scope: $scope
+		});
+	}));
+
+	describe('logout()', function(){
+		it('Function defined', function(){
+			$scope.logout.should.exist;
+		})
+
+	})
+
+});

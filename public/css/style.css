@@ -26,11 +26,10 @@
 }
 
 /*=================Nav=================*/
-/*#nav{
-	width: 100%;
+#navBarRight{
+    float: right;
+}
 
-	top: 0px;
-}*/
 #board{
 	table-layout:fixed;
 	width:100%;
@@ -39,11 +38,7 @@
     padding: 0px;
 }
 #casaLogo {
-	/*display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-	height: auto;*/
+
 	height: 40px;
 	margin: 4px 0px 0px 20px;
 }
@@ -96,21 +91,13 @@
 .signUpWarning{
 	color: red;
 	text-align: center;
-	
+
 }
 
 .typeahead.dropdown-menu.ng-scope.am-fade.bottom-left{
 	cursor: pointer;
 }
-/*.signUpWarning.ng-hide{
-	display: block !important;
-	visibility: hidden;
-}*/
 
-/*#signUpSubmit {
-    display: inline-block;
-    margin: auto;
-}*/
 /*=================Board=================*/
 #boardHeader {
     margin: 0 auto 30px auto;
@@ -119,12 +106,7 @@
 }
 
 #boardHead {
-	   /*background: white;
-	   width: 100%;
-	   z-index: 2;*/
-	   /*border-bottom-style: solid;
-	   border-bottom-width: 2px;
-	   border-bottom-color: #E1DFDF;*/
+
 	   padding-bottom: 5px;
 
 }
@@ -133,7 +115,7 @@
 	height:0px;
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
-	border-bottom-color: #E1DFDF;	
+	border-bottom-color: #E1DFDF;
 }
 
 #searchLabels{
@@ -171,11 +153,6 @@ s}
 	margin-right: 4px;
 }
 
-/*
-thead#boardHead.ng-isolate-scope.affix {
-    width: 720px;
-}
-*/
 #tbody {
        height: 1100;
 }
@@ -292,13 +269,6 @@ ul {
 	float: left;
 }
 
-/*#skillsTLCon {
-	min-height: 80px;
-}
-
-#skillsTOCon {
-	min-height: 80px;
-ws}*/
 #showSkillsTLInput, #showSkillsTOInput {
 	height: 20px;
 }
@@ -306,46 +276,9 @@ ws}*/
 	min-height: 20px;
 }
 
-/*textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
-	border-radius: 3px;   
-    border-color: rgba(229, 103, 23, 0.8);
-    box-shadow: 0 1px 1px #F57676 inset, 0 0 8px #F57676;
-    outline: 0 none;
-}*/
 
 @media only screen and(max-width: 768px){
 	#profile {
 		text-align: center;
 	}
-
-	/*.boardSkillSearch {
-		border-color: #F57676;
-	}*/
-
-	/*.buttonTL, .buttonTO {
-		display: inline;
-	}
-
-	#bioButton {
-		display: inline;
-	}*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

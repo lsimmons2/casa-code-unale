@@ -10,12 +10,9 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
         }
     });
 
-	
-
-	
 
 //=================General Info Buttons=================
-//There is probably a much more efficient way to do all this...
+//Not sure if this is the best way to do all this...
 	$scope.showButtonsBasic = function() {
 	    angular.element('.buttonBasic').css('display', 'inline');
 	}
@@ -24,47 +21,39 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 	}
 	$scope.showInputFirstName = function() {
 		angular.element('#infoFirstName').css('display', 'none');
-		//angular.element('#firstNameButton').css('display', 'none');
 		angular.element('#firstNameEdit').css('display', 'inline');
 	}
 	$scope.hideInputFirstName = function() {
 		angular.element('#infoFirstName').css('display', 'inline');
-		//angular.element('#firstNameButton').css('display', 'none');
 		angular.element('#firstNameEdit').css('display', 'none');
 	}
 	$scope.showInputLastName = function() {
 		angular.element('#infoLastName').css('display', 'none');
-		//angular.element('#lastNameButton').css('display', 'none');
 		angular.element('#lastNameEdit').css('display', 'inline');
 	}
 	$scope.hideInputLastName = function() {
 		angular.element('#infoLastName').css('display', 'inline');
-		//angular.element('#lastNameButton').css('display', 'none');
 		angular.element('#lastNameEdit').css('display', 'none');
 	}
 	$scope.showInputEmail = function() {
 		angular.element('#infoEmail').css('display', 'none');
-		//angular.element('#emailButton').css('display', 'none');
 		angular.element('#emailEdit').css('display', 'inline');
 	}
 	$scope.hideInputEmail = function() {
 		angular.element('#infoEmail').css('display', 'inline');
-		//angular.element('#emailButton').css('display', 'none');
 		angular.element('#emailEdit').css('display', 'none');
 	}
 	$scope.showInputBio = function() {
 		angular.element('#infoBio').css('display', 'none');
-		//angular.element('#firstNameButton').css('display', 'none');
 		angular.element('#bioEdit').css('display', 'inline');
 	}
 	$scope.hideInputBio = function() {
 		angular.element('#infoBio').css('display', 'inline');
-		//angular.element('#firstNameButton').css('display', 'none');
 		angular.element('#bioEdit').css('display', 'none');
 	}
 
 
-	
+
 //=================Skills to Learn Buttons=================
 	$scope.showSkillsTLEdit = function() {
 	    angular.element('.buttonTL').css('display', 'inline');
@@ -73,12 +62,12 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 	$scope.hideSkillsTLEdit = function() {
 	    angular.element('.buttonTL').css('display', 'none');
 	    angular.element('#profSkillTLInputHolder').css('min-height', '20px');
-	}  
+	}
 	$scope.showSkillsTLInput = function() {
 	    angular.element('#skillsTLInput').css('display', 'inline');
 	    angular.element('#showSkillsTLInput').remove();
 	    angular.element('#profSkillTLInputHolder').remove();
-	}  		 
+	}
 	$scope.remSkillTL = function(place) {
 	    $scope.userData.skillsTL.splice(place, 1);
 	    $scope.modified = true;
@@ -94,12 +83,12 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 	$scope.hideSkillsTOEdit = function() {
 	    angular.element('.buttonTO').css('display', 'none');
 	    angular.element('#profSkillTOInputHolder').css('min-height', '20px');
-	}  
+	}
 	$scope.showSkillsTOInput = function() {
 	    angular.element('#skillsTOInput').css('display', 'inline');
 	    angular.element('#showSkillsTOInput').remove();
 	    angular.element('#profSkillTOInputHolder').remove();
-	}  		 
+	}
 	$scope.remSkillTO = function(place) {
 	    $scope.userData.skillsTO.splice(place, 1);
 	    $scope.modified = true;
@@ -110,30 +99,21 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 //=================Bio Buttons=================
 	$scope.showBioEdit = function() {
 	    angular.element('#bioEditButton').css('display', 'inline');
-	    //angular.element('#profSkillTOInputHolder').css('min-height', '0px');
 	}
 	$scope.hideBioEdit = function() {
 	    angular.element('#bioEditButton').css('display', 'none');
-	    //angular.element('#profSkillTOInputHolder').css('min-height', '20px');
-	}  
+	}
 	$scope.showBioInput = function() {
 	    angular.element('#bioEditInput').css('display', 'inline');
 	    angular.element('#infoBio').css('display', 'none');
 	    angular.element('#bioEditButton').css('display', 'none');
-	    //angular.element('#profSkillTOInputHolder').remove();
 	}
 	$scope.hideBioInput = function() {
 	    angular.element('#bioEditInput').css('display', 'none');
 	    angular.element('#infoBio').css('display', 'inline');
 	    angular.element('#bioEditButton').css('display', 'inline');
-	    //angular.element('#profSkillTOInputHolder').remove();
 	}
-	/*$scope.showButtonBio = function() {
-	    angular.element('#bioButton').css('display', 'inline');
-	}
-	$scope.hideButtonBio = function() {
-	    angular.element('#bioButton').css('display', 'none');
-	}*/
+
 
 	angular.element('#bioEditInput').keydown(function(event) {
         if (event.keyCode == 13) {
@@ -155,7 +135,7 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 			'skillsTO' : $scope.userData.skillsTO,
 			'bio' : $scope.userData.bio
 		}
-		$http.put('/users', userData)
+		$http.put('/app/users', userData)
 		.then(function(res){
 			console.log(res);
 
@@ -186,13 +166,4 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
 			       }
 		       $scope.$digest();
 		   });
-    });	
-
-
-
-	
-
-
-
-
-
+    });

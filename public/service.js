@@ -17,9 +17,9 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 		return false;
 	    }
 	}
-	
+
 	function getUserStatus() {
-	    return $http.get('/status')
+	    return $http.get('/app/status')
 		.success(function (data) {
 			if(data.status){
 			    user = true;
@@ -34,11 +34,11 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 			return user;
 		    });
 	}
-	
+
 
 	function login(username, password) {
 	    var deferred = $q.defer();
-	    $http.post('/login',
+	    $http.post('/app/login',
 		       {username: username, password: password})
 		.success(function (data, status) {
 			if(status === 200 && data.status){
@@ -59,7 +59,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 
 	function logout() {
 	    var deferred = $q.defer();
-	    $http.get('/logout')
+	    $http.get('/app/logout')
 		.success(function (data) {
 			user = false;
 			deferred.resolve();
@@ -69,7 +69,7 @@ angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', 
 			deferred.reject();
 		    });
 	    return deferred.promise;
-	};
+	}
 
 	return ({
 		isLoggedIn: isLoggedIn,

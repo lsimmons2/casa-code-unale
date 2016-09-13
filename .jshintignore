@@ -1,0 +1,8 @@
+node_modules/**
+bower_components/**
+mongo/**
+libs/**
+server.bundle.js
+public/bundle.js
+public/casaLogo.png
+public/tagsCurler.py

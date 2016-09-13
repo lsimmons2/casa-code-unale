@@ -1,4 +1,14 @@
-angular.module('App', ['ngScrollSpy',  'ui.bootstrap', 'ngRoute', 'appRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ', 'boardFilter']).run(function ($rootScope, $location, $route, AuthService) {
+/*require('./ctrls/homeCtrl.js');
+require('./ctrls/profCtrl.js');
+require('./ctrls/signUpCtrl.js');
+require('./ctrls/boardCtrl.js');
+require('./ctrls/logInCtrl.js');
+require('./ctrls/navCtrl.js');
+require('./appRoutes.js');
+require('./service.js');
+require('./tags.js');*/
+//sahh
+angular.module('App', ['ui.bootstrap', 'ngRoute', 'appRoutes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ', 'boardFilter']).run(function ($rootScope, $location, $route, AuthService) {
 	$rootScope.$on('$routeChangeStart',
 		       function (event, next, current) {
 			   AuthService.getUserStatus()
@@ -9,7 +19,7 @@ angular.module('App', ['ngScrollSpy',  'ui.bootstrap', 'ngRoute', 'appRoutes', '
 			   		$rootScope.in = false;
 			   		if(next.$$route.access.restricted){
 			   			$location.path('/login');
-			   		}	
+			   		}
 			   	}}, function(err){
 			   		console.log(err);
 			   		$rootScope.in = false;
@@ -17,4 +27,3 @@ angular.module('App', ['ngScrollSpy',  'ui.bootstrap', 'ngRoute', 'appRoutes', '
 			   	})
 		       });
     });
-
