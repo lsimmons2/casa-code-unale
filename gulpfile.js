@@ -23,6 +23,10 @@ gulp.task('watch', function(){
 	gulp.watch('public/*', ['frontTest']);
 })
 
+gulp.task('lt', function(){
+	gulp.watch('public/service.js', ['front', 'lint'])
+})
+
 gulp.task('master', function(){
 	nodemon({
 		script: 'server.js',
