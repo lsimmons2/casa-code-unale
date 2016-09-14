@@ -48,7 +48,7 @@
   </div>
   <div id='boardLine'></div>
   <div class='row' id='boardRow' ng-repeat='user in users | filter: search:strict | orderObjectBy : "username"'>
-    
+
     <div class='col-sm-1 col-xs-6 mobileLabel'><label class='visible-xs-inline'>User: </label>{{user.username}}</div>
     <div class='visible-xs-inline col-xs-6 mobileLabel'>
       <label id='mobileContactLabel'>Contact: </label>
@@ -82,8 +82,8 @@
         </div>
         <div class='modal-body'>
 	  <p>Need to be logged in to contact user</p>
-	  <span><a href='app/#/login' ng-click='close()'>Log in</a></span>
-	  <span><a href='app/#/signup' ng-click='close()'>Sign up</a></span>
+	  <span><a href='#/login' ng-click='close()'>Log in</a></span>
+	  <span><a href='#/signup' ng-click='close()'>Sign up</a></span>
         </div>
         <div class='modal-footer'>
             <button class='btn' type='button' ng-click='close()'>Close</button>
