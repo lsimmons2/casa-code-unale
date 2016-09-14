@@ -107,6 +107,13 @@ router.use(function(req, res, next){
   next();
 });
 
+router.route('/test')
+.get(function(req, res){
+  //console.log('req.headers: ', req.headers);
+  //console.log('req.session: '. req.session);
+  console.log(req);
+  res.send('tested');
+})
 router.route('/board')
 .get(function(req, res){
   Account.find(function(error, users){
@@ -122,20 +129,21 @@ router.route('/board')
 router.route('/login')
 .post(function(req, res, next){
   passport.authenticate('local', function(err, user, info) {
-    if (err) {
+    if (err) {//error checking if user is authenticated with passport
       return next(err);
     }
-    else if (!user) {
+    else if (!user) {//user cannot be authenticated by passport
       res.json({message: 'This combination of user and password does not exist'});
       res.end();
     }
-    else {
-      req.logIn(user, function(err) {
+    else {//user is authenticated by passport
+      req.logIn(user, function(err) {//record user session
         if (err) {
           return next(err);
         }
         return res.status(200).json({
-          status: 'Registration successful!'
+          authenticated: true,
+          user: user
         });
       });
     }
@@ -176,13 +184,13 @@ router.route('/register')
 });
 
 router.get('/status', function(req, res){
-  if (!req.isAuthenticated()) {
+  if (!req.isAuthenticated()) {//is authenticated if in session
     return res.status(200).json({
-      status: false
+      authenticated: false
     });
   }
   res.status(200).json({
-    status: true
+    authenticated: true
   });
 });
 
@@ -223,6 +231,6 @@ app.use('/app', router);
 //=================================================================================================
 
 app.listen(port);
-console.log('\n===  listening on port ' + port + ' ===');
+console.log('\n=== listening on port ' + port + ' ===');
 
 exports = module.exports = app;
