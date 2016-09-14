@@ -1,11 +1,11 @@
 .affix {
-      top: 0;
-      width: 100%;
-  }
+  top: 0;
+  width: 100%;
+}
 
-  .affix + .container-fluid {
-      padding-top: 70px;
-  }
+.affix + .container-fluid {
+  padding-top: 70px;
+}
 
 
 

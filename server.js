@@ -17,6 +17,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 
 //configuration
 //=============================================================
+//sahh
 var port = process.env.PORT || 80;
 var uri = 'mongodb://localhost:27017/test';
 mongoose.connect(uri);
@@ -110,10 +111,11 @@ router.use(function(req, res, next){
 router.route('/test')
 .get(function(req, res){
   //console.log('req.headers: ', req.headers);
-  //console.log('req.session: '. req.session);
   console.log(req);
   res.send('tested');
-})
+});
+
+
 router.route('/board')
 .get(function(req, res){
   Account.find(function(error, users){
@@ -121,7 +123,7 @@ router.route('/board')
       res.send('There was an error with the board get request');
     }
     else{
-      res.json(users);
+      res.send(users);
     }
   });
 });
@@ -133,7 +135,10 @@ router.route('/login')
       return next(err);
     }
     else if (!user) {//user cannot be authenticated by passport
-      res.json({message: 'This combination of user and password does not exist'});
+      res.status(200).json({
+        message: 'This combination of user and password does not exist',
+        authenticated: false
+      });
       res.end();
     }
     else {//user is authenticated by passport
@@ -142,8 +147,8 @@ router.route('/login')
           return next(err);
         }
         return res.status(200).json({
-          authenticated: true,
-          user: user
+          message: 'Logged in successfully',
+          authenticated: true
         });
       });
     }
@@ -169,7 +174,8 @@ router.route('/register')
     skillsTL: req.body.skillsTL,
     bio: req.body.bio
   }),
-  req.body.password, function(err, account) {
+  req.body.password,
+  function(err, account) {
     if (err) {
       return res.status(500).json({
         err: err
@@ -215,8 +221,10 @@ router.route('/users')
     bio:req.body.bio
   }}, {new: true}, function(err, doc){
     if(err){
-    console.log('Error updating user: ' + err);
+      console.log('Error updating user: ' + err);
+      res.status(500).json({message: 'User profile not updated'});
     }
+    res.status(200).json({message: 'User profile updated'});
   })
 });
 
@@ -230,7 +238,8 @@ app.use('/app', router);
 //start app
 //=================================================================================================
 
-app.listen(port);
-console.log('\n=== listening on port ' + port + ' ===');
+app.listen(port, function(){
+  console.log('\n=== listening on port ' + port + ' ===');
+});
 
 exports = module.exports = app;

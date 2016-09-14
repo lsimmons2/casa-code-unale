@@ -44,7 +44,7 @@
     "gulp-jshint": "^2.0.1",
     "gulp-mocha": "latest",
     "gulp-nodemon": "^2.1.0",
-    "gulp-util": "latest",
+    "gulp-util": "^3.0.7",
     "jasmine-core": "latest",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
