@@ -8,7 +8,22 @@ require('./appRoutes.js');
 require('./service.js');
 require('./tags.js');*/
 //sahh
-angular.module('App', ['ui.bootstrap', 'ngRoute', 'routes', 'boardCtrl', 'logInCtrl', 'navCtrl', 'homeCtrl', 'signUpCtrl', 'signUpModalCtrl', 'profCtrl', 'modalCtrl', 'myServ', 'boardFilter']).run(function ($rootScope, $location, $route, AuthService) {
+angular.module('App', [
+	'ui.bootstrap',
+	'ngRoute',
+	'routes',
+	'boardCtrl',
+	'logInCtrl',
+	'navCtrl',
+	'homeCtrl',
+	'signUpCtrl',
+	'signUpModalCtrl',
+	'profCtrl',
+	'modalCtrl',
+	'myServ',
+	'boardFilter'
+])
+.run(function ($rootScope, $location, $route, AuthService) {
 	$rootScope.$on('$routeChangeStart',
 	function (event, next, current) {
 		AuthService.getUserStatus()

@@ -9,9 +9,9 @@
   "dependencies": {
     "angular": "latest",
     "angular-animate": "^1.5.8",
-    "angular-bootstrap": "^0.12.2",
     "angular-route": "latest",
     "angular-strap": "^2.3.9",
+    "angular-touch": "^1.5.8",
     "bcrypt-nodejs": "latest",
     "body-parser": "latest",
     "bootstrap": "^3.3.7",
