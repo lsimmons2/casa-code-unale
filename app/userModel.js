@@ -1,49 +1,62 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
 var Account = new Schema({
 	firstName : {
-		type: String,
-		required: true
+		type: String
 	},
 	lastName: {
-		type: String,
-		required: true
+		type: String
 	},
 	username: {
-		type: String,
-		required: true
+		type: String
 	},
 	password: {
-	    type: String,
+	    type: String
 	},
 	email: {
-		type: String,
-		required: true,
-		lowercase: true
+		type: String
 	},
 	avatar: {
-	    type: String,
-	    required: false
+	    type: String
 	},
 	skillsTO: {
-		type: Array,
-		required: true,
-		lowercase: true
+		type: Array
 	},
 	skillsTL: {
-		type: Array,
-		required: true,
-		lowercase: true
+		type: Array
 	},
 	bio: {
-		type: String,
-		required: false,
-		lowercase: false
+		type: String
+	},
+	social: {
+		facebook: {
+			id: String,
+			token: String,
+			displayName: String,
+			email: String,
+			photo: String
+		},
+		linkedin: {
+			id: String,
+			token: String,
+			tokenSecret: String,
+			firstName: String,
+			lastName: String,
+			email: String,
+			summary: String
+		}
 	}
-    });
+});
 
-Account.plugin(passportLocalMongoose);
+Account.methods.generateHash = function(password) {
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
+
+Account.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('Account', Account);
