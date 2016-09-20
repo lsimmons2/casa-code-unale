@@ -3,14 +3,14 @@ angular.module('logInCtrl', []).controller('LogInController', function($http, $l
 		// initial values
 		$scope.error = false;
 		$scope.disabled = true;
-		AuthService.login($scope.username, $scope.password)
-		.then(function (res) {
-			$location.path('/board');
+		AuthService.login($scope.email, $scope.password)
+		.then(function (data) {
 			$rootScope.in = true;
 			$scope.disabled = false;
 			$scope.loginForm = {};
+			$location.path('/profile');
 		})
-		.catch(function (res) {
+		.catch(function (data) {
 			$scope.error = true;
 			angular.element('#loginWarning').css('display', 'block');
 			$scope.disabled = false;

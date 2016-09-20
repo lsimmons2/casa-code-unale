@@ -1,114 +1,88 @@
 <br>
+
 <center><h3>Sign up</h3></center>
+
 <div>
-  <br>
-  <p>All fields required unless otherwise noted</p>
+	<br>
+	<p>All fields required unless otherwise noted</p>
 	<form id='signUp' name='signUpForm' novalidate>
 
-
-	        <span>First name:</span>
+		<span>First name:</span>
 		<input class='form-control' type='text' id='firstNameSignUp' name='firstName' ng-model='firstName' placeholder='Enter first name' required>
-<p class='signUpWarning' ng-show='signUpForm.firstName.$invalid && pressed'>First name required</p>
-<br>
-
-
-
+		<p class='signUpWarning' ng-show='signUpForm.firstName.$invalid && pressed'>First name required</p>
+		<br>
 
 		<span>Last name:</span>
 		<input class='form-control' type='text' id='lastNameSignUp' ng-model='lastName' name='lastName' placeholder='Enter last name' required>
-<p class='signUpWarning' ng-show='signUpForm.lastName.$invalid && pressed'>Last name required</p>
-<br>
-
-
-
+		<p class='signUpWarning' ng-show='signUpForm.lastName.$invalid && pressed'>Last name required</p>
+		<br>
 
 		<span>Username:</span>
 		<input class='form-control' name='username' type='text' id='usernameSignUp' ng-model='username' placeholder='Enter user ID' required>
 		<p class='signUpWarning' ng-show='signUpForm.username.$invalid && pressed'>Username required</p>
 		<p ng-show="userExists" class='signUpWarning'>Another user has already registered with this username, please choose another username</p>
-<br>
-		
-
-
+		<br>
 
 		<span>Email:</span>
 		<input class='form-control' name='email'  type='email' id='userEmail' ng-model='email' placeholder='Enter email' required>
-<p class='signUpWarning' ng-show='signUpForm.email.$invalid && pressed'>Valid email required</p>
-<br>
-
-
-
+		<p class='signUpWarning' ng-show='signUpForm.email.$invalid && pressed'>Valid email required</p>
+		<br>
 
 		<span>Technologies that you would like help with:</span>
 		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
 		<p class='signUpWarning' ng-show='!!!selectedSkillsTL.length && pressed'>Need to choose at least one technology</p>
-<br>
-
-
-
+		<br>
 
 		<span>Technologies that you could help other users with:</span>
 		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
 		<p class='signUpWarning' ng-show='!!!selectedSkillsTO.length && pressed'>Need to choose at least one technology</p>
-<br>
-
-
+		<br>
 
 		More details about what you can offer and/or what you're looking for (optional):
 		<textarea type='text' id='bioSignUp' class='form-control' ng-model='bio' placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
-<br>
-
-
+		<br>
 
 		Enter password:
 		<input class='form-control' name='password' ng-model='password' placeholder='Enter password' type='password' required>
 		<p class='signUpWarning' id='passConfWarning' ng-show='pressed && password != passwordConf'>Passwords do not match</p>
 		<br>
+
 		Confirm password:
 		<input class='form-control' placeholder='Confirm password' type='password' name='passwordConf' ng-model='passwordConf'>
 		<p class='signUpWarning' ng-show='signUpForm.password.$invalid && pressed'>Password required</p>
-		<br>		
-
-		
+		<br>
 
 		<center id="termsCon">
-		  <input type='checkbox' ng-model='terms' name='terms' required>
-		  <span> I have read and understand the </span><a ng-click="open()"> terms of use</a>
+			<input type='checkbox' ng-model='terms' name='terms' required>
+			<span> I have read and understand the </span><a ng-click="open()"> terms of use</a>
 		</center>
 		<p class='signUpWarning' ng-show='signUpForm.terms.$invalid && pressed'>Need to acknowledge that you have read and understand the terms of use</p>
 
 
 
-<center><input type='submit' id='signUpSubmit' class='btn btn-default' value='Sign Up' name='signUp' ng-click='register()'></center>
+		<center>
+			<input type='submit' id='signUpSubmit' class='btn btn-default' value='Sign Up' name='signUp' ng-click='signup()'>
+		</center>
 	</form>
 </div>
 
-
-
-
-
-
-
-
-
-
 <script type='text/ng-template' id='termsOfUseModal.html'>
-        <div class='modal-header'>
-            <h3 class='modal-title'>Terms of Use</h3>
-        </div>
-        <div class='modal-body'>
-          <p>
-	    By signing up you understand and agree to the following terms:
-	  </p>
-	  <ul id='termsList'>
-	    <li>You are using this site at your own discretion and Casa Code-unale is not responsible or liable for any misfortune or harm you may experience as a result of using this site</li>
-	    <li>As a user of the site you accept that you may be contacted by other users with the contact information you provide</li>
-	    <li>As a user of casa you agree to be respectful of other users</li>
-	  </ul>
-        </div>
-        <div class='modal-footer'>
-            <button class='btn btn-default'' type='button' ng-click='close()'>Close</button>
-        </div>
-    </script>
+<div class='modal-header'>
+	<h3 class='modal-title'>Terms of Use</h3>
+</div>
+<div class='modal-body'>
+	<p>
+	By signing up you understand and agree to the following terms:
+	</p>
+	<ul id='termsList'>
+		<li>You are using this site at your own discretion and Casa Code-unale is not responsible or liable for any misfortune or harm you may experience as a result of using this site</li>
+		<li>As a user of the site you accept that you may be contacted by other users with the contact information you provide</li>
+		<li>As a user of casa you agree to be respectful of other users</li>
+	</ul>
+</div>
+<div class='modal-footer'>
+	<button class='btn btn-default' type='button' ng-click='close()'>Close</button>
+</div>
+</script>

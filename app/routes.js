@@ -1,6 +1,7 @@
 var express = require('express');
 var passport = require('./passport.js');
 var controller = require('./controller.js');
+var mailCtrl = require('./mailController.js');
 
 var router = express.Router();
 
@@ -9,10 +10,19 @@ var findUser = controller.findUser;
 var viewAllUsers = controller.viewAllUsers;
 var updateUser = controller.updateUser;
 var deleteUser = controller.deleteUser;
+var compProf = controller.compProf;
 
 router.use(passport.initialize());
 router.use(passport.session());
 
+router.get('/test', function(req, res, next){
+  console.log(req.method, req.url);
+  return mailCtrl.confEmail(req, res, next);
+})
+
+router.get('/resetPass', function(req, res, next){
+  return mailCtrl.resetPass(req, res, next);
+})
 
 router.get('/status', function(req, res){
   if (!req.isAuthenticated()) {//is authenticated if in session
@@ -21,9 +31,15 @@ router.get('/status', function(req, res){
       authenticated: false
     });
   }
+  if(req.user.skillsTO.length > 0 && req.user.skillsTL.length > 0){
+    var hasSkills = true;
+  } else {
+    var hasSkills = false;
+  }
 	console.log('User is authenticated back here on the server');
   res.status(200).json({
-    authenticated: true
+    authenticated: true,
+    hasSkills: hasSkills
   });
 });
 
@@ -46,13 +62,12 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
     linkedin: null,
     github: null
   }
-
   if(profile.local.email){
     linkStatus.local = true;
   } else {
     linkStatus.local = false;
   }
-  if(profile.social.linkedin.firstName){
+  if(profile.social.linkedin.id){
     linkStatus.linkedin = true;
   } else {
     linkStatus.linkedin = false;
@@ -87,12 +102,15 @@ router.route('/signup')
 				console.log('Error logging in user after registering: ', err);
 				return next(err);
 			}
-			console.log('User logged in after signing up locally');
 			return res.status(200).json({
 				message: 'User logged in after signing up locally'
 			});
 		});
 	})(req, res, next);
+});
+
+router.post('/compProf', function(req, res, next) {
+  return compProf(req, res, next);
 });
 
 router.route('/login')
@@ -129,26 +147,25 @@ router.get('/auth/github/callback', passport.authenticate('github', {
 	res.redirect('/app/#/profile');
 });
 
-router.get('/connect/github', passport.authorize('github'));
 
-router.get('/connect/github/callback/connect', passport.authenticate('github', {
-  failureRedirect : '/app/#/login'
-}), function(req, res){
-	res.redirect('/app/#/profile');
+router.get('/user/:username', function(req, res, next){
+  console.log('got to here dog ', req.params.username);
+  return findUser(req, res, next)
 });
 
-
+function mid(){
+  console.log('sahhh from mid');
+}
 router.get('/auth/linkedin', passport.authenticate('linkedin'));
 router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   failureRedirect : '/app/#/login'
 }), function(req, res){
-  console.log('req.params from linkedin: ', req.params);
 	res.redirect('/app/#/profile');
 });
 
 router.get('/connect/linkedin',
   passport.authorize('linkedin', {
-		failureRedirect: '/app/#/login/linkedin' })
+		failureRedirect: '/app/#/login' })
 );
 router.get('/connect/linkedin/callback',
   passport.authorize('linkedin', {
@@ -160,15 +177,6 @@ router.get('/connect/linkedin/callback',
 router.get('/users', function(req, res, next){
   return viewAllUsers(req, res, next);
 });
-/*.get(function(req, res){
-  Account.find(function(error, users){
-    if(error){
-      res.send('There was an error with the board get request');
-    }
-    else{
-      res.send(users);
-    }
-  });*/
 
 //should make this delete verb of /connect/linkedin route
 router.get('/disconnect/linkedin', function(req, res, next){
@@ -209,12 +217,6 @@ router.route('/logout')
   req.logout();
 	req.session.destroy();
   res.redirect('/app/#/login');
-});
-
-
-
-router.get('/api/users', function (req, res, next) {
-  return viewAllUsers(req, res, next);
 });
 
 

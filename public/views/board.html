@@ -1,5 +1,4 @@
 <h3 id='boardHeader'>Welcome to the board!</h3>
-
 <div class='container-fluid' id='boardCon' style='overflow: auto;'>
 <div id='board' class='table' style='table-layout: fixed;'>
   <!--side-by-side search-->
@@ -48,8 +47,7 @@
   </div>
   <div id='boardLine'></div>
   <div class='row' id='boardRow' ng-repeat='user in users | filter: search:strict | orderObjectBy : "username"'>
-
-    <div class='col-sm-1 col-xs-6 mobileLabel'><label class='visible-xs-inline'>User: </label>{{user.username}}</div>
+    <div ng-click='goToUser(user.username)' class='col-sm-1 col-xs-6 mobileLabel'><label class='visible-xs-inline'>User: </label>{{user.username}}</div>
     <div class='visible-xs-inline col-xs-6 mobileLabel'>
       <label id='mobileContactLabel'>Contact: </label>
 	  <span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='open(user.email)'></span>
@@ -61,7 +59,9 @@
     <label class='visible-xs-inline col-xs-12 mobileLabel'>User message: </label>
     <div class='col-sm-4 col-xs-12'>{{user.bio}}</div>
     <div class='col-sm-1 hidden-xs'><a id='contact' ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></div>
-  </div>
+  </div><!-- ng-repeat="user in users"-->
+</div>
+</div>
 
 <script type='text/ng-template' id='loggedInModal.html'>
         <div class='modal-header'>

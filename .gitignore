@@ -1,5 +1,8 @@
 /node_modules
 /mongo
 /site
+/app/_config.js
+
+
 .scraps.js
 .notes.txt

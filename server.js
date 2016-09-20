@@ -15,6 +15,8 @@ var connect = require('connect');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
+
+
 //configuration
 //=============================================================
 //sahh
@@ -94,14 +96,28 @@ app.route('/message')
   }
 });
 
-
-
 var router = express.Router();
+
+
+
+
+var passportLinkedIn = require('./app/auth/linkedin');
+
+router.get('/auth/linkedin', passportLinkedIn.authenticate('linkedin'));
+
+router.get('/auth/linkedin/callback',
+  passportLinkedIn.authenticate('linkedin', { failureRedirect: '/app/#/login' }),
+  function(req, res) {
+    console.log('req.user:', req.user);
+    res.json(req.user);
+  });
+
+
 
 
 //Don't cache anything returned from server
 router.use(function(req, res, next){
-  //console.log(req.method, req.url);
+  console.log(req.method, req.url);
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // for http 1.1.
   res.setHeader("Pragma", "no-cache"); // for http 1.0.
   res.setHeader("Expires", "0");
@@ -110,7 +126,6 @@ router.use(function(req, res, next){
 
 router.route('/test')
 .get(function(req, res){
-  //console.log('req.headers: ', req.headers);
   console.log(req);
   res.send('tested');
 });
@@ -158,7 +173,7 @@ router.route('/login')
 router.route('/logout')
 .get(function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/app/#/login');
 });
 
 router.route('/register')
@@ -229,7 +244,7 @@ router.route('/users')
 });
 
 router.get('/welcome', function(req, res){
-  res.redirect('/welcome');
+  res.redirect('/app/#/welcome');
 });
 app.use('/app', router);
 

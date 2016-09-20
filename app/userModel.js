@@ -4,23 +4,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var Account = new Schema({
-	firstName : {
-		type: String
-	},
-	lastName: {
-		type: String
-	},
 	username: {
 		type: String
-	},
-	password: {
-	    type: String
-	},
-	email: {
-		type: String
-	},
-	avatar: {
-	    type: String
 	},
 	skillsTO: {
 		type: Array
@@ -31,13 +16,25 @@ var Account = new Schema({
 	bio: {
 		type: String
 	},
+	photoURL: {
+		type: String
+	},
+	local: {
+		firstName: String,
+		lastName: String,
+		email: String,
+		password: String,
+		photoURL: String
+	},
 	social: {
-		facebook: {
+		github: {
 			id: String,
+			username: String,
 			token: String,
 			displayName: String,
+			profileURL: String,
 			email: String,
-			photo: String
+			photoURL: String
 		},
 		linkedin: {
 			id: String,
@@ -45,8 +42,10 @@ var Account = new Schema({
 			tokenSecret: String,
 			firstName: String,
 			lastName: String,
+			photoURL: String,
 			email: String,
-			summary: String
+			summary: String,
+			positions: Object
 		}
 	}
 });

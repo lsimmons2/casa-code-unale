@@ -26,6 +26,34 @@
 }
 
 /*=================Nav=================*/
+#nav-profile {
+    color: #F57676;
+}
+
+#nav-settings {
+    color: #F57676;
+}
+
+#nav-logout {
+    color: #F57676;
+}
+
+bsamela@talener.com
+/*  > li {
+    float: none;
+    display: inline-block;
+  }
+}
+
+/*#nav-board {
+  float: none;
+  margin: 0;
+}
+/*#nav-board {
+    font-style: italic;
+    color: #F57676;
+}*/
+
 #navBarRight{
     float: right;
 }
@@ -249,6 +277,11 @@ ul {
 	margin-bottom: 40px;
 }
 
+#profilePhoto {
+  height: 120px;
+  width: 120px;
+}
+
 #profSkillsTLCon, #profSkillsTOCon{
 	margin-bottom: 15px;
 }
@@ -285,4 +318,10 @@ ul {
 	#profile {
 		text-align: center;
 	}
+}
+
+/*=================User=================*/
+#userPhoto {
+  height: 120px;
+  width: 120px;
 }

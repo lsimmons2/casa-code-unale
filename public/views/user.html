@@ -1,0 +1,53 @@
+<div class='container-fluid' id='user'>
+  <div class='table'>
+    <div class='row'>
+      <h2>{{user.username}}</h2><br>
+    </div>
+    <div class='row'>
+      <div class='col-xs-3'>
+        <img id='userPhoto' src='{{user.social.github.photoURL || user.social.linkedin.photoURL}}'>
+      </div>
+      <div class='col-xs-9'>
+        <div>
+          <h4>User needs help with:</h4>
+          {{user.skillsTL}}
+        </div>
+        <div>
+          <h4>User can help others with:</h4>
+          {{user.skillsTO}}
+        </div>
+      </div>
+    </div>
+    <div class='row' ng-show='user.social.linkedin.id'>
+      <div class='col-xs-12'>
+        <h3>LinkedIn Information</h3>
+      </div>
+      <div class='col-xs-12'>
+        <h5>Summary</h5>
+        {{user.social.linkedin.summary}}
+        <h5>Current Position</h5>
+        <div ng-repeat='position in user.social.linkedin.positions'>
+          <b>{{position.title}}, {{position.company.name}}</b>
+          <div>{{position.summary}}</div>
+        </div>
+      </div>
+    </div>
+    <div class='row' ng-show='user.social.github.id'>
+      <div class='col-xs-12'>
+        <h3>GitHub Information</h3>
+      </div>
+      <div class='col-xs-12'>
+        <h4>Repos</h4>
+        <div ng-repeat='repo in repos'>
+          <h5>{{repo.name}}</h5>
+          <div>{{repo.description}}</div>
+          <div>Main language: {{repo.language}}</div>
+          <div>Number of stars: {{repo.stargazers_count}}</div>
+          <div>Number of forks: {{repo.forks_count}}</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

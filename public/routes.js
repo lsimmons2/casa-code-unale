@@ -8,7 +8,21 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 		}
 	})
 	.when('/signup', {
-		templateUrl: 'public/views/signUp.html',
+		templateUrl: 'public/views/signUpLanding.html',
+		controller: 'SignUpController',
+		access: {
+			restricted: false
+		}
+	})
+	.when('/signup/local', {
+		templateUrl: 'public/views/signUpLocal.html',
+		controller: 'SignUpController',
+		access: {
+			restricted: false
+		}
+	})
+	.when('/signup/linkedin', {
+		templateUrl: 'public/views/signUpLinkedin.html',
 		controller: 'SignUpController',
 		access: {
 			restricted: false
@@ -21,8 +35,40 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 			restricted: false
 		}
 	})
+	.when('/settings', {
+		templateUrl: 'public/views/settings.html',
+		controller: 'ProfileController',
+		access: {
+			restricted: true
+		},
+		resolve: {
+			userData : ['$http', function($http){
+				return $http.get('/app/profile')
+				.then(function(data){
+					return data.data;
+				},
+				function(data){
+					console.log('Error getting data on route change to /profile: ', data);
+				});
+			}]
+		}
+	})
 	.when('/login', {
 		templateUrl: 'public/views/login.html',
+		controller: 'LogInController',
+		access: {
+			restricted: false
+		}
+	})
+	.when('/login/linkedin', {
+		templateUrl: 'public/views/loginLinkedin.html',
+		controller: 'LogInController',
+		access: {
+			restricted: false
+		}
+	})
+	.when('/login/github', {
+		templateUrl: 'public/views/loginGithub.html',
 		controller: 'LogInController',
 		access: {
 			restricted: false
@@ -36,14 +82,28 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 		},
 		resolve: {
 			userData : ['$http', function($http){
-				return $http.get('/app/users')
-				.then(function(res){
-					return res.data;
+				return $http.get('/app/profile')
+				.then(function(data){
+					return data.data;
 				},
-				function(err){
-					console.log(err);
+				function(data){
+					console.log('Error getting data on route change to /profile: ', data);
 				});
 			}]
+		}
+	})
+	.when('/completeprofile', {
+		templateUrl: 'public/views/compProf.html',
+		controller: 'CompProfController',
+		access: {
+			restricted: true
+		}
+	})
+	.when('/user/:username', {
+		templateUrl: 'public/views/user.html',
+		controller: 'UserController',
+		access: {
+			restricted: true
 		}
 	})
 	.when('/welcome', {
@@ -60,8 +120,8 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 			restricted: false
 		},
 		resolve: {
-			userData: ['$http', function($http){
-				return $http.get('/app/board')
+			users: ['$http', function($http){
+				return $http.get('/app/users')
 				.then(function(response){
 					return response.data;
 				});

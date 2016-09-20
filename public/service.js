@@ -14,26 +14,29 @@ function ($q, $timeout, $http, $location) {
   function getUserStatus() {
     return $http.get('/app/status')
     .then(function(data){
-      if(data.authenticated){
+      if(data.data.authenticated){
+        console.log('User is authenticated on server');
         user = true;
-        return user;
+        return data.data;
       } else {
+        console.log('User is not authenticated on server');
         user = false;
-        return user;
+        return data.data;
       }
     }, function(data){
+      console.log('Error checking if user is authenticated on server');
       user = false;
-      return user;
+      return data.data;
     })
   }
 
-
-  function login(username, password) {
+  function login(email, password) {
     var deferred = $q.defer();
     $http.post('/app/login',
-    {username: username, password: password})
-    .then(function(){
-      if(status === 200 && data.authenticated){
+    {email: email, password: password})
+    .then(function(data){
+      console.log('data and status', data, status);
+      if(data.status === 200 && data.data.authenticated){
         user = true;//for isLoggedIn()^^^
         deferred.resolve();
         console.log('data: ', data);
@@ -42,8 +45,8 @@ function ($q, $timeout, $http, $location) {
         user = false;//for isLoggedIn()^^^
         deferred.reject();
       }
-    }, function(){
-      console.log('Error making /app/login request: ', error);
+    }, function(data){
+      console.log('Error making /app/login request: ', data);
       user = false;
       deferred.reject();
     })

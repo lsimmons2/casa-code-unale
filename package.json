@@ -20,6 +20,7 @@
     "connect-flash": "latest",
     "cookie-parser": "latest",
     "ejs": "latest",
+    "email-templates": "^2.4.1",
     "express": "latest",
     "express-mail": "latest",
     "express-session": "latest",
@@ -28,13 +29,17 @@
     "method-override": "latest",
     "mongodb": "latest",
     "mongoose": "latest",
-    "nodemailer": "latest",
+    "nodemailer": "^0.7.1",
     "nodemailer-smtp-transport": "latest",
     "passport": "latest",
+    "passport-facebook": "^2.1.1",
+    "passport-github": "^1.1.0",
+    "passport-linkedin": "^1.0.0",
+    "passport-linkedin-oauth2": "^1.4.1",
     "passport-local": "latest",
     "passport-local-mongoose": "latest",
     "path": "^0.12.7",
-    "request": "latest"
+    "request": "^2.75.0"
   },
   "devDependencies": {
     "angular-mocks": "latest",

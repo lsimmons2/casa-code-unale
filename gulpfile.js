@@ -36,8 +36,8 @@ gulp.task('master', function(){
 		ext: 'js html',
 		env: {'NODE_ENV': 'development'}
 	})
-	.on('start', ['back'])
-	.on('restart', ['back'])
+	.on('start', ['front', 'lint'])
+	.on('restart', ['front', 'lint'])
 })
 
 gulp.task('default', ['master'])

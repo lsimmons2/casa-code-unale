@@ -1,6 +1,7 @@
 var UserModel = require('./userModel.js');
+var request = require('request');
 
-
+//somewhat redundant b/c this is checked on front end too?
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
@@ -10,7 +11,45 @@ function isLoggedIn(req, res, next){
 
 
 function findUser(req, res, next) {
-  return UserModel.findOne({'email': req.user.email},
+	/*var url = 'https://api.linkedin.com/v1/people/~?format=json&oauth2_access_token=' + req.user.social.linkedin.token;
+	var tokenHeader =  'Bearer ' + req.user.social.linkedin.token;
+	console.log('tokenHeader: ', tokenHeader);
+	var req = {
+		url: url,
+		headers: {
+			'User-Agent': 'request'
+		}
+	}
+	request(req, function(error, response, body){
+		if(error){
+			console.log('Error making request for linkedin shit: ', error);
+			return next(error);
+		}
+		console.log('body: ', body);
+	});*/
+	/*console.log('url, tokenHeader', url, tokenHeader);
+	var req = {
+		url: url,
+		headers: {
+			'User-Agent': 'request',
+			'Connection': 'Keep-Alive',
+			'Authorization': tokenHeader
+		}
+	}
+	request(req, function(error, response, body){
+		if(error){
+			return next(error);
+		}
+		console.log(body);
+	});*/
+	/*var options = {
+        url: 'https://api.linkedin.com/v1/people/~/connections',
+        headers: { 'x-li-format': 'json' },
+        qs: { oauth2_access_token: tokenHeader }
+  };*/
+	var token = 'token ' + req.user.social.github.token;
+	var repos = [];
+  return UserModel.findOne({'username': req.params.username},
     function (err, user) {
       if(err) {
         return next(err);
@@ -19,8 +58,24 @@ function findUser(req, res, next) {
         console.log('No user');
         return res.status(404).json({'message':'User does not exist in the dBase'});
       }
-			console.log('user from findUser(): ', user);
-      return res.status(200).json(user);
+			var url = 'https://api.github.com/users/' + user.social.github.username + '/repos';
+			var req = {
+				url: url,
+				headers: {
+					'User-Agent': 'request',
+					'Authorization': token
+				}
+			}
+			request(req, function(error, response, body){
+				if(error){
+					return next(error);
+				}
+				repos = JSON.parse(body);
+				return res.status(200).json({
+					user: user,
+					repos: repos
+				});
+			});
   });
 }
 
@@ -158,10 +213,55 @@ function disconnectGithub(req, res, next){
 	})
 }
 
-//==============================================================================
-/**
-* Export module
-*/
+function compProf(req, res, next){
+	if(req.user.social.linkedin.id){
+		return UserModel.findOne({'social.linkedin.id': req.user.social.linkedin.id}, function(err, user){
+			if(err){
+				return next(err);
+			}
+			if(user == null){
+				return res.status(404).json('User not found in the dBase');
+			}
+			user.username = req.body.username;
+			user.photoURL = req.body.photoURL;
+			user.skillsTO = req.body.skillsTO;
+			user.skillsTL = req.body.skillsTL;
+			user.bio = req.body.bio;
+			user.save(function(err, user){
+				if(err){
+					console.log('Unable to save users completed profile');
+					return next(err);
+				}
+				console.log('Skills, username, and bio added');
+				return res.redirect('/app/#/profile');
+			})
+		})
+	}
+	return UserModel.findOne({'social.github.id': req.user.social.github.id}, function(err, user){
+		if(err){
+			return next(err);
+		}
+		if(user == null){
+			return res.status(404).json('User not found in the dBase');
+		}
+		user.username = req.body.username;
+		user.photoURL = req.body.photoURL;
+		user.skillsTO = req.body.skillsTO;
+		user.skillsTL = req.body.skillsTL;
+		user.bio = req.body.bio;
+		user.save(function(err, user){
+			if(err){
+				console.log('Unable to save users completed profile');
+				return next(err);
+			}
+			return res.redirect('/app/#/profile');
+		})
+	})
+
+
+}
+
+
 module.exports = {
   isLoggedIn: isLoggedIn,
   findUser: findUser,
@@ -169,5 +269,6 @@ module.exports = {
   updateUser: updateUser,
   deleteUser: deleteUser,
 	disconnectLinkedin: disconnectLinkedin,
-	disconnectGithub: disconnectGithub
+	disconnectGithub: disconnectGithub,
+	compProf: compProf
 };

@@ -1,14 +1,16 @@
-angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, userData, $uibModal, $filter, AuthService){
-	$scope.greeting = 'Hello, world';
-	$scope.users = userData;
+angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, users, $uibModal, $filter, $location, AuthService){
+	$scope.goToUser = function(username){
+		console.log('username: ', username);
+		var path = '/user/' + username;
+		$location.path(path);
+	};
+	$scope.users = users;
 	$scope.skillsTOSearch = '';
 	$scope.skillsTLSearch = '';
 	$scope.open = function (userEmail) {
 		var modalTemplate = '';
 		AuthService.getUserStatus()
 		.then(function(data){
-			console.log('data: ', data);
-			console.log('data.data: ', data.data);
 			if(data){
 				modalTemplate = 'loggedInModal.html';
 			} else {
@@ -24,7 +26,7 @@ angular.module('boardCtrl', []).controller('BoardController', function($scope, $
 				}
 			});
 		}, function(error){
-		console.log(error);
+			console.log(error);
 		});
 	};
 });

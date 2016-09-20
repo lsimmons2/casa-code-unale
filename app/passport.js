@@ -5,7 +5,7 @@ var User = require('./userModel.js');
 
 var LocalStrategy = require('passport-local').Strategy;
 
-var LinkedInStrategy = require('passport-linkedin');
+var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var linkedInKey = config.linkedin.clientID;
 var linkedInSecret = config.linkedin.clientSecret;
 var linkedInCbURL = config.linkedin.callbackURL;
@@ -15,9 +15,6 @@ var githubID = config.github.clientID;
 var githubSecret = config.github.clientSecret;
 var githubcbURL = config.github.callbackURL;
 
-//var init = require('./init');
-
-//Configuration and Settings
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -34,9 +31,7 @@ passport.deserializeUser(function(id, done) {
   })
 });
 
-//Strategies
 
-//Local Strategy
 passport.use('local-signup', new LocalStrategy({
   usernameField : 'email',
   passwordField : 'password',
@@ -81,8 +76,7 @@ function(req, email, password, done) {
       });
     }
     else {//user exists and is loggedin
-      var user = req.user; // pull the user out of the session
-      // update the current users local credentials
+      var user = req.user;
       user.username = req.body.username;
       user.local.email = email;
       user.local.password = user.generateHash(password);
@@ -106,24 +100,19 @@ passport.use('local-login', new LocalStrategy({
   passReqToCallback : true
 },
 function(req, email, password, done) {
-  console.log('email and password in strategy: ', email, password);
   User.findOne({'local.email': email}, function(err, user) {
-    console.log('AAA');
     if(err) {
       console.log('err finding user in local-login');
       return done(err);
     }
-    console.log('BBB');
     if(!user) {
       console.log('user doesn\'t exist when trying to log in locally');
       return done(null, false);
     }
-    console.log('CCC');
     /*if(!user.validPassword(password)) {
       console.log('invalid password brah');
       return done(null, false, {errMsg: 'Invalid password try again'});
     }*/
-    console.log('found user here brah');
     return done(null, user);
   });
 })
@@ -133,24 +122,21 @@ passport.use(new GitHubStrategy({
     clientID: githubID,
     clientSecret: githubSecret,
     callbackURL: githubcbURL,
+    scope: ['user', 'public_repo', 'gist'],
     passReqToCallback : true
   },
-  // linkedin sends back the tokens and profile info
   function(req, accessToken, refreshToken, profile, done) {
-    console.log('accessToken, refreshToken: ', accessToken, refreshToken);
     process.nextTick(function() {
-      if(!req.user) {//confirm that user not loggedin
+      if(!req.user) {//confirm that user not logged in
         User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){
           console.log('There was an error accessing the db for linkedin auth: ', err);
           return done(err);
         }
         if (user){
-          console.log('yepppp, github user already exists');
           return done(null, user);
         }
         else {
-          console.log('nope, no github user yet!!!');
           var newUser = new User();
           newUser.social.github.id = profile.id;
           newUser.social.github.username = profile.username;
@@ -158,26 +144,22 @@ passport.use(new GitHubStrategy({
           newUser.social.github.displayName = profile.displayName;
           newUser.social.github.email = profile.emails[0].value;
           newUser.social.github.photoURL = profile.photos[0].value || '';
-          console.log('got to heree github');
           newUser.save(function(err) {
-            console.log('got to here boiii github');
             if (err) {
               console.log('Error saving new github user!!', err);
               return done(err);
             }
-            console.log('No error saving new github user!! Here they are: ', newUser);
             return done(null, newUser);
           });
         }
       });
     }
-    else {//need to find out if linkedin account created separately
+    else {//need to find out if github account created separately
       User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){
           console.log('error finding github user: ', err);
         }
         if(user){
-          console.log('nope nope nope, github account already created');
           var currentUser = req.user;
           currentUser.social.github.id = profile.id;
           currentUser.social.github.username = profile.username;
@@ -195,29 +177,23 @@ passport.use(new GitHubStrategy({
                 console.log('error deleting old user: ', err);
                 return done(err);
               }
-              console.log('deleted old linkedin user successfuly: ', deletedUser);
               return done(null, currentUser);
             })
           })
         }
         else {//no user created separately, update the users info with github info
-          console.log('got here, supposed to be here', profile);
-          var user = req.user; // pull the user out of the session
-          // update the current users facebook credentials
+          var user = req.user;
           user.social.github.id = profile.id;
           user.social.github.username = profile.username;
           user.social.github.token = accessToken;
           user.social.github.displayName = profile.displayName;
           user.social.github.email = profile.emails[0].value;
           user.social.github.photoURL = profile.photos[0].value || '';
-          // save modifications to user
           user.save(function(err) {
             if (err) {
               console.error(err);
               return done(err);
             }
-            //console.log('user fb', user.social.fb.displayName);
-            //console.log('user fb tokens',user.social.fb.token);
             return done(null, user);
           });
         }
@@ -230,28 +206,27 @@ passport.use(new GitHubStrategy({
 
 
 passport.use(new LinkedInStrategy({
-    consumerKey: linkedInKey,
-    consumerSecret: linkedInSecret,
+    clientID: linkedInKey,
+    clientSecret: linkedInSecret,
     callbackURL: linkedInCbURL,
-    profileFields: ['id', 'first-name', 'last-name', 'email-address', 'summary', 'positions', 'picture-url', 'public-profile-url'],
-    passReqToCallback : true
+tokenURL: 'https://www.linkedin.com/oauth/v2/accessToken',
+    scope: ['r_emailaddress', 'r_basicprofile'],
+    passReqToCallback : true,
+    state: true
   },
-  // linkedin sends back the tokens and profile info
   function(req, token, tokenSecret, profile, done) {
-    console.log('profile: ', profile);
+    //console.log('token, tokenSecret, profile: ', token, tokenSecret, profile);
     process.nextTick(function() {
-      if(!req.user) {//confirm that user not loggedin
+      if(!req.user) {//confirm that user not logged in
         User.findOne({'social.linkedin.id': profile.id}, function(err, user){
         if(err){
           console.log('There was an error accessing the db for linkedin auth: ', err);
           return done(err);
         }
         if (user){
-          console.log('yepppp, linkedin user already exists');
           return done(null, user);
         }
         else {//create new user b/c they don't exist yet
-          console.log('nope, no linkedin user yet!!!');
           var newUser = new User();
           newUser.social.linkedin.id = profile.id;
           newUser.social.linkedin.token = token;
@@ -260,14 +235,13 @@ passport.use(new LinkedInStrategy({
           newUser.social.linkedin.lastName = profile.name.familyName;
           newUser.social.linkedin.email = profile.emails[0].value;
           newUser.social.linkedin.photoURL = profile._json.pictureUrl || '';
-          console.log('got to heree');
+          newUser.social.linkedin.summary = profile._json.summary;
+          newUser.social.linkedin.positions = profile._json.positions.values;
           newUser.save(function(err) {
-            console.log('got to here boiii');
             if (err) {
               console.log('Error saving new user!!', err);
               return done(err);
             }
-            console.log('No error saving new user!! Here s/he is: ', newUser);
             return done(null, newUser);
           });
         }
@@ -279,7 +253,6 @@ passport.use(new LinkedInStrategy({
           console.log('error finding linkedin user: ', err);
         }
         if(user){
-          console.log('nope nope nope');
           var currentUser = req.user;
           currentUser.social.linkedin.id = profile.id;
           currentUser.social.linkedin.token = token;
@@ -288,6 +261,7 @@ passport.use(new LinkedInStrategy({
           currentUser.social.linkedin.email = profile.emails[0].value;
           currentUser.social.linkedin.photoURL = profile._json.pictureUrl || '';
           currentUser.social.linkedin.summary = profile._json.summary;
+          currentUser.social.linkedin.positions = profile._json.positions.values;
           currentUser.save(function(err){
             if(err){
               console.log('err updating user: ', err);
@@ -298,15 +272,12 @@ passport.use(new LinkedInStrategy({
                 console.log('error deleting old user: ', err);
                 return done(err);
               }
-              console.log('deleted old linkedin user successfuly: ', deletedUser);
               return done(null, currentUser);
             })
           })
         }
         else {//no user created separately, update the users info with linkedin info
-          console.log('got here, supposed to be here', profile);
-          var user = req.user; // pull the user out of the session
-          // update the current users facebook credentials
+          var user = req.user;
           user.social.linkedin.id = profile.id;
           user.social.linkedin.token = token;
           user.social.linkedin.firstName = profile.name.givenName;
@@ -314,14 +285,12 @@ passport.use(new LinkedInStrategy({
           user.social.linkedin.email = profile.emails[0].value;
           user.social.linkedin.photoURL = profile._json.pictureUrl || '';
           user.social.linkedin.summary = profile._json.summary;
-          // save modifications to user
+          user.social.linkedin.positions = profile._json.positions.values;
           user.save(function(err) {
             if (err) {
               console.error(err);
               return done(err);
             }
-            //console.log('user fb', user.social.fb.displayName);
-            //console.log('user fb tokens',user.social.fb.token);
             return done(null, user);
           });
         }

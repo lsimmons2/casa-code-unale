@@ -1,6 +1,6 @@
 <div class='container' id='profile'>
 <h2>Profile Information</h2><br>
-<!--<button ng-click='test()'>Test button</button>-->
+<img id='profilePhoto' src='{{userData.social.github.photoURL || userData.social.linkedin.photoURL}}'>
 
 <div id='profGenInfoCon' ng-mouseenter='showButtonsBasic()' ng-mouseleave='hideButtonsBasic()'>
 <h5>General information</h5>
@@ -11,20 +11,20 @@
   </li>
 <li>
   <span>First name: </span>
-  <input type='text' class='form-control basicInfoInput' id='firstNameEdit' name='firstNameEdit' ng-model='userData.firstName' ng-submit='hideInputFirstName()'>
-  <span id='infoFirstName'>{{userData.firstName}}</span>
+  <input type='text' class='form-control basicInfoInput' id='firstNameEdit' name='firstNameEdit' ng-model='userData.local.firstName' ng-submit='hideInputFirstName()'>
+  <span id='infoFirstName'>{{userData.local.firstName}}</span>
   <span class='glyphicon glyphicon-pencil buttonBasic' id='firstNameButton' ng-click='showInputFirstName()'></span>
 </li>
 <li>
   <span>Last name: </span>
-  <input type='text' class='form-control basicInfoInput' id='lastNameEdit' name='lastNameEdit' ng-model='userData.lastName' ng-submit='hideInputLastName()'>
-  <span id='infoLastName'>{{userData.lastName}}</span>
+  <input type='text' class='form-control basicInfoInput' id='lastNameEdit' name='lastNameEdit' ng-model='userData.local.lastName' ng-submit='hideInputLastName()'>
+  <span id='infoLastName'>{{userData.local.lastName}}</span>
   <span class='glyphicon glyphicon-pencil buttonBasic' id='lastNameButton' ng-click='showInputLastName()'></span>
 </li>
 <li>
   <span>Email: </span>
-  <input type='email' class='form-control basicInfoInput' id='emailEdit' name='emailEdit' ng-model='userData.email' ng-submit='hideInputEmail()' required>
-  <span id='infoEmail'>{{userData.email}}</span>
+  <input type='email' class='form-control basicInfoInput' id='emailEdit' name='emailEdit' ng-model='userData.local.email' ng-submit='hideInputEmail()' required>
+  <span id='infoEmail'>{{userData.local.email}}</span>
   <span class='glyphicon glyphicon-pencil buttonBasic' id='emailButton' ng-click='showInputEmail()'></span>
 </li>
 </ul>
@@ -67,15 +67,13 @@
   <span id='infoBio'>{{userData.bio}}</span>
   <span class='glyphicon glyphicon-pencil' id='bioEditButton' ng-click='showBioInput()'></span>
   <textarea type='text' class='form-control' id='bioEditInput' ng-model='userData.bio' ng-submit='hideBioInput()'></textarea>
-  
+
 </div>
 
 
 
-<!--{{userData}}-->
 
 <br>
 <button id='updateButton' ng-click='updateUserData()' ng-show='modified'>Save changes</button>
 <span id='confirm' >Changes saved <span class='glyphicon glyphicon-ok' ></span></span>
 </div>
-

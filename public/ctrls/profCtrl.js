@@ -1,5 +1,6 @@
-angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function($scope, $http, userData, tags){
-	$scope.userData = userData;
+angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function($scope, $http, userData, tags, $location){
+	$scope.userData = userData.profile;
+	$scope.linkStatus = userData.linkStatus;
 	$scope.skillsListTL = $scope.skillsListTO = tags;
 	$scope.modified = false;
 	angular.element('.basicInfoInput').keydown(function(event) {
@@ -9,6 +10,18 @@ angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function
             return false;
         }
     });
+
+	$scope.deleteUser = function(){
+		console.log('deleteUser() activated');
+		$http.delete('/app/user')
+		.then(function(data){
+			console.log('user deleted');
+			$location.path('/');
+		}, function(data){
+			console.log('user not deleted');
+			//$location.path('/home');
+		});
+	}
 
 
 //=================General Info Buttons=================

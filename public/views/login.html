@@ -1,14 +1,26 @@
 <br>
 <center><h3>Log In</h3></center>
 <form role='form'>
-    <label>Username:</label>
-    <input class='form-control' type='text' ng-model='username'/>
+    <label>Email:</label>
+    <input class='form-control' type='text' ng-model='email'/>
     <label>Password:</label>
     <input class='form-control' type='password' ng-model='password'/>
     <br>
     <button class='btn btn-default' type='submit' ng-click='login()'>Log in</button>
 </form>
+<br>
+<form role='form'>
+    <a href="/app/auth/linkedin">Log in With LinkedIn</a>
+</form>
+
+<form role='form'>
+    <a href='/app/auth/github' >Log in With GitHub</a>
+</form>
+
 <div class='alert alert-danger' id='loginWarning' style='display: none'>
-  <!--<a class="close" ng-click='closeLoginWarning()' aria-label="close">&times;</a>-->
   <strong>Error</strong> This combination of username and password does not exist
+</div>
+
+<div class='alert alert-danger' id='loginError' style='display: none'>
+  <strong>Error</strong> There was a problem processing your login attempt. Please try again later.
 </div>

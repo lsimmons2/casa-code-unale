@@ -1,0 +1,21 @@
+<div class='container'>
+  <h2>Settings</h2>
+  <ul>
+    <li>
+      <a ng-hide="{{linkStatus.linkedin}}" href="/app/connect/linkedin">Link your LinkedIn account to display your positions and summary</a>
+    </li>
+    <li>
+      <a ng-show="{{linkStatus.linkedin}}" href="/app/disconnect/linkedin">Disconnect your LinkedIn account from you Casa Code-unale account</a>
+    </li>
+    <li>
+      <a ng-hide="{{linkStatus.github}}" href="/app/auth/github">Link your GitHub account to display your shit</a>
+    </li>
+    <li>
+      <a ng-show="{{linkStatus.github}}" href="/app/disconnect/github">Disconnect your GitHub account from you Casa Code-unale account</a>
+    </li>
+    <li>
+      <a href='/app/resetPass'>Reset your password</a>
+    </li>
+    <li><a ng-click="deleteUser()">Delete your account</a></li>
+  </ul>
+</div>
