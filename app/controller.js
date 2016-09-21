@@ -143,7 +143,7 @@ function deleteUser(req, res, next) {
 			 }
 			 console.log('success deleted user from db!!!');
 			 //return res.redirect('/app/#/home');
-			 return res.json({user});
+			 return res.json(user);
 		});
 	}
 	else {
