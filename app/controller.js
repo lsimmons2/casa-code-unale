@@ -129,7 +129,7 @@ function deleteUser(req, res, next) {
 				 return res.status(404).json('User not found in the dBase');
 			 }
 			 console.log('success deleted user from db!!!');
-			 return res.json({user});
+			 return res.json(user);
 			 //return res.redirect('/app/#/home');
 		});
 	} else if (req.user.social.linkedin.email){
@@ -157,7 +157,7 @@ function deleteUser(req, res, next) {
 			 }
 			 console.log('success deleted user from db!!!');
 			 //return res.redirect('/app/#/home');
-			 return res.json({user});
+			 return res.json(user);
 		});
 	}
 }
