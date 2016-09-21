@@ -1,4 +1,4 @@
-var config = require('./_config');
+var config = require('../config');
 var nodemailer = require('nodemailer');
 var path = require('path');
 var templatesDir = path.resolve(__dirname, '..', 'app/mailTemplates');

@@ -4,7 +4,9 @@
   "author": "Leo Simmons",
   "scripts": {
     "test": "mocha test.js",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "dev": "sudo NODE_ENV=development nodemon server.js",
+    "prod": "sudo NODE_ENV=production nodemon server.js"
   },
   "dependencies": {
     "angular": "latest",

@@ -1,5 +1,5 @@
 var passport = require('passport');
-var config = require('./_config');
+var config = require('../config');
 var User = require('./userModel.js');
 
 
