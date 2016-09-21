@@ -1,7 +1,8 @@
 /node_modules
 /mongo
 /site
-config.js
+/config
+awsConfig.js
 
 
 .scraps.js
