@@ -1,4 +1,35 @@
-angular.module('profCtrl', ['tagsMod']).controller('ProfileController', function($scope, $http, userData, tags, $location){
+angular.module('profCtrl', [
+	'tagsMod'
+]).controller('ProfileController', function($scope, $http, userData, tags, $location, Upload){
+
+	$scope.uploadImage = function(){
+		var file = $scope.file;
+		var fileLength = file.name.length;
+		var username = $scope.userData.username;
+		file.name = username + '_image' + file.name.slice((fileLength - 4), (fileLength));
+		var postParams = {
+			name: file.name,
+			type: file.type
+		}
+		$http.post('/app/signature', postParams)
+		.then(function(data){
+			var config = {
+				headers: {
+					'Content-Type': file.type//,
+					//'x-amz-acl': 'id="xyz@amazon.com"'
+				}
+			};
+			$http.put(data.data, file, config)
+			.then(function(data){
+				console.log('Success uploading file to S3: ', data);
+			}, function(data){
+				console.log('Error uploading file to S3: ', data);
+			})
+		}, function(data){
+			console.log('Error getting signature from server: ', data);
+		})
+	}
+
 	$scope.userData = userData.profile;
 	$scope.linkStatus = userData.linkStatus;
 	$scope.skillsListTL = $scope.skillsListTO = tags;

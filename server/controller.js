@@ -1,6 +1,11 @@
 var UserModel = require('./userModel.js');
 var request = require('request');
 
+var aws = require('aws-sdk');
+aws.config.loadFromPath('./server/config/awsConfig.json');
+var s3 = new aws.S3();
+var bucketConfig = require('./config/aws.js');
+
 //somewhat redundant b/c this is checked on front end too?
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
@@ -11,42 +16,7 @@ function isLoggedIn(req, res, next){
 
 
 function findUser(req, res, next) {
-	/*var url = 'https://api.linkedin.com/v1/people/~?format=json&oauth2_access_token=' + req.user.social.linkedin.token;
-	var tokenHeader =  'Bearer ' + req.user.social.linkedin.token;
-	console.log('tokenHeader: ', tokenHeader);
-	var req = {
-		url: url,
-		headers: {
-			'User-Agent': 'request'
-		}
-	}
-	request(req, function(error, response, body){
-		if(error){
-			console.log('Error making request for linkedin shit: ', error);
-			return next(error);
-		}
-		console.log('body: ', body);
-	});*/
-	/*console.log('url, tokenHeader', url, tokenHeader);
-	var req = {
-		url: url,
-		headers: {
-			'User-Agent': 'request',
-			'Connection': 'Keep-Alive',
-			'Authorization': tokenHeader
-		}
-	}
-	request(req, function(error, response, body){
-		if(error){
-			return next(error);
-		}
-		console.log(body);
-	});*/
-	/*var options = {
-        url: 'https://api.linkedin.com/v1/people/~/connections',
-        headers: { 'x-li-format': 'json' },
-        qs: { oauth2_access_token: tokenHeader }
-  };*/
+
 	var token = 'token ' + req.user.social.github.token;
 	var repos = [];
   return UserModel.findOne({'username': req.params.username},
@@ -91,6 +61,36 @@ function viewAllUsers(req, res, next) {
     return res.json(users);
   });
 }
+
+function imageUpload(req, res, next){
+	var params = {
+		Bucket: bucketConfig.imageBucket,
+		Key: req.body.name,
+		ContentType: req.body.type
+	}
+	return s3.getSignedUrl('putObject', params, function(err, url){
+		if(err){
+			res.send(err);
+		}
+		console.log('req.user: ', req.user);
+		UserModel.findOne({'username': req.user.username}, 'photoURL', function(err, user){
+			if(err){
+				return next(err);
+			}
+			if(user == null){
+				return res.status(404).json('User not found in db');
+			}
+			user.photoURL = bucketConfig.bucketURL + req.body.name;
+			user.save(function(err, user){
+				if(err){
+					return next(err);
+				}
+				return res.send(url);
+			})
+		})
+	})
+}
+
 
 function updateUser(req, res, next) {
   return UserModel.findOne({'email': req.params.email}, 'email username password',
@@ -270,5 +270,6 @@ module.exports = {
   deleteUser: deleteUser,
 	disconnectLinkedin: disconnectLinkedin,
 	disconnectGithub: disconnectGithub,
-	compProf: compProf
+	compProf: compProf,
+	imageUpload: imageUpload
 };

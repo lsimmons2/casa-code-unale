@@ -1,5 +1,5 @@
 var passport = require('passport');
-var config = require('../config');
+var config = require('./config/config.js');
 var User = require('./userModel.js');
 
 
@@ -209,13 +209,12 @@ passport.use(new LinkedInStrategy({
     clientID: linkedInKey,
     clientSecret: linkedInSecret,
     callbackURL: linkedInCbURL,
-tokenURL: 'https://www.linkedin.com/oauth/v2/accessToken',
+tokenURL: 'https://www.linkedin.com/oauth/v2/authorization',
     scope: ['r_emailaddress', 'r_basicprofile'],
     passReqToCallback : true,
     state: true
   },
   function(req, token, tokenSecret, profile, done) {
-    //console.log('token, tokenSecret, profile: ', token, tokenSecret, profile);
     process.nextTick(function() {
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.linkedin.id': profile.id}, function(err, user){
@@ -252,7 +251,7 @@ tokenURL: 'https://www.linkedin.com/oauth/v2/accessToken',
         if(err){
           console.log('error finding linkedin user: ', err);
         }
-        if(user){
+        if(user){//user logged in with local or github account, and their linkedin account already exists
           var currentUser = req.user;
           currentUser.social.linkedin.id = profile.id;
           currentUser.social.linkedin.token = token;

@@ -1,5 +1,6 @@
 angular.module('App', [
 	'ui.bootstrap',
+	'ngFileUpload',
 	'ngRoute',
 	'routes',
 	'boardCtrl',

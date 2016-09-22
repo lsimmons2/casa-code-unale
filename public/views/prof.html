@@ -1,6 +1,6 @@
 <div class='container' id='profile'>
 <h2>Profile Information</h2><br>
-<img id='profilePhoto' src='{{userData.social.github.photoURL || userData.social.linkedin.photoURL}}'>
+<img id='profilePhoto' src='{{userData.photoURL || userData.social.github.photoURL || userData.social.linkedin.photoURL}}'>
 
 <div id='profGenInfoCon' ng-mouseenter='showButtonsBasic()' ng-mouseleave='hideButtonsBasic()'>
 <h5>General information</h5>

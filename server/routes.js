@@ -11,9 +11,20 @@ var viewAllUsers = controller.viewAllUsers;
 var updateUser = controller.updateUser;
 var deleteUser = controller.deleteUser;
 var compProf = controller.compProf;
+var imageUpload = controller.imageUpload;
+
+
 
 router.use(passport.initialize());
 router.use(passport.session());
+
+
+
+
+router.post('/signature', function(req, res, next){
+  return imageUpload(req, res, next);
+})
+
 
 router.get('/test', function(req, res, next){
   console.log(req.method, req.url);
@@ -157,6 +168,7 @@ function mid(){
   console.log('sahhh from mid');
 }
 router.get('/auth/linkedin', passport.authenticate('linkedin'));
+
 router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   failureRedirect : '/app/#/login'
 }), function(req, res){

@@ -1,14 +1,12 @@
 /node_modules
-/mongo
 /site
-/config
-awsConfig.js
-
+/server/config
 
 .scraps.js
 .notes.txt
+.DS_Store
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+*.jpg
+*.jpeg
+*.png
+*.gif
