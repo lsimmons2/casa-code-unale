@@ -204,17 +204,16 @@ passport.use(new GitHubStrategy({
 }));
 
 
-
 passport.use(new LinkedInStrategy({
     clientID: linkedInKey,
     clientSecret: linkedInSecret,
     callbackURL: linkedInCbURL,
-tokenURL: 'https://www.linkedin.com/oauth/v2/authorization',
     scope: ['r_emailaddress', 'r_basicprofile'],
-    passReqToCallback : true,
-    state: true
+    state: true,
+    passReqToCallback : true
   },
   function(req, token, tokenSecret, profile, done) {
+    console.log('got all the shit');
     process.nextTick(function() {
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.linkedin.id': profile.id}, function(err, user){
