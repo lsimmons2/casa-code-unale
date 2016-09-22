@@ -44,7 +44,7 @@ var sessionStore = new mongoStore({
 var app = express();
 
 
-if(env == 'production'){
+if(env == 'prod'){
   app.use('/', express.static('./site/'));
 }
 app.use('/app', express.static('./'));
