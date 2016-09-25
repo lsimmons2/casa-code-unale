@@ -30,7 +30,7 @@
 
 		<center id="termsCon">
 			<input type='checkbox' ng-model='terms' name='terms' required>
-			<span> I have read and understand the </span><a ng-click="open()"> terms of use</a>
+			<span> I have read and understand the </span><a ng-click="openModal()"> terms of use</a>
 		</center>
 		<p class='signUpWarning' ng-show='signUpForm.terms.$invalid && pressed'>Need to acknowledge that you have read and understand the terms of use</p>
 

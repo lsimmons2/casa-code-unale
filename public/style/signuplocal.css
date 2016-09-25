@@ -1,0 +1,35 @@
+body {
+}
+
+h3 {
+  color: #F57676;
+}
+
+form {
+  margin: 0 20vw 15vw 20vw;
+}
+
+#termsCon a  {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#skillsTL, #skillsTO {
+  margin-bottom: 3px;;
+}
+
+.skillsToShow {
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+  border-color: #F57676;
+	margin: 3px;
+	padding: 2px 4px;
+	display: inline-block;
+}
+
+.skillButton {
+  font-weight: bold;
+	cursor: pointer;
+}

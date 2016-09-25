@@ -1,88 +1,98 @@
-<br>
+<link rel="stylesheet" href="./public/style/signuplocal.css">
+<center><h3>Sign up!</h3></center>
 
-<center><h3>Sign up</h3></center>
+<form id='signUp' name='userForm' novalidate>
+	<!--<p>All fields required unless otherwise noted</p>-->
 
-<div>
-	<br>
-	<p>All fields required unless otherwise noted</p>
-	<form id='signUp' name='signUpForm' novalidate>
 
-		<span>First name:</span>
-		<input class='form-control' type='text' id='firstNameSignUp' name='firstName' ng-model='firstName' placeholder='Enter first name' required>
-		<p class='signUpWarning' ng-show='signUpForm.firstName.$invalid && pressed'>First name required</p>
-		<br>
+	<div class="form-group" ng-class="{ 'has-error': userForm.firstName.$invalid && !userForm.firstName.$pristine || pressed && userForm.firstName.$invalid, 'has-success': userForm.firstName.$valid && userForm.firstName.$dirty}">
+		<label>First name</label>
+		<input class='form-control' type='text' name='firstName' ng-model='firstName' placeholder='Enter first name' required>
+		<p ng-show="userForm.firstName.$invalid && userForm.firstName.$dirty || pressed && userForm.firstName.$invalid" class="help-block">First name required</p>
+	</div>
 
-		<span>Last name:</span>
-		<input class='form-control' type='text' id='lastNameSignUp' ng-model='lastName' name='lastName' placeholder='Enter last name' required>
-		<p class='signUpWarning' ng-show='signUpForm.lastName.$invalid && pressed'>Last name required</p>
-		<br>
+	<div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine || pressed && userForm.lastName.$invalid, 'has-success': userForm.lastName.$valid && userForm.lastName.$dirty }">
+		<label>Last name</label>
+		<input class='form-control' type='text' ng-model='lastName' name='lastName' placeholder='Enter last name' required>
+		<p ng-show="userForm.lastName.$invalid && userForm.lastName.$dirty || pressed && userForm.lastName.$invalid" class="help-block">Last name required</p>
+	</div>
 
-		<span>Username:</span>
-		<input class='form-control' name='username' type='text' id='usernameSignUp' ng-model='username' placeholder='Enter user ID' required>
-		<p class='signUpWarning' ng-show='signUpForm.username.$invalid && pressed'>Username required</p>
-		<p ng-show="userExists" class='signUpWarning'>Another user has already registered with this username, please choose another username</p>
-		<br>
+	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine || pressed && userForm.username.$invalid, 'has-success': userForm.username.$valid && userForm.username.$dirty }">
+		<label>Username</label>
+		<input class='form-control' name='username' type='text' ng-model='username' placeholder='Enter username' required>
+		<p ng-show="userForm.username.$invalid && userForm.username.$dirty || pressed && userForm.username.$invalid" class="help-block">Username required</p>
+		<p ng-show="userExists" class="help-block">Another user has already registered with this username, please choose another username</p>
+	</div>
 
-		<span>Email:</span>
-		<input class='form-control' name='email'  type='email' id='userEmail' ng-model='email' placeholder='Enter email' required>
-		<p class='signUpWarning' ng-show='signUpForm.email.$invalid && pressed'>Valid email required</p>
-		<br>
+	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine || pressed && userForm.email.$invalid, 'has-success': userForm.email.$valid && userForm.email.$dirty }">
+		<label>Email</label>
+		<input class='form-control' name='email'  type='email' id='userEmail' ng-model='email' placeholder='Enter email address' required>
+		<p ng-show="userForm.email.$invalid && userForm.email.$dirty || pressed && userForm.email.$invalid" class="help-block">Valid email address required</p>
+	</div>
 
-		<span>Technologies that you would like help with:</span>
-		<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=15 >
+
+	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTL.length && userForm.skillsTL.$touched || !!!selectedSkillsTL.length && pressed}">
+		<label>Technologies that you would like help with</label>
+		<input class='form-control' id="skillsTL" name='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
-		<p class='signUpWarning' ng-show='!!!selectedSkillsTL.length && pressed'>Need to choose at least one technology</p>
-		<br>
+		<p ng-show="userForm.skillsTL.$touched && !!!selectedSkillsTL.length || pressed && !!!selectedSkillsTL.length" class="help-block">Need to choose at least one technology</p>
+	</div>
 
-		<span>Technologies that you could help other users with:</span>
-		<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=15 >
+	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTO.length && userForm.skillsTO.$touched || !!!selectedSkillsTO.length && pressed }">
+		<label>Technologies that you could help other users with</label>
+		<input name='skillsTO' type='text' class='form-control' id="skillsTO" ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
-		<p class='signUpWarning' ng-show='!!!selectedSkillsTO.length && pressed'>Need to choose at least one technology</p>
-		<br>
+		<p ng-show="userForm.skillsTO.$touched && !!!selectedSkillsTO.length || pressed && !!!selectedSkillsTO.length" class="help-block">Need to choose at least one technology</p>
+	</div>
 
-		More details about what you can offer and/or what you're looking for (optional):
-		<textarea type='text' id='bioSignUp' class='form-control' ng-model='bio' placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
-		<br>
+	<div class="form-group">
+		<label>More details about what you can offer and/or what you're looking for (optional)</label>
+		<textarea type="text" class="form-control" ng-model="bio" placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
+	</div>
 
-		Enter password:
+
+	<div class="form-group" ng-class="{ 'has-error': userForm.passwordConf.$dirty && password !== passwordConf || pressed && userForm.password.$invalid, 'has-success' : userForm.passwordConf.$dirty && password === passwordConf }">
+		<label>Enter password</label>
 		<input class='form-control' name='password' ng-model='password' placeholder='Enter password' type='password' required>
-		<p class='signUpWarning' id='passConfWarning' ng-show='pressed && password != passwordConf'>Passwords do not match</p>
-		<br>
+		<p ng-show="pressed && userForm.password.$invalid" class="help-block">Password required</p>
+	</div>
 
-		Confirm password:
-		<input class='form-control' placeholder='Confirm password' type='password' name='passwordConf' ng-model='passwordConf'>
-		<p class='signUpWarning' ng-show='signUpForm.password.$invalid && pressed'>Password required</p>
-		<br>
+	<div class="form-group" ng-class="{ 'has-error' : userForm.passwordConf.$dirty && password !== passwordConf || pressed && userForm.password.$invalid, 'has-success' : userForm.passwordConf.$dirty && password === passwordConf }">
+		<label>Confirm password</label>
+		<input class='form-control' placeholder='Confirm password' type='password' name='passwordConf' ng-model='passwordConf' required>
+		<p ng-show="passwordConf !== password && pressed || userForm.passwordConf.$touched && password !== passwordConf" class="help-block">Passwords do not match</p>
+		<p ng-show="pressed && userForm.passwordConf.$invalid" class="help-block">Password confirmation required</p>
+	</div>
 
+	<div class="form-group" ng-class="{ 'has-error' : userForm.terms.$invalid && pressed}">
 		<center id="termsCon">
 			<input type='checkbox' ng-model='terms' name='terms' required>
-			<span> I have read and understand the </span><a ng-click="open()"> terms of use</a>
+			<span> I have read and understand the </span><a ng-click="openModal()">terms of use</a>
+			<p class="help-block" ng-show="userForm.terms.$invalid && pressed">Need to acknowledge that you have read and understand the terms of use</p>
 		</center>
-		<p class='signUpWarning' ng-show='signUpForm.terms.$invalid && pressed'>Need to acknowledge that you have read and understand the terms of use</p>
+	</div>
 
+	<center>
+		<input type='submit' id='signUpSubmit' class='btn btn-default' value='Sign Up' name='signUp' ng-click='signup()'>
+	</center>
 
-
-		<center>
-			<input type='submit' id='signUpSubmit' class='btn btn-default' value='Sign Up' name='signUp' ng-click='signup()'>
-		</center>
-	</form>
-</div>
+</form>
 
 <script type='text/ng-template' id='termsOfUseModal.html'>
-<div class='modal-header'>
-	<h3 class='modal-title'>Terms of Use</h3>
-</div>
-<div class='modal-body'>
-	<p>
-	By signing up you understand and agree to the following terms:
-	</p>
-	<ul id='termsList'>
-		<li>You are using this site at your own discretion and Casa Code-unale is not responsible or liable for any misfortune or harm you may experience as a result of using this site</li>
-		<li>As a user of the site you accept that you may be contacted by other users with the contact information you provide</li>
-		<li>As a user of casa you agree to be respectful of other users</li>
-	</ul>
-</div>
-<div class='modal-footer'>
-	<button class='btn btn-default' type='button' ng-click='close()'>Close</button>
-</div>
+	<div class='modal-header'>
+		<h3 class='modal-title'>Terms of Use</h3>
+	</div>
+	<div class='modal-body'>
+		<p>
+		By signing up you understand and agree to the following terms:
+		</p>
+		<ul id='termsList'>
+			<li>You are using Casa Code-unale at your own discretion and Casa Code-unale is not responsible or liable for any misfortune or harm you may experience as a result of using this site</li>
+			<li>As a user of Casa Code-unale you accept that you may be contacted by other users with the contact information you provide</li>
+			<li>As a user of Casa Code-unale you agree to be respectful of other users</li>
+		</ul>
+	</div>
+	<div class='modal-footer'>
+		<button class='btn btn-default' type='button' ng-click='close()'>Close</button>
+	</div>
 </script>

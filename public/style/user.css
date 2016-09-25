@@ -1,0 +1,103 @@
+
+
+.social {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#userPhoto {
+  height: 120px;
+  width: 120px;
+}
+
+#skills-tl-header {
+  margin-top: 0;
+}
+
+#bio-header {
+  margin-top: 0;
+}
+
+.skill {
+  border-width: 1px;
+	border-style: solid;
+	border-color: #F57676;
+	margin: 1px;
+	display: inline-block;
+	padding: 1px 3px 1px 3px;
+}
+
+#description {
+  border-width: 1px;
+	border-style: solid;
+	border-color: #F57676;
+	margin: 1px;
+	display: inline-block;
+	padding: 1px 3px 1px 3px;
+}
+
+.social-header {
+  padding-left: 0px;
+}
+
+#linkedin {
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+#linkedin-header {
+  margin-bottom: 5px;
+}
+#linkedin-header-image {
+  height:25px;
+}
+
+#linkedin-header-text {
+  display: inline;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0;
+}
+
+#linkedin-info {
+  padding: 5px 10px;
+}
+
+.linkedin-in-subheader{
+  font-weight: bold;
+  font-size: 17px;
+}
+
+
+
+
+#github-image {
+  height:30px;
+}
+
+#github-header {
+  display: inline;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 4px;
+}
+
+.repo-container {
+  padding: 2px;
+}
+.repo {
+  margin: 0;
+  height: 180px;
+  padding: 10px;
+}
+.repo-name {
+  font-weight: bold;
+  font-size: 15px;
+}
+.repo-link {
+  position: absolute;
+  bottom: 6px;
+}
+
+a {
+  color: black;
+}

@@ -1,0 +1,70 @@
+a {
+  cursor: pointer;
+}
+/*
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.affix + .container-fluid {
+  padding-top: 70px;
+}
+*/
+#nav-profile {
+    color: #F57676;
+}
+
+#nav-settings {
+    color: #F57676;
+}
+
+#nav-logout {
+    color: #F57676;
+}
+
+/*  > li {
+    float: none;
+    display: inline-block;
+  }
+}
+
+/*#nav-board {
+  float: none;
+  margin: 0;
+}
+/*#nav-board {
+    font-style: italic;
+    color: #F57676;
+}*/
+
+#navBarRight{
+    float: right;
+}
+
+#board{
+	table-layout:fixed;
+	width:100%;
+}
+.navbar-brand {
+    padding: 0px;
+}
+#casaLogo {
+
+	height: 40px;
+	margin: 4px 0px 0px 20px;
+}
+
+#beta {
+    color: #A5B1B5;
+    float: left;
+    margin-left: 15px;
+    margin-right: 20px;
+    font-size:150%;
+    line-height: 50px;
+    text-decoration: none;
+
+}
+.navbar.navbar-default {
+	 cursor: pointer;
+}

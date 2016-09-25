@@ -30,7 +30,7 @@
 	<script type='text/javascript' src='./public/service.js'></script>
 	<script type='text/javascript' src='./public/tags.js'></script>
 	<script type='text/javascript' src='./public/app.js'></script>
-	<link rel='stylesheet' href='./public/style.css'>
+	<link rel='stylesheet' href='./public/style/nav.css'>
 </head>
 
 <body ng-app='App'>
@@ -53,7 +53,10 @@
 				<ul class="nav navbar-nav" id="navBarRight">
 					<li ng-show="in"><a class='nav-glyphicon glyphicon glyphicon-user' id='nav-profile' href="#/profile" tooltip-placement='left' uib-tooltip='Profile'></a></li>
 					<li ng-show="in"><a class='nav-glyphicon glyphicon glyphicon-cog' id='nav-settings' href="#/settings" tooltip-placement='left' uib-tooltip='Settings'></a></li>
-					<li ng-show="in"><a class='nav-glyphicon glyphicon glyphicon-log-out' id='nav-logout' ng-click="logout()"  tooltip-placement='left' uib-tooltip='Log out'></a></li>
+					<li ng-show="in"><a id='nav-logout' ng-click="logout()">Log out</a></li>
+					<li><a href="#/user/lsimmons">Me</a></li>
+					<li><a href="#/settings">Settings</a></li>
+					<li>in?: {{in}}</li>
 					<li ng-hide="in"><a href="#/login">Log in</a></li>
 					<li ng-hide="in"><a href="#/signup">Sign up</a></li>
 				</ul>

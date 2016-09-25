@@ -1,21 +1,40 @@
-<br>
-<center><h3>Log In</h3></center>
-<form role='form'>
-    <label>Email:</label>
-    <input class='form-control' type='text' ng-model='email'/>
-    <label>Password:</label>
-    <input class='form-control' type='password' ng-model='password'/>
-    <br>
-    <button class='btn btn-default' type='submit' ng-click='login()'>Log in</button>
-</form>
-<br>
-<form role='form'>
-    <a href="/app/auth/linkedin">Log in With LinkedIn</a>
-</form>
+<link rel="stylesheet" href="./public/style/login.css">
 
-<form role='form'>
-    <a href='/app/auth/github' >Log in With GitHub</a>
-</form>
+<div class="row">
+
+  <div class="col-sm-12 col-md-4">
+    <form class="well login-container" id="local" role='form'>
+      <label>Email:</label>
+      <input class='form-control' type='text' ng-model='email'/>
+      <label>Password:</label>
+      <input class='form-control' type='password' ng-model='password'/>
+      <button class='btn btn-default' type='submit' ng-click='login()'>Log in</button>
+    </form>
+  </div>
+
+  <div class="col-sm-12 col-md-4">
+    <div class="well login-container">
+        <a class="social-login" href="/app/auth/linkedin">
+          <img id="linkedin-logo" src="https://s3.amazonaws.com/leosimmons/linkedin_mark.png">
+          <div>Log in With LinkedIn</div>
+        </a>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-4" href='/app/auth/github'>
+    <div class="well login-container">
+      <div class="social-login">
+        <a href="/app/auth/github">
+          <img src="https://s3.amazonaws.com/leosimmons/github_mark.png">
+          <div>Log in With GitHub</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!--class="row"-->
+
+<br>
 
 <div class='alert alert-danger' id='loginWarning' style='display: none'>
   <strong>Error</strong> This combination of username and password does not exist

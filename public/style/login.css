@@ -1,0 +1,29 @@
+a {
+  color: black;
+}
+
+img {
+  height: 130px;
+}
+
+input {
+  margin-bottom: 16px;
+}
+
+.row {
+  margin-top: 30px;
+}
+.login-container {
+  height: 220px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#local {
+  padding-top: 20px;
+}
+
+#linkedin-logo {
+  padding-left: 12px;
+}

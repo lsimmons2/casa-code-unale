@@ -1,3 +1,31 @@
-<a href="/app/#/signup/local">Sign up with your email</a>
-<a href="/app/auth/linkedin">Sign up with LinkedIn</a>
-<a href="/app/auth/github">Sign up with GitHub</a>
+<link rel="stylesheet" href="./public/style/signup.css">
+
+<div class="row">
+
+  <div class="col-sm-12 col-md-4">
+    <div class="well login-container">
+      <a href="/app/#/signup/local"><h2>Sign up with your email</h2></a>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-4">
+    <div class="well login-container">
+        <a class="social-login" href="/app/auth/linkedin">
+          <img id="linkedin-logo" src="https://s3.amazonaws.com/leosimmons/linkedin_mark.png">
+          <div>Sign up with LinkedIn</div>
+        </a>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-4" href='/app/auth/github'>
+    <div class="well login-container">
+      <div class="social-login">
+        <a href="/app/auth/github">
+          <img src="https://s3.amazonaws.com/leosimmons/github_mark.png">
+          <div>Sign up with GitHub</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!--class="row"-->
