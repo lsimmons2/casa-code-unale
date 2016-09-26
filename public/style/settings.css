@@ -11,24 +11,33 @@ img {
   border-radius: 6px;
 }
 
-.list {
-  height: 30px;
+textarea.form-control {
+  resize: none;
 }
 
-.well {
-  border-radius: 0px;
-}
-
-ul {
+.skillsList {
   list-style-type: none;
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
 }
 
-/*@media only screen and (min-width: 768px){*/
+.remove-button {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px){
+
+  .row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .well {
+    border-radius: 0px;
     margin-bottom: 0px;
     background-color: #ffffff;
   }
@@ -37,6 +46,7 @@ ul {
     height: 180px;
     margin-bottom: 4px;
   }
+
   #photo-container {
     height: 260px;
     border-radius: 4px 0px 0px 0px;
@@ -52,10 +62,11 @@ ul {
 
   textarea.form-control {
     height: 170px;
-    resize: none;
   }
 
-  .skills, .list {
+  .skills {
+    display: flex;
+    flex-direction: column;
     border-top-width: 0px;
   }
 
@@ -63,31 +74,32 @@ ul {
     border-right-width: 0px;
   }
 
-/*}*/
-/*
-button.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
+  .list {
+    border-top-width: 0px;
+  }
+
+  .list > a {
+    vertical-align: middle
+  }
+
 }
 
-button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
-}
+@media only screen and (max-width: 768px){
 
-div.panel {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-}
+  body {
+    text-align: center;
+  }
 
-div.panel.show {
-    display: block;
+  #profile-picture {
+    width: 85%;
+  }
+
+  textarea.form-control {
+    height: 25vh;
+  }
+
+  .skillsList {
+    padding: 0;
+  }
+
 }
-*/
