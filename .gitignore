@@ -1,6 +1,6 @@
 /node_modules
 /site
-/server/config
+/server/config/
 
 .scraps.js
 .notes.txt

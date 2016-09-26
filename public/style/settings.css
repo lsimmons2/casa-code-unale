@@ -1,0 +1,93 @@
+h3 {
+  color: #F57676;
+}
+
+a {
+  color: black;
+  cursor: pointer;
+}
+
+img {
+  border-radius: 6px;
+}
+
+.list {
+  height: 30px;
+}
+
+.well {
+  border-radius: 0px;
+}
+
+ul {
+  list-style-type: none;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+}
+
+/*@media only screen and (min-width: 768px){*/
+
+  .well {
+    margin-bottom: 0px;
+    background-color: #ffffff;
+  }
+
+  img {
+    height: 180px;
+    margin-bottom: 4px;
+  }
+  #photo-container {
+    height: 260px;
+    border-radius: 4px 0px 0px 0px;
+    border-right-width: 0px;
+    text-align: center;
+    padding-top: 5px;
+  }
+
+  #bio-container {
+    height: 260px;
+    border-radius: 0px 4px 0px 0px;
+  }
+
+  textarea.form-control {
+    height: 170px;
+    resize: none;
+  }
+
+  .skills, .list {
+    border-top-width: 0px;
+  }
+
+  #skillsTL-container {
+    border-right-width: 0px;
+  }
+
+/*}*/
+/*
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+}
+
+div.panel.show {
+    display: block;
+}
+*/
