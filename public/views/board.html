@@ -1,91 +1,59 @@
-<h3 id='boardHeader'>Welcome to the board!</h3>
-<div class='container-fluid' id='boardCon' style='overflow: auto;'>
-<div id='board' class='table' style='table-layout: fixed;'>
-  <!--side-by-side search-->
-  <div class='hidden-xs'>
-  <div class='row' id='searchLabels'>
-	<b class='col-xs-6'>Search users by technologies they know: </b>
-	<b class='col-xs-6'>Search users by technologies they need help with: </b>
-  </div>
-  <div class='row mobileSearch'>
-    <div class='col-xs-6'>
-      <input class='boardSkillSearch' type='text' ng-model='search.skillsTO'><br>
+<link rel="stylesheet" href="./public/style/board.css">
+
+
+<center><h3 id='boardHeader'>Welcome to the board!</h3></center>
+
+<div class='table' id="board" style='table-layout: fixed;'>
+
+  <div class="row">
+    <div class="col-sm-2 hidden-xs">
+      &nbsp
     </div>
-    <div class='col-xs-6'>
-      <input class='boardSkillSearch' type='text' ng-model='search.skillsTL'><br>
+    <div class="col-xs-12 col-sm-5">
+      <input class="form-control search" id="search-to" type='text'  placeholder="Search users by what they know" ng-model='search.skillsTO'>
     </div>
-  </div>
-  </div>
-  <!--stacked search-->
-  <div class='visible-xs'>
-  <div class='row mobileSearch'>
-    <b>Search users by technologies they know: </b>
-    <input class='boardSkillSearch' type='text' ng-model='search.skillsTO'><br>
-  </div>
-  <div class='row mobileSearch'>
-    <b>Search users by technologies they need help with: </b>
-    <input class='boardSkillSearch' type='text' ng-model='search.skillsTL'><br>
-  </div>
+    <div class="col-xs-12 col-sm-5">
+      <input class="form-control search" id="search-tl" type='text'  placeholder="Search users by what they need help with" ng-model='search.skillsTL'>
+    </div>
   </div>
 
-  <div class='row hidden-xs' id='boardHead'>
-    <label class='col-sm-1 col-xs-12'>
-      User:
-    </label>
-    <label class='col-sm-3 col-xs-6'>
-      User knows:
-    </label>
-    <label class='col-sm-3 col-xs-6'>
-      User needs help with:
-    </label>
-    <label class='col-sm-3 col-xs-12'>
-      User message:
-    </label>
-    <label class='col-sm-2 col-xs-12' id='bigContactLabel'>
-      Contact:
-    </label>
-  </div>
-  <div id='boardLine'></div>
-  <div class='row' id='boardRow' ng-repeat='user in users | filter: search:strict | orderObjectBy : "username"'>
-    <div ng-click='goToUser(user.username)' class='col-sm-1 col-xs-6 mobileLabel'><label class='visible-xs-inline'>User: </label>{{user.username}}</div>
-    <div class='visible-xs-inline col-xs-6 mobileLabel'>
-      <label id='mobileContactLabel'>Contact: </label>
-	  <span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='open(user.email)'></span>
+  <div class="row hidden-xs">
+    <div class="col-sm-2">
+      <h4>User</h4>
     </div>
-    <label class='visible-xs-inline col-xs-6 mobileLabel'>User knows: </label>
-    <label class='visible-xs-inline col-xs-6 mobileLabel'>User needs help with: </label>
-    <div class='col-sm-3 col-xs-6 '><span class='boardSkills' ng-repeat='skill in user.skillsTO track by $index'>{{skill}}</span></div>
-    <div class='col-sm-3 col-xs-6'><span class='boardSkills' ng-repeat='skill in user.skillsTL track by $index'>{{skill}}</span></div>
-    <label class='visible-xs-inline col-xs-12 mobileLabel'>User message: </label>
-    <div class='col-sm-4 col-xs-12'>{{user.bio}}</div>
-    <div class='col-sm-1 hidden-xs'><a id='contact' ng-click='open(user.email)'><span class='glyphicon glyphicon-envelope' id='contactGlyph' ng-click='modalEmail(user.email)'></span></a></div>
-  </div><!-- ng-repeat="user in users"-->
+    <div class="col-sm-5">
+      <h4>Technologies user knows</h4>
+    </div>
+    <div class="col-sm-5">
+      <h4>Technologies user needs help with</h4>
+    </div>
+  </div>
+
+  <div class="row user" ng-repeat="user in users | filter: search:strict | orderObjectBy : 'username'">
+    <!-- Above xs -->
+    <div ng-click="goToUser(user.username)" class="hidden-xs col-sm-1 username-container">
+      <b class="username">{{user.username}}</b>
+    </div>
+    <div ng-click="goToUser(user.username)" class="hidden-xs col-sm-1">
+      <img class="profile-picture" src="{{user.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
+    </div>
+    <div class="hidden-xs col-sm-5">
+      <span class='skills' ng-repeat="skill in user.skillsTO track by $index">{{skill}}</span>
+    </div>
+    <div class="hidden-xs col-sm-5">
+      <span class='skills' ng-repeat="skill in user.skillsTL track by $index">{{skill}}</span>
+    </div>
+    <!-- xs -->
+    <div ng-click="goToUser(user.username)" class="col-xs-6 visible-xs username-container">
+      <b class="username">{{user.username}}</b>
+      <img class="profile-picture" src="{{user.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
+    </div>
+    <div class="visible-xs col-xs-6">
+      <b class="mobile-skill-label">User knows</b>
+      <span class='skills' ng-repeat="skill in user.skillsTO track by $index">{{skill}}</span>
+      <b class="mobile-skill-label">User needs help with</b>
+      <span class='skills' ng-repeat="skill in user.skillsTL track by $index">{{skill}}</span>
+    </div>
+  </div>
+
 </div>
-</div>
-
-<script type='text/ng-template' id='loggedInModal.html'>
-        <div class='modal-header'>
-            <h3 class='modal-title'>Contact User</h3>
-        </div>
-        <div class='modal-body'>
-	  <p>User email: {{userEmail}}</p>
-        </div>
-        <div class='modal-footer'>
-            <button class='btn' type='button' ng-click='close()'>Close</button>
-        </div>
-    </script>
-
-
-<script type='text/ng-template' id='notLoggedInModal.html'>
-        <div class='modal-header'>
-            <h3 class='modal-title'>Contact User</h3>
-        </div>
-        <div class='modal-body'>
-	  <p>Need to be logged in to contact user</p>
-	  <span><a href='#/login' ng-click='close()'>Log in</a></span>
-	  <span><a href='#/signup' ng-click='close()'>Sign up</a></span>
-        </div>
-        <div class='modal-footer'>
-            <button class='btn' type='button' ng-click='close()'>Close</button>
-        </div>
-    </script>

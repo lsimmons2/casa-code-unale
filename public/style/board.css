@@ -1,0 +1,93 @@
+
+h3 {
+  color: #F57676;
+}
+
+#board {
+  text-align: center;
+}
+
+a {
+  color: black;
+  cursor: pointer;
+}
+
+.search-label {
+  display: block;
+}
+
+#search-to {
+  width: 210px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#search-tl {
+  width: 265px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.row.user {
+  border-width: 1px 0px 0px 0px;
+  border-color: #e3e3e3;
+  border-style: solid;
+  padding: 4px 0px;
+}
+
+.username {
+  cursor: pointer;
+}
+
+.profile-picture {
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.skills {
+  border-width: 1px;
+	border-style: solid;
+	border-color: #F57676;
+  border-radius: 4px;
+  padding: 0px 3px;
+  display: inline-block;
+  margin: 1px;
+}
+
+@media only screen and (min-width: 768px){
+
+  h3 {
+    margin-bottom: 40px;
+  }
+
+  div.row.user {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-picture {
+    width: 100%;
+  }
+
+}
+
+@media only screen and (max-width: 767px){
+  input {
+    margin-bottom: 20px;
+  }
+
+  .profile-picture {
+    width: 30vw;
+  }
+
+  .username {
+    display: block;
+  }
+
+  .mobile-skill-label {
+    display: block;
+  }
+
+}
