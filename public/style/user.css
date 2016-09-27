@@ -5,15 +5,6 @@
   padding-right: 15px;
 }
 
-#userPhoto {
-  height: 120px;
-  width: 120px;
-}
-
-#skills-tl-header {
-  margin-top: 0;
-}
-
 #bio-header {
   margin-top: 0;
 }
@@ -44,9 +35,11 @@
   padding-top: 40px;
   padding-bottom: 10px;
 }
+
 #linkedin-header {
   margin-bottom: 5px;
 }
+
 #linkedin-header-image {
   height:25px;
 }
@@ -66,9 +59,6 @@
   font-weight: bold;
   font-size: 17px;
 }
-
-
-
 
 #github-image {
   height:30px;
@@ -100,4 +90,25 @@
 
 a {
   color: black;
+}
+
+@media only screen and (min-width: 768px){
+
+  #user-photo {
+    height: 120px;
+    width: 120px;
+  }
+
+  .skills-tl-header {
+    margin-top: 0;
+  }
+
+}
+
+@media only screen and (max-width: 767px){
+
+  #user-photo {
+    width: 100%;
+  }
+
 }
