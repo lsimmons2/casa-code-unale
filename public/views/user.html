@@ -60,13 +60,16 @@
   </div>
 
   <!--==============GitHub==============-->
-  <div class='row social' ng-show='user.social.github.id'>
-    <div class='col-xs-12 social-header'>
+  <div class="row social" id="github-container" ng-show='user.social.github.id'>
+    <div class="col-xs-4 col-sm-2 social-header">
       <img id="github-image" src="https://s3.amazonaws.com/leosimmons/github_logo.png">
       <h4 id="github-header">Repos</h4>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 repo-container" ng-repeat='repo in repos'>
-      <div class=" repo well">
+    <div class="col-xs-8 col-sm-10" id="repo-search-container" ng-show="in&&repos!=='unAuth'">
+      <input class="form-control" id="repo-search" placeholder="Search repos by main language" type="text" ng-model="repoSearch">
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 repo-container" ng-hide="repos==='unAuth'" ng-repeat="repo in repos | filter: {language: repoSearch}">
+      <div class="repo well">
         <div class="repo-name">{{repo.name}}</div>
         <p>{{repo.description | limitTo:100}}</p>
         <div>Main language: </span>{{repo.language}}</div>
@@ -75,6 +78,11 @@
         <a class="repo-link" href="{{repo.html_url}}" target="_blank">See repo on GitHub</a>
       </div>
     </div>
+    <div class="col-xs-12 link-for-repo" ng-show="in&&repos==='unAuth'">
+      <a class="form-control" href="/app/auth/github" type="submit">Link your GitHub account to see {{user.username}}'s repos</a>
+    </div>
+    <div class="col-xs-12 link-for-repo" ng-hide="in">
+      <input class="form-control" href="/app/auth/github" type="submit" value="Sign up to see this user's repos"></input>
+    </div>
   </div>
-
 </div>
