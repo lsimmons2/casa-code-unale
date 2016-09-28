@@ -35,7 +35,8 @@ angular.module('compProfCtrl', [
   $scope.compProf = function () {
   $scope.pressed = true;
   $scope.userExists = false;
-  if($scope.terms){
+  if($scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0 && $scope.userForm.$valid){
+    console.log('ok then');
     var userData = {
       'firstName': $scope.firstName,
       'lastName': $scope.lastName,
@@ -49,7 +50,7 @@ angular.module('compProfCtrl', [
     $http.post('/app/compProf', userData)
     .then(function(data){
       $rootScope.in = true;
-      $location.path('/profile');
+      $location.path(('/user/' + $scope.username));
     }, function(data){
       console.log('Error signing up new user: ', data);
       //Make error modals for this
@@ -82,7 +83,7 @@ angular.module('compProfCtrl', [
 	};
   $scope.terms = false;
 
-  $scope.open = function() {
+  $scope.openModal = function(){
 		$uibModal.open({
 			templateUrl: "termsOfUseModal.html",
 			controller: 'SignUpModalController'

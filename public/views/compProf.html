@@ -2,7 +2,7 @@
 
 <center><h3>Just a few more things to complete your profile</h3></center>
 
-<form name="compForm" novalidate>
+<form name="userForm" novalidate>
 
 	<div class="form-group" ng-class="{ 'has-error' : compForm.username.$invalid && !compForm.username.$pristine || pressed && compForm.username.$invalid, 'has-success': compForm.username.$valid && compForm.username.$dirty }">
 		<label>Username</label>
@@ -42,7 +42,7 @@
 	<center>
 		<input type='submit' id='signUpSubmit' class='btn btn-default' value='Complete profile' name='signUp' ng-click='compProf()'>
 	</center>
-
+</form>
 	<!--<span>Username:</span>
 	<input class='form-control' name='username' type='text' id='usernameSignUp' ng-model='username' placeholder='Enter user ID' required>
 	<p class='signUpWarning' ng-show='signUpForm.username.$invalid && pressed'>Username required</p>
@@ -71,7 +71,7 @@
 	</center>
 	<p class='signUpWarning' ng-show='signUpForm.terms.$invalid && pressed'>Need to acknowledge that you have read and understand the terms of use</p>
 -->
-</form>
+
 
 <script type='text/ng-template' id='termsOfUseModal.html'>
 <div class='modal-header'>

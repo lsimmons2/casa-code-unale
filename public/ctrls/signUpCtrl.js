@@ -1,20 +1,29 @@
-angular.module('signUpCtrl', ['mgcrea.ngStrap', 'tagsMod']).controller('SignUpController', function($scope, $rootScope, $location, $http, AuthService, $uibModal, tags){
+angular.module('signUpCtrl', [
+	'mgcrea.ngStrap',
+	'tagsMod'
+])
+.controller('SignUpController', function($scope, $rootScope, $location, $http, AuthService, $uibModal, tags){
+
+	$scope.terms = false;
+	$scope.pressed = false;
+	$scope.emailExists = false;
+	$scope.otherError = false;
 
 	$scope.firstName = 'Leo';
 	$scope.lastName = 'Simmons';
 	$scope.username = 'lsimmons';
 	$scope.email = 'leooscar.simmons@gmail.com';
-	$scope.bio = 'sah?';
+	$scope.bio = 'sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?';
 	$scope.photoURL = '';
 	$scope.password = 'sah';
 	$scope.passwordConf = 'sah';
 	$scope.skillsListTO = tags;
 	$scope.skillsListTL = tags;
 	$scope.selectedSkillTO = [];
-	$scope.selectedSkillsTO = ["jquery", "javascript"];
+	$scope.selectedSkillsTO = ['angularjs', 'node.js'];
 	$scope.selectedSkillTL = '';
-	$scope.selectedSkillsTL = ["jquery", "javascript"];
-	$scope.terms = false;
+	$scope.selectedSkillsTL = ['machine-learning', 'artificial-intelligence'];
+
 	$scope.$on('$typeahead.select', function(event, value, index, elem){
 		if(elem.$id == 'skillsTO'){
 			$scope.selectedSkillsTO.push(value);
@@ -44,25 +53,13 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap', 'tagsMod']).controller('SignUpCo
 		$scope.selectedSkillsTO.sort();
 	};
 
-
-	$scope.terms = false;
-	$scope.logout = function () {
-		AuthService.logout()
-		.then(function(){
-			$location.path('/login');
-		}, function(){
-		$location.path('/login');
-		});
-	};
-	$scope.userExists = false;
-
-	//using 'pressed' b/c I can't get ng-dirty to work
-	$scope.pressed = false;
-
 	$scope.signup = function () {
 		$scope.pressed = true;
-		$scope.userExists = false;
-		if($scope.terms && $scope.password === $scope.passwordConf){
+		$scope.emailExists = false;
+		console.log('valid? ', $scope.userForm.$valid);
+		console.log('match? ', $scope.password === $scope.passwordConf);
+		//if($scope.terms && $scope.password === $scope.passwordConf){
+		if($scope.selectedSkillsTO.length < 0 && $scope.selectedSkillsTL.length < 0 && $scope.userForm.$valid && $scope.password === $scope.passwordConf){
 			var userData = {
 				'firstName': $scope.firstName,
 				'lastName': $scope.lastName,
@@ -77,42 +74,21 @@ angular.module('signUpCtrl', ['mgcrea.ngStrap', 'tagsMod']).controller('SignUpCo
 			$http.post('/app/signup', userData)
 			.then(function(data){
 				$rootScope.in = true;
-				$location.path('/profile');
+				$location.path(('/user/' + $scope.username));
 			}, function(data){
 				console.log('Error signing up new user: ', data);
-				//Make error modals for this
 				if(data.data.message == 'email already exists'){
-					$scope.userExists = true;
+					$scope.emailExists = true;
 				}
-				//and this
 				else {
-					console.log('res.data.message: ', res.data.message);
+					console.log('Error signing up new user: ', res.data.message);
+					$scope.otherError = true;
 				}
 			});
-		} else if(!$scope.terms) {
-			angular.element('#termsWarning').css('display', 'block');
-		} else {
-			angular.element('#passConfWarning').css('display', 'block');
-		};
+		}
 	};
 
-	//SHOULD BE REMOVED
-	$scope.linkedInSigupUp = function(){
-		console.log('supp');
-		var userData = {
-			'skillsTO': $scope.selectedSkillsTO,
-			'skillsTL': $scope.selectedSkillsTL,
-			'bio': $scope.bio
-		};
-		$http.get('/app/auth/linkedin', userData)
-		.then(function(data){
-
-		}, function(data){
-
-		})
-	}
-
-	$scope.open = function() {
+	$scope.openModal = function() {
 		$uibModal.open({
 			templateUrl: "termsOfUseModal.html",
 			controller: 'SignUpModalController'
