@@ -2,42 +2,56 @@
 
 <h3>Settings</h3>
 <div class="row">
+
   <div class="well col-md-4 col-xs-12" id="photo-container">
     <h4>Profile Picture</h4>
     <img id="profile-picture" src="{{userData.photoURL || userData.social.github.photoURL || userData.social.linkedin.photoURL || avatar}}"><br>
-    <a ng-hide="userData.photoURL || userData.social.linkedin || userData.social.github" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+
+    <a ng-hide="userData.photoURL || userData.social.linkedin || userData.social.github" ngf-select="uploadImage($file)" ng-model="file" name="file" ngf-pattern="'image/*'"
     ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-    ngf-resize="{width: 100, height: 100}">Upload a profile picture</a>
-    <a ng-show="userData.photoURL || userData.social.linkedin || userData.social.github" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+    ngf-resize="{width: 300, height: 300}">Upload a profile picture</a>
+
+    <a ng-show="userData.photoURL || userData.social.linkedin || userData.social.github" ngf-select="uploadImage($file)" ng-model="file" name="file" ngf-pattern="'image/*'"
     ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-    ngf-resize="{width: 100, height: 100}">Change your profile picture</a>
+    ngf-resize="{width: 1000, height: 1000}">Change your profile picture</a>
+
   </div>
+
   <div class="well col-md-8 col-xs-12" id="bio-container">
     <h4>Edit description what you can offer and/or what you're looking for help with</h4>
     <textarea class="form-control" type="text" ng-model="userData.bio"></textarea>
   </div>
 
-  <div class="skills col-md-6 col-xs-12 well" id="skillsTL-container">
+  <div class="form-group skills col-md-6 col-xs-12 well" id="skillsTL-container" ng-class="{ 'has-error': !!!userData.skillsTL.length}">
     <h4>Edit technologies that you would like help with</h4>
     <ul class="skillsList">
       <li ng-repeat="skill in userData.skillsTL track by $index">{{skill}}<b class="remove-button" ng-click='remSkillTL($index)'> x</b></li>
     </ul>
     <input id='skillsTLInput' type='text' class='form-control' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Add technologies you need help with' bs-typeahead data-limit=15>
+    <p class="help-block" ng-show="!!!userData.skillsTL.length">Need to choose at least one technology</p>
   </div>
 
-  <div class="skills col-md-6 col-xs-12 well">
+  <div class="form-group skills col-md-6 col-xs-12 well" ng-class="{ 'has-error': !!!userData.skillsTO.length}">
     <h4>Edit technologies that you could help other users with</h4>
     <ul class="skillsList">
       <li ng-repeat="skill in userData.skillsTO track by $index">{{skill}}<b class="remove-button" ng-click='remSkillTO($index)'> x</b></li>
     </ul>
     <input id='skillsTOInput' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Add technologies you need help with' bs-typeahead data-limit=15>
+        <p class="help-block" ng-show="!!!userData.skillsTO.length">Need to choose at least one technology</p>
   </div>
-
-  <div class="col-xs-12 well list" ng-hide="{{linkStatus.linkedin}}" href="/app/connect/linkedin">
-    <a tooltip-placement="right" uib-tooltip="Will display your LinkedIn profile summary and current position on your Casa Code-unale profile">Connect your LinkedIn account</a>
+  <div class="col-xs-12 well list" ng-show="modified && !saved">
+    <button class="form-control" ng-click="updateUserData()">Save changes</button>
+  </div>
+  <div class="col-xs-12 well list" ng-show="saved">
+    <div class="alert alert-success">
+      <center>Changes saved!</center>
+    </div>
+  </div>
+  <div class="col-xs-12 well list" ng-hide="{{linkStatus.linkedin}}">
+    <a href="/app/auth/linkedin" tooltip-placement="right">Connect your LinkedIn account</a>
   </div>
   <div class="col-xs-12 well list" ng-hide="{{linkStatus.github}}">
-    <a href="/app/auth/github" >Link your GitHub account to display your repos on your Casa Code-unale profile</a>
+    <a href="/app/auth/github" >Connect your GitHub account</a>
   </div>
   <div class="col-xs-12 well list" ng-show="{{linkStatus.github && linkStatus.linkedin || linkStatus.github && linkStatus && linkStatus.local}}">
     <a href="/app/disconnect/github">Disconnect your GitHub account from you Casa Code-unale account</a>
