@@ -21,7 +21,7 @@ gulp.task('front', function(done){
 })
 
 gulp.task('back', function(){
-  gulp.src(['test/server.spec.js'], {read: false})
+  gulp.src(['test/server/controller.spec.js'], {read: false})
   .pipe(mocha())
   .on('error', gutil.log);
 });
@@ -30,14 +30,13 @@ gulp.task('lt', function(){
 	gulp.watch('*', ['front', 'lint'])
 })
 
-gulp.task('master', function(){
+gulp.task('dev', function(){
 	nodemon({
 		script: 'server.js',
 		ext: 'js html',
-		env: {'NODE_ENV': 'development'}
+		env: {'NODE_ENV': 'dev'}
 	})
-	.on('start', ['front', 'lint'])
-	.on('restart', ['front', 'lint'])
+	.on('start', ['lint'])
 })
 
-gulp.task('default', ['master'])
+gulp.task('default', ['dev'])
