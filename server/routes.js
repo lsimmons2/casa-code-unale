@@ -19,16 +19,8 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 
-
-
 router.post('/signature', function(req, res, next){
   return imageUpload(req, res, next);
-})
-
-
-router.get('/test', function(req, res, next){
-  console.log(req.method, req.url);
-  return mailCtrl.confEmail(req, res, next);
 })
 
 router.get('/resetPass', function(req, res, next){
@@ -47,24 +39,26 @@ router.get('/status', function(req, res){
   } else {
     var hasSkills = false;
   }
-	console.log('User is authenticated back here on the server');
+  console.log('User is authenticated back here on the server');
   res.status(200).json({
     authenticated: true,
-    hasSkills: hasSkills
+    hasSkills: hasSkills,
+    username: req.user.username
   });
 });
 
 
 router.route('/user')
-  .get(function (req, res, next) {
-    return findUser(req, res, next);
-  })
   .put(function (req, res, next) {
     return updateUser(req, res, next);
   })
   .delete(function (req, res, next) {
     return deleteUser(req, res, next);
   });
+
+router.get('/user/:username', function(req, res, next){
+  return findUser(req, res, next);
+});
 
 router.get('/profile', isLoggedIn, function (req, res, next) {
 	var profile = req.user;
@@ -95,16 +89,19 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
 	});
 });
 
+router.get('/board', function(req, res, next){
+  return viewAllUsers(req, res, next);
+});
 
 
 //Authorization==============================================
 router.route('/signup')
 .post(function(req, res, next) {
 	passport.authenticate('local-signup', function(err, user, info){
-		if(err){//what happens if there's an error looking up user in strategy logic
+		if(err){
 			return next(err);
 		}
-		if(!user){//user meaning what is returned from strategy - this means that the user was already found in the db and therefore shouldn't be signing up
+		if(!user){//user was already found in the db and therefore shouldn't be signing up
 			return res.status(409).json({message: info.errMsg})
 		}
 		//user has been created, log them in
@@ -120,28 +117,30 @@ router.route('/signup')
 	})(req, res, next);
 });
 
-router.post('/compProf', function(req, res, next) {
-  return compProf(req, res, next);
-});
-
 router.route('/login')
 .post(function(req, res, next){
   passport.authenticate('local-login', function(err, user, info) {
+    console.log('info: ', info);
     if (err) {//error checking if user is authenticated with passport
+      console.log('error handling passport local-login callback');
       return next(err);//500 status code
     }
     if (!user) {//user cannot be authenticated by passport
+      console.log('user not found in local-login ', info.errMsg);
       return res.status(409).json({
-        message: 'This combination of user and password does not exist',
+        message: 'invalid combo',
         authenticated: false
       });
       //res.end();
     }
+    console.log('trying hereee please');
     req.logIn(user, function(err) {//user is authenticated, record session
+      console.log('tryinnng here');
       if (err) {
 				console.log('Error logging in user locally: ', err);
         return next(err);
       }
+      console.log('no error then?');
       return res.status(200).json({//maybe use 302 and redirect
         message: 'Logged in successfully',
         authenticated: true
@@ -155,13 +154,7 @@ router.get('/auth/github', passport.authenticate('github'));
 router.get('/auth/github/callback', passport.authenticate('github', {
   failureRedirect : '/app/#/login'
 }), function(req, res){
-	res.redirect('/app/#/profile');
-});
-
-
-router.get('/user/:username', function(req, res, next){
-  console.log('got to here dog ', req.params.username);
-  return findUser(req, res, next)
+	res.redirect('/app/#/settings');
 });
 
 function mid(){
@@ -172,22 +165,12 @@ router.get('/auth/linkedin', passport.authenticate('linkedin'));
 router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   failureRedirect : '/app/#/login'
 }), function(req, res){
-	res.redirect('/app/#/profile');
+	res.redirect('/app/#/settings');
 });
 
-router.get('/connect/linkedin',
-  passport.authorize('linkedin', {
-		failureRedirect: '/app/#/login' })
-);
-router.get('/connect/linkedin/callback',
-  passport.authorize('linkedin', {
-      successRedirect : '/app/#/profile',
-      failureRedirect : '/app/#/login'
-  })
-);
 
-router.get('/users', function(req, res, next){
-  return viewAllUsers(req, res, next);
+router.post('/compProf', function(req, res, next) {
+  return compProf(req, res, next);
 });
 
 //should make this delete verb of /connect/linkedin route
@@ -198,30 +181,6 @@ router.get('/disconnect/linkedin', function(req, res, next){
 router.get('/disconnect/github', function(req, res, next){
   return controller.disconnectGithub(req, res, next);
 });
-
-
-router.route('/connect/local')
-  .get(function (req, res) {
-    return res.status(200).render('pages/signup', {
-      infoMsg: 'Create a local account to link to your profile'});
-  })
-  .post(function(req, res, next) {
-    passport.authenticate('local-signup', function(err, user, info) {
-      if (err) {
-        return next(err); // will generate a 500 error
-      }
-      if (!user) {
-        return res.status(409).render('pages/signup', {errMsg: info.errMsg});
-      }
-      req.login(user, function(err){
-        if(err){
-          console.error(err);
-          return next(err);
-        }
-        return res.status(302).redirect('/dashboard');
-      });
-    })(req, res, next);
-  });
 
 
 router.route('/logout')

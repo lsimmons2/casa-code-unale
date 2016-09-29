@@ -38,42 +38,50 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback : true
 },
 function(req, email, password, done) {
-  console.log('local-signup email and pass: ', email, password);
   process.nextTick(function() {
     if(!req.user) {
-      User.findOne({'local.email': email}, function(err, user) {
-        if(err) {
-          console.error(err);
+      User.findOne({'username': req.body.username}, function(err, user){
+        if(err){
+          console.log('Error finding user by username: ', err);
           return done(err);
         }
-        if(user) {
-          //should tell user their email has already been used
-          return done(null, false, {errMsg: 'email already exists'});
+        if(user){
+          return done(null, false, {errMsg: 'username already exists'});
         }
-        else {
-          console.log('Registering new user');
-          var newUser = new User();
-          newUser.local.firstName = req.body.firstName;
-          newUser.local.lastName = req.body.lastName;
-          newUser.username = req.body.username;
-          newUser.local.email = email;
-          newUser.local.password = newUser.generateHash(password);
-          newUser.skillsTO = req.body.skillsTO;
-          newUser.skillsTL = req.body.skillsTL;
-          newUser.bio = req.body.bio;
-          newUser.save(function(err) {
-            if(err) {
-              console.log('Error saving new user: ', err);
-              if(err.message == 'User validation failed') {
-                return done(null, false, {errMsg: 'Please fill all fields'});
+        User.findOne({'local.email': email}, function(err, user) {
+          if(err) {
+            console.error(err);
+            return done(err);
+          }
+          if(user) {
+            //should tell user their email has already been used
+            return done(null, false, {errMsg: 'email already exists'});
+          }
+          else {
+            console.log('Registering new user');
+            var newUser = new User();
+            newUser.local.firstName = req.body.firstName;
+            newUser.local.lastName = req.body.lastName;
+            newUser.username = req.body.username;
+            newUser.local.email = email;
+            newUser.local.password = newUser.generateHash(password);
+            newUser.skillsTO = req.body.skillsTO;
+            newUser.skillsTL = req.body.skillsTL;
+            newUser.bio = req.body.bio;
+            newUser.save(function(err) {
+              if(err) {
+                console.log('Error saving new user: ', err);
+                if(err.message == 'User validation failed') {
+                  return done(null, false, {errMsg: 'Please fill all fields'});
+                }
+                  console.error('Error saving new user: ', err);
+                  return done(err);
               }
-                console.error('Error saving new user: ', err);
-                return done(err);
-            }
-            return done(null, newUser);
-          });
-        }
-      });
+              return done(null, newUser);
+            });
+          }
+        });
+      })
     }
     else {//user exists and is loggedin
       var user = req.user;
@@ -109,24 +117,21 @@ function(req, email, password, done) {
       console.log('user doesn\'t exist when trying to log in locally');
       return done(null, false);
     }
-    /*if(!user.validPassword(password)) {
-      console.log('invalid password brah');
-      return done(null, false, {errMsg: 'Invalid password try again'});
-    }*/
     return done(null, user);
   });
 })
 );
 
+
 passport.use(new GitHubStrategy({
     clientID: githubID,
     clientSecret: githubSecret,
     callbackURL: githubcbURL,
-    scope: ['user', 'public_repo', 'gist'],
     passReqToCallback : true
   },
   function(req, accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
+      console.log('github profile: ', profile);
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){
@@ -144,6 +149,7 @@ passport.use(new GitHubStrategy({
           newUser.social.github.displayName = profile.displayName;
           newUser.social.github.email = profile.emails[0].value;
           newUser.social.github.photoURL = profile.photos[0].value || '';
+          newUser.social.github.profileUrl = profile.profileUrl;
           newUser.save(function(err) {
             if (err) {
               console.log('Error saving new github user!!', err);
@@ -167,6 +173,7 @@ passport.use(new GitHubStrategy({
           currentUser.social.github.displayName = profile.displayName;
           currentUser.social.github.email = profile.emails[0].value;
           currentUser.social.github.photoURL = profile.photos[0].value || '';
+          currentUser.social.github.profileUrl = profile.profileUrl;
           currentUser.save(function(err){
             if(err){
               console.log('err updating user: ', err);
@@ -189,6 +196,7 @@ passport.use(new GitHubStrategy({
           user.social.github.displayName = profile.displayName;
           user.social.github.email = profile.emails[0].value;
           user.social.github.photoURL = profile.photos[0].value || '';
+          user.social.github.photoURL = profile.photos[0].value
           user.save(function(err) {
             if (err) {
               console.error(err);
@@ -213,6 +221,7 @@ passport.use(new LinkedInStrategy({
     passReqToCallback : true
   },
   function(req, token, tokenSecret, profile, done) {
+    //console.log('profile: ', profile);
     console.log('got all the shit');
     process.nextTick(function() {
       if(!req.user) {//confirm that user not logged in
@@ -235,11 +244,13 @@ passport.use(new LinkedInStrategy({
           newUser.social.linkedin.photoURL = profile._json.pictureUrl || '';
           newUser.social.linkedin.summary = profile._json.summary;
           newUser.social.linkedin.positions = profile._json.positions.values;
+          newUser.social.linkedin.profileURL = profile._json.publicProfileUrl;
           newUser.save(function(err) {
             if (err) {
               console.log('Error saving new user!!', err);
               return done(err);
             }
+            console.log('\nnew user created\n');
             return done(null, newUser);
           });
         }
@@ -260,6 +271,7 @@ passport.use(new LinkedInStrategy({
           currentUser.social.linkedin.photoURL = profile._json.pictureUrl || '';
           currentUser.social.linkedin.summary = profile._json.summary;
           currentUser.social.linkedin.positions = profile._json.positions.values;
+          currentUser.social.linkedin.profileURL = profile._json.publicProfileUrl;
           currentUser.save(function(err){
             if(err){
               console.log('err updating user: ', err);
@@ -270,6 +282,7 @@ passport.use(new LinkedInStrategy({
                 console.log('error deleting old user: ', err);
                 return done(err);
               }
+              console.log('old linkedin account deleted, linkedin info added to current user');
               return done(null, currentUser);
             })
           })
@@ -284,11 +297,13 @@ passport.use(new LinkedInStrategy({
           user.social.linkedin.photoURL = profile._json.pictureUrl || '';
           user.social.linkedin.summary = profile._json.summary;
           user.social.linkedin.positions = profile._json.positions.values;
+          user.social.linkedin.profileUrl = profile._json.publicProfileUrl;
           user.save(function(err) {
             if (err) {
               console.error(err);
               return done(err);
             }
+            console.log('new linkedin user created');
             return done(null, user);
           });
         }
