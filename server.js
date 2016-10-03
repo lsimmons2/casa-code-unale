@@ -6,16 +6,19 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var connect = require('connect');
-var routes = require('./server/routes.js');
+//var routes = require('./server/routes.js');
+var userRoutes = require('./server/users/index.js');
+var usersRoutes = require('./server/user/index.js');
+var authRoutes = require('./server/auth/index.js');
 var mongoStore = require('connect-mongo')(session);
 
 var env = process.env.NODE_ENV || 'development';
 var sessionSecret = config.gen.sessionSecret;
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8080;
 var dbUri = config.dbURI;
 
-//mongoose.connect(dbUri);
 
+//mongoose.Promise = global.Promise;
 mongoose.connect(dbUri);
 var db = mongoose.connection;
 db.on('error', function(err){
@@ -42,17 +45,19 @@ var sessionStore = new mongoStore({
 })
 
 var app = express();
-
-
 if(env == 'prod'){
   app.use('/', express.static('./site/'));
 }
+
 app.use('/app', express.static('./'));
 
-
 app.use(session({
-  name: 'simpleLib.sess', store: sessionStore, secret: config.gen.sessionSecret, resave: true,
-  saveUninitialized: false, cookie: {maxAge: 1000 * 60 * 15}
+  name: 'simpleLib.sess',
+  store: sessionStore,
+  secret: config.gen.sessionSecret,
+  resave: true,
+  saveUninitialized: false,
+  cookie: {maxAge: 1000 * 60 * 15}
 }));
 
 app.use(cookieParser());
@@ -60,17 +65,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
 ////app.use(methodOverride('X-HTTP-Method-Override'));
+
+/*
 app.use(session({
   secret: sessionSecret,
   resave: false,
   saveUninitialized: false
 }));
+*/
 
+function logReq(req, res, next){
+  console.log(req.method, req.url);
+  next();
+}
 
-app.use('/app', routes);
+//app.use('/app', logReq, routes);
+
+app.use('/user', logReq, require('./server/user/index.js'));
+app.use('/users', logReq, require('./server/users/index.js'));
+app.use('/auth', logReq, require('./server/auth/index.js'));
+app.use('/aws', logReq, require('./server/aws/index.js'));
 
 app.listen(port, function(){
-  console.log('\n=== listening on port ' + port + ' in ' + env + ' mode ===');
+  console.log('\n💥💥💥  app listening on port ' + port + ' in ' + env + ' mode 💥💥💥');
 });
 
-exports = module.exports = app;
+//exports = module.exports = app;
+module.exports = app;

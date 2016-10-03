@@ -33,7 +33,8 @@ var Account = new Schema({
 			displayName: String,
 			profileURL: String,
 			email: String,
-			photoURL: String
+			photoURL: String,
+			profileUrl: String
 		},
 		linkedin: {
 			id: String,
@@ -44,7 +45,8 @@ var Account = new Schema({
 			photoURL: String,
 			email: String,
 			summary: String,
-			positions: Object
+			positions: Object,
+			profileUrl: String
 		}
 	}
 });
