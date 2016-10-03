@@ -18,8 +18,14 @@ router.route('/')
     return ctrl.deleteUser(req, res, next);
   });
 
-router.post('/compProf', function(req, res, next) {
-  return ctrl.compProf(req, res, next);
-});
+
+router.route('/completeprofile')
+  .get(function(req, res, next){
+    return ctrl.getIncompleteProf(req, res, next)
+  })
+  .post(function(req, res, next) {
+    return ctrl.compProf(req, res, next);
+  });
+
 
 module.exports = router;

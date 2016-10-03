@@ -15,9 +15,6 @@ var User = new Schema({
 	bio: {
 		type: String
 	},
-	photoURL: {
-		type: String
-	},
 	local: {
 		firstName: String,
 		lastName: String,

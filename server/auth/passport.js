@@ -131,7 +131,6 @@ passport.use(new GitHubStrategy({
   },
   function(req, accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
-      console.log('github profile: ', profile);
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){

@@ -29,6 +29,32 @@ function getUser(req, res, next){
 	});
 };
 
+function getIncompleteProf(req, res, next){
+  var profile = req.user;
+  var missing = {};
+
+  if(!profile.username){
+    missing.username = true;
+  }
+  if(!profile.bio){
+    missing.bio = true;
+  }
+  if(!profile.local.email && !profile.social.linkedin.email && !profile.social.github.email){
+    missing.email = true;
+  }
+  if(!profile.skillsTO.length > 0 || !profile.skillsTL.length > 0){
+    missing.skills = true;
+  }
+  if(!profile.local.photoURL && !profile.social.linkedin.photoURL && !profile.social.github.photoURL){
+    missing.photo = true;
+  }
+  console.log('missing: ', missing);
+  return res.status(200).json({
+    profile: profile,
+    missing: missing
+  })
+}
+
 function updateUser(req, res, next) {
   return UserModel.findOne({'username': req.user.username},
   function (err, user) {
@@ -108,6 +134,7 @@ function compProf(req, res, next){
 			return next(err);
 		}
 		if(user){
+      console.log('User already exists: ', user);
 			return res.status(409).json({
 				message: "username already exists"
 			});
@@ -122,6 +149,7 @@ function compProf(req, res, next){
 				}
 				user.username = req.body.username;
 				user.local.photoURL = req.body.photoURL;
+        user.local.email = req.body.email;
 				user.skillsTO = req.body.skillsTO;
 				user.skillsTL = req.body.skillsTL;
 				user.bio = req.body.bio;
@@ -162,5 +190,6 @@ module.exports = {
   getUser: getUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
-  compProf: compProf
+  compProf: compProf,
+  getIncompleteProf: getIncompleteProf
 }

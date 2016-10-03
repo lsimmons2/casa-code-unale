@@ -38,8 +38,8 @@ function disconnectGithub(req, res, next){
 			return res.status(404).json('User not found in the dBase');
 		}
 		user.social.github.id = null;
-		user.social.github.username = null;
 		user.social.github.token = null;
+		user.social.github.username = null;
 		user.social.github.displayName = null;
 		user.social.github.profileURL = null;
 		user.social.github.email = null;

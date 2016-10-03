@@ -8,6 +8,14 @@ angular.module('compProfCtrl', [
   $scope.userExists = false;
   $scope.pressed = false;
 
+  $http.get('/user/completeprofile')
+    .then(function(resp){
+      $scope.missing = resp.data.missing;
+      $scope.user = resp.data.profile;
+    }, function(resp){
+
+    })
+
   $scope.$on('$typeahead.select', function(event, value, index, elem){
 		if(elem.$id == 'skillsTO'){
 			$scope.selectedSkillsTO.push(value);
@@ -49,7 +57,7 @@ angular.module('compProfCtrl', [
         'skillsTL': $scope.selectedSkillsTL,
         'bio': $scope.bio
       };
-      $http.post('/user/compProf', userData)
+      $http.post('/user/completeprofile', $scope.user)
       .then(function(data){
         $rootScope.in = true;
         $location.path(('/user/' + $scope.username));

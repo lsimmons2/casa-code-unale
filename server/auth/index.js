@@ -103,21 +103,14 @@ router.get('/status', function(req, res){
       authenticated: false
     });
   }
-  if(req.user.skillsTO.length > 0 && req.user.skillsTL.length > 0){
-    var hasSkills = true;
-  } else {
-    var hasSkills = false;
-  }
-  if(!req.user.local.email && !req.user.social.github.email && !req.user.social.linkedin.emal){
-    var hasEmail = true;
-  } else {
-    var hasEmail = false;
+  var incomplete = false;
+  if(!req.user.skillsTO.length > 0 || !req.user.skillsTL.length > 0 || !req.user.local.email && !req.user.social.github.email && !req.user.social.linkedin.emal){
+    incomplete = true;
   }
   console.log('User is authenticated back here on the server');
   res.status(200).json({
     authenticated: true,
-    hasSkills: hasSkills,
-    hasEmail: hasEmail,
+    incomplete: incomplete,
     username: req.user.username
   });
 });

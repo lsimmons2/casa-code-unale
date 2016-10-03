@@ -34,7 +34,7 @@ angular.module('App', [
 				$rootScope.in = true;
 				$rootScope.username = data.username;
 				//user hasn't completed profile
-				if(!data.hasSkills && next.$$route.access.restricted){
+				if(data.incomplete && next.$$route.access.restricted){
 					console.log('no skills, complete prof');
 					$location.path('/completeprofile');
 				}
