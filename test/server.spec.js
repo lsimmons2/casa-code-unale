@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 describe('/board', function(){
 	it('res has 200 status', function(done){
 		chai.request(server)
-		.get('/app/board')
+		.get('/users/users')
 		.end(function(err, res){
 			res.should.have.status(200);
 			done();
@@ -44,7 +44,7 @@ describe('/board', function(){
 describe('/login', function(){
 	it('res has 200 status', function(done){
 		chai.request(server)
-		.post('/app/login')
+		.post('/auth/login')
 		.end(function(err, res){
 			res.should.have.status(200);
 			done();
@@ -159,7 +159,7 @@ describe('/status', function(){
 describe('/users', function(){
 	it('PUT res has 200 status if info included', function(done){
 		chai.request(server)
-		.put('/app/users')
+		.put('/users/users')
 		.send({
 			firstName:'sah',
 	    lastName:'sah',
@@ -176,7 +176,7 @@ describe('/users', function(){
 	});
 	it('PUT res has 500 status if info isn\'t included', function(done){
 		chai.request(server)
-		.put('/app/users')
+		.put('/users/users')
 		.end(function(err, res){
 			res.should.have.status(500);
 			done();
@@ -184,7 +184,7 @@ describe('/users', function(){
 	});
 	it('res body has string message property', function(done){
 		chai.request(server)
-		.put('/app/users')
+		.put('/users/users')
 		.end(function(err, res){
 			res.body.should.have.property('message');
 			res.body.message.should.be.a('string')

@@ -33,11 +33,11 @@ module.exports = function(config) {
 	    '../public/ctrls/profCtrl.js',
 	    '../public/ctrls/signUpCtrl.js',
 	    '../public/app.js',
-	    '../test/service.spec.js',
+	    //'../test/service.spec.js',
 	    '../test/boardCtrl.spec.js',
-	    '../test/navCtrl.spec.js',
-	    '../test/profCtrl.spec.js',
-	    '../test/signUpCtrl.spec.js'
+	    //'../test/navCtrl.spec.js',
+	    //'../test/profCtrl.spec.js',
+	    //'../test/signUpCtrl.spec.js'
     ],
 
 
