@@ -243,9 +243,7 @@ router.route('/users')
   })
 });
 
-router.get('/welcome', function(req, res){
-  res.redirect('/app/#/welcome');
-});
+
 app.use('/app', router);
 
 

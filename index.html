@@ -25,6 +25,7 @@
 	<script type='text/javascript' src='./public/ctrls/signUpCtrl.js'></script>
 	<script type='text/javascript' src='./public/ctrls/boardCtrl.js'></script>
 	<script type='text/javascript' src='./public/ctrls/logInCtrl.js'></script>
+	<script type='text/javascript' src='./public/ctrls/settingsCtrl.js'></script>
 	<script type='text/javascript' src='./public/ctrls/navCtrl.js'></script>
 	<script type='text/javascript' src='./public/routes.js'></script>
 	<script type='text/javascript' src='./public/service.js'></script>
@@ -43,23 +44,41 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#/"><img id='casaLogo' src='./public/casaLogo.png'></a>
+				<a class="navbar-brand" href="#/"><img id="nav-logo" src='./public/images/casaLogo.png'></a>
 			</div>
+
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<!--
 				<ul class="nav navbar-nav" id='nav-board'>
-					<li><a href="#/board">Visit the Board</a></li>
-					<li><a href='/app/test'>Test</a></li>
+					<li>
+						<a class="nav-link" href="#/board">Visit the Board!</a>
+					</li>
 				</ul>
-				<ul class="nav navbar-nav" id="navBarRight">
-					<li ng-show="in"><a class='nav-glyphicon glyphicon glyphicon-user' id='nav-profile' href="#/profile" tooltip-placement='left' uib-tooltip='Profile'></a></li>
-					<li ng-show="in"><a class='nav-glyphicon glyphicon glyphicon-cog' id='nav-settings' href="#/settings" tooltip-placement='left' uib-tooltip='Settings'></a></li>
-					<li ng-show="in"><a id='nav-logout' ng-click="logout()">Log out</a></li>
-					<li><a href="#/user/lsimmons">Me</a></li>
-					<li><a href="#/settings">Settings</a></li>
-					<li>in?: {{in}}</li>
-					<li ng-hide="in"><a href="#/login">Log in</a></li>
-					<li ng-hide="in"><a href="#/signup">Sign up</a></li>
+				-->
+				<ul class="nav navbar-nav" id="nav-right">
+					<li>
+						<a>in: {{in}}</a>
+					</li>
+					<li>
+						<a class="nav-link" href="#/board" tooltip-placement='left' uib-tooltip="Visit the board to connect with other programmers">Board</a>
+					</li>
+					<li ng-show="in">
+						<a class='nav-link nav-glyphicon glyphicon glyphicon-user' id='nav-profile' ng-href="#/user/{{username}}" tooltip-placement='left' uib-tooltip='Your public profile'></a>
+					</li>
+					<li ng-show="in">
+						<a class='nav-link nav-glyphicon glyphicon glyphicon-cog' id='nav-settings' href="#/settings" tooltip-placement='left' uib-tooltip='Settings'></a>
+					</li>
+					<li ng-show="in">
+						<a class="nav-link" id='nav-logout' ng-click="logout()">Log out</a>
+					</li>
+					<li class="nav-link" ng-hide="in">
+						<a href="#/login">Log in</a>
+					</li>
+					<li class="nav-link" ng-hide="in">
+						<a href="#/signup">Sign up</a>
+					</li>
 				</ul>
+
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>

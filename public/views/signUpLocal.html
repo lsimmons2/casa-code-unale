@@ -20,6 +20,7 @@
 		<label>Username</label>
 		<input class='form-control' name='username' type='text' ng-focus="userExists=false" ng-model='username' placeholder='Enter username' required>
 		<p ng-show="userForm.username.$invalid && userForm.username.$dirty || pressed && userForm.username.$invalid" class="help-block">Username required</p>
+		<p ng-show="usernameExists" class="help-block">Someone has already registered with this username. Please choose another.</p>
 	</div>
 
 	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine || pressed && userForm.email.$invalid || emailExists, 'has-success': userForm.email.$valid && userForm.email.$dirty}">
@@ -49,6 +50,12 @@
 		<textarea type="text" class="form-control" ng-model="bio" placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
 	</div>
 
+	<div class="form-group">
+		<label>Upload profile picture</label>
+		<a ng-hide="userData.local.photoURL || userData.social.linkedin || userData.social.github" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+		ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+		ngf-resize="{width: 300, height: 300}"><img id="photo" ngf-thumbnail="file || avatar"></a>
+	</div>
 
 	<div class="form-group" ng-class="{ 'has-error': userForm.passwordConf.$dirty && password !== passwordConf || pressed && userForm.password.$invalid, 'has-success' : userForm.passwordConf.$dirty && password === passwordConf }">
 		<label>Enter password</label>

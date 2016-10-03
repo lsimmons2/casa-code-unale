@@ -63,6 +63,9 @@
     "karma-spec-reporter": "^0.0.26",
     "mocha": "^3.0.2",
     "nodemon": "^1.10.2",
+    "request": "^2.75.0",
+    "superagent": "^2.3.0",
+    "supertest": "^2.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
   }

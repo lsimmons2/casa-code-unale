@@ -1,8 +1,7 @@
 
 
-.social {
-  padding-left: 15px;
-  padding-right: 15px;
+#user-photo {
+  border-radius: 4px;
 }
 
 #bio-header {
@@ -25,6 +24,25 @@
 	margin: 1px;
 	display: inline-block;
 	padding: 1px 3px 1px 3px;
+}
+
+#email {
+  border-width: 1px;
+	border-style: solid;
+	border-color: #F57676;
+	margin: 1px;
+	padding: 1px 3px 1px 3px;
+  display: inline-block;
+}
+
+#signup-link {
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.social {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .social-header {
@@ -60,6 +78,10 @@
   font-size: 17px;
 }
 
+#github-container {
+  padding-top: 15px;
+}
+
 #github-image {
   height:30px;
 }
@@ -71,18 +93,29 @@
   margin-bottom: 4px;
 }
 
+#repo-search-container {
+  padding-bottom: 6px;
+}
+
+#repo-search {
+  width: 36%;
+}
+
 .repo-container {
   padding: 2px;
 }
+
 .repo {
   margin: 0;
   height: 180px;
   padding: 10px;
 }
+
 .repo-name {
   font-weight: bold;
   font-size: 15px;
 }
+
 .repo-link {
   position: absolute;
   bottom: 6px;
@@ -101,6 +134,10 @@ a {
 
   .skills-tl-header {
     margin-top: 0;
+  }
+
+  .link-for-repo {
+    width: 400px;
   }
 
 }

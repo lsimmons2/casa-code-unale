@@ -38,7 +38,7 @@ function updateUser(req, res, next) {
     if(user == null) {
       return res.status(404).json('User not found in the dBase');
     }
-		user.photoURL = req.body.photoURL || user.photoURL;
+		user.local.photoURL = req.body.photoURL || user.local.photoURL;
     user.local.email = req.body.email || user.local.email;
 		user.skillsTO = req.body.skillsTO || user.skillsTO;
 		user.skillsTL = req.body.skillsTL || user.skillsTL;
@@ -121,7 +121,7 @@ function compProf(req, res, next){
 					return res.status(404).json('User not found in the dBase');
 				}
 				user.username = req.body.username;
-				user.photoURL = req.body.photoURL;
+				user.local.photoURL = req.body.photoURL;
 				user.skillsTO = req.body.skillsTO;
 				user.skillsTL = req.body.skillsTL;
 				user.bio = req.body.bio;
@@ -143,7 +143,7 @@ function compProf(req, res, next){
 				return res.status(404).json('User not found in the dBase');
 			}
 			user.username = req.body.username;
-			user.photoURL = req.body.photoURL;
+			user.local.photoURL = req.body.photoURL;
 			user.skillsTO = req.body.skillsTO;
 			user.skillsTL = req.body.skillsTL;
 			user.bio = req.body.bio;

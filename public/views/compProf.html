@@ -4,10 +4,10 @@
 
 <form name="userForm" novalidate>
 
-	<div class="form-group" ng-class="{ 'has-error' : compForm.username.$invalid && !compForm.username.$pristine || pressed && compForm.username.$invalid, 'has-success': compForm.username.$valid && compForm.username.$dirty }">
+	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine || pressed && userForm.username.$invalid || userExists, 'has-success': userForm.username.$valid && userForm.username.$dirty }">
 		<label>Username</label>
 		<input class='form-control' name='username' type='text' ng-model='username' placeholder='Enter username' required>
-		<p ng-show="compForm.username.$invalid && compForm.username.$dirty || pressed && compForm.username.$invalid" class="help-block">Username required</p>
+		<p ng-show="userForm.username.$invalid && userForm.username.$dirty || pressed && userForm.username.$invalid" class="help-block">Username required</p>
 		<p ng-show="userExists" class="help-block">Another user has already registered with this username, please choose another username</p>
 	</div>
 
@@ -43,34 +43,6 @@
 		<input type='submit' id='signUpSubmit' class='btn btn-default' value='Complete profile' name='signUp' ng-click='compProf()'>
 	</center>
 </form>
-	<!--<span>Username:</span>
-	<input class='form-control' name='username' type='text' id='usernameSignUp' ng-model='username' placeholder='Enter user ID' required>
-	<p class='signUpWarning' ng-show='signUpForm.username.$invalid && pressed'>Username required</p>
-	<p ng-show="userExists" class='signUpWarning'>Another user has already registered with this username, please choose another username</p>
-	<br>
-
-	<span>Technologies that you would like help with:</span>
-	<input class='form-control' id='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=15 >
-	<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
-	<p class='signUpWarning' ng-show='!!!selectedSkillsTL.length && pressed'>Need to choose at least one technology</p>
-	<br>
-
-	<span>Technologies that you could help other users with:</span>
-	<input id='skillsTO' type='text' class='form-control' ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=15 >
-	<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
-	<p class='signUpWarning' ng-show='!!!selectedSkillsTO.length && pressed'>Need to choose at least one technology</p>
-	<br>
-
-	More details about what you can offer and/or what you're looking for (optional):
-	<textarea type='text' id='bioSignUp' class='form-control' ng-model='bio' placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
-	<br>
-
-	<center id="termsCon">
-		<input type='checkbox' ng-model='terms' name='terms' required>
-		<span> I have read and understand the </span><a ng-click="openModal()"> terms of use</a>
-	</center>
-	<p class='signUpWarning' ng-show='signUpForm.terms.$invalid && pressed'>Need to acknowledge that you have read and understand the terms of use</p>
--->
 
 
 <script type='text/ng-template' id='termsOfUseModal.html'>

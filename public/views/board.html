@@ -35,7 +35,7 @@
       <b class="username">{{user.username}}</b>
     </div>
     <div ng-click="goToUser(user.username)" class="hidden-xs col-sm-1 photo-container">
-      <img class="profile-picture" src="{{user.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
+      <img class="profile-picture" src="{{user.local.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
     </div>
     <div class="hidden-xs col-sm-5">
       <span class='skills' ng-repeat="skill in user.skillsTO track by $index">{{skill}}</span>
@@ -46,7 +46,7 @@
     <!-- xs -->
     <div ng-click="goToUser(user.username)" class="col-xs-6 visible-xs username-container">
       <b class="username">{{user.username}}</b>
-      <img class="profile-picture" src="{{user.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
+      <img class="profile-picture" src="{{user.local.photoURL || user.social.github.photoURL || user.social.linkedin.photoURL || avatar}}">
     </div>
     <div class="visible-xs col-xs-6">
       <b class="mobile-skill-label">User knows</b>

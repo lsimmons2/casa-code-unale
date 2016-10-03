@@ -7,22 +7,15 @@ angular.module('signUpCtrl', [
 	$scope.terms = false;
 	$scope.pressed = false;
 	$scope.emailExists = false;
+	$scope.usernameExists = false;
 	$scope.otherError = false;
 
-	$scope.firstName = 'Leo';
-	$scope.lastName = 'Simmons';
-	$scope.username = 'lsimmons';
-	$scope.email = 'leooscar.simmons@gmail.com';
-	$scope.bio = 'sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?sah?';
-	$scope.photoURL = '';
-	$scope.password = 'sah';
-	$scope.passwordConf = 'sah';
 	$scope.skillsListTO = tags;
 	$scope.skillsListTL = tags;
-	$scope.selectedSkillTO = [];
-	$scope.selectedSkillsTO = ['angularjs', 'node.js'];
+	$scope.selectedSkillTO = '';
+	$scope.selectedSkillsTO = [];
 	$scope.selectedSkillTL = '';
-	$scope.selectedSkillsTL = ['machine-learning', 'artificial-intelligence'];
+	$scope.selectedSkillsTL = [];
 
 	$scope.$on('$typeahead.select', function(event, value, index, elem){
 		if(elem.$id == 'skillsTO'){
@@ -53,13 +46,11 @@ angular.module('signUpCtrl', [
 		$scope.selectedSkillsTO.sort();
 	};
 
-	$scope.signup = function () {
+	$scope.signup = function(){
 		$scope.pressed = true;
 		$scope.emailExists = false;
-		console.log('valid? ', $scope.userForm.$valid);
-		console.log('match? ', $scope.password === $scope.passwordConf);
-		//if($scope.terms && $scope.password === $scope.passwordConf){
-		if($scope.selectedSkillsTO.length < 0 && $scope.selectedSkillsTL.length < 0 && $scope.userForm.$valid && $scope.password === $scope.passwordConf){
+		$scope.usernameExists = false;
+		if($scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0 && $scope.userForm.$valid && $scope.password === $scope.passwordConf){
 			var userData = {
 				'firstName': $scope.firstName,
 				'lastName': $scope.lastName,
@@ -71,20 +62,55 @@ angular.module('signUpCtrl', [
 				'skillsTL': $scope.selectedSkillsTL,
 				'bio': $scope.bio
 			};
-			$http.post('/app/signup', userData)
+			$http.post('/auth/signup', userData)
 			.then(function(data){
-				$rootScope.in = true;
-				$location.path(('/user/' + $scope.username));
+				var file = $scope.file;
+				var fileLength = file.name.length;
+				var username = userData.username;
+				file.name = username + '_image' + file.name.slice((fileLength-4), fileLength);
+				var signatureForm = {
+					name: file.name,
+					type: file.type
+				}
+				$http.post('/aws/signature', signatureForm)
+				.then(function(resp){
+					var config = {
+						headers: {
+							'Content-Type': file.type
+						}
+					};
+					var s3Url = resp.data.s3Url;
+					$http.put(resp.data.signedUrl, file, config)
+					.then(function(resp){
+						console.log('Succeess uploading file: ', resp);
+						$rootScope.in = true;
+						$location.path(('/user/' + $scope.username));
+					}, function(resp){
+						$rootScope.in = true;
+						$location.path(('/user/' + $scope.username));
+						alert('Error uploading your file. Sorry!');
+					})
+				}, function(resp){
+					$rootScope.in = true;
+					$location.path(('/user/' + $scope.username));
+					alert('Error uploading your file. Sorry!');
+				})
 			}, function(data){
 				console.log('Error signing up new user: ', data);
 				if(data.data.message == 'email already exists'){
 					$scope.emailExists = true;
+				}
+				if(data.data.message == 'username already exists'){
+					$scope.usernameExists = true;
 				}
 				else {
 					console.log('Error signing up new user: ', res.data.message);
 					$scope.otherError = true;
 				}
 			});
+		} else {
+			console.log('valid? ', $scope.userForm.$valid);
+			console.log('match? ', $scope.password === $scope.passwordConf);
 		}
 	};
 

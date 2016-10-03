@@ -11,13 +11,14 @@ angular.module('settingsCtrl', [
   $scope.uploadImage = function(){
     var file = $scope.file;
     var fileLength = file.name.length;
-    var username = userData.username;
+    var username = $scope.userData.username;
     file.name = username + '_image' + file.name.slice((fileLength-4), fileLength);
+    console.log('file.name: ', file.name);
     var signatureForm = {
       name: file.name,
       type: file.type
     }
-    $http.post('/app/signature', signatureForm)
+    $http.post('/aws/signature', signatureForm)
     .then(function(resp){
       var config = {
         headers: {
@@ -28,7 +29,7 @@ angular.module('settingsCtrl', [
       $http.put(resp.data.signedUrl, file, config)
       .then(function(resp){
         console.log('Succeess uploading file: ', resp);
-        $scope.userData.photoURL = s3Url;
+        $scope.userData.local.photoURL = s3Url;
       }, function(resp){
         alert('Error uploading your file. Sorry!');
       })
@@ -71,7 +72,7 @@ angular.module('settingsCtrl', [
 
   $scope.deleteUser = function(){
     console.log('deleteUser() activated');
-    $http.delete('/app/user')
+    $http.delete('/user')
     .then(function(data){
       console.log('user deleted');
       $location.path('/');
@@ -88,7 +89,7 @@ angular.module('settingsCtrl', [
       'skillsTO' : $scope.userData.skillsTO,
       'bio' : $scope.userData.bio
     }
-    $http.put('/app/user', userData)
+    $http.put('/user', userData)
     .then(function(res){
       console.log(res);
       $scope.saved = true;

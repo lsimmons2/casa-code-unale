@@ -1,14 +1,18 @@
 angular.module('userCtrl', [
   'mgcrea.ngStrap',
   'tagsMod'
-]).controller('UserController', function($scope, $rootScope, $filter, $location, $route, $http, AuthService, $uibModal, $routeParams){
-  $http.get('/app/user/' + $routeParams.username)
+])
+.controller('UserController', function($scope, $location, $http, $routeParams){
+
+  $http.get('/users/' + $routeParams.username)
   .then(function(resp){
-    console.log('from /user', resp);
     $scope.user = resp.data.user;
-    console.log('repos: ', resp.data.repos);
     $scope.repos = resp.data.repos;
+    console.log($scope.repos);
   }, function(resp){
     console.log('Error getting user profile: ', resp);
+    alert('Woops! This user\'s profile is unavailable right now. Bringing you back to the board.')
+    $location.path('/board');
   });
+
 });

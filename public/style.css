@@ -9,23 +9,10 @@
 
 
 
-#termsCon input  {
-    display: inline;
-}
 
-#termsCon a  {
-    display: inline;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#termsCon span {
-    display: inline;
-}
 
 /*=================Nav=================*/
+/*
 #nav-profile {
     color: #F57676;
 }
@@ -37,8 +24,37 @@
 #nav-logout {
     color: #F57676;
 }
+*/
+/*
+#board{
+	table-layout:fixed;
+	width:100%;
+}
+*/
 
-bsamela@talener.com
+/*
+#beta {
+    color: #A5B1B5;
+    float: left;
+    margin-left: 15px;
+    margin-right: 20px;
+    font-size:150%;
+    line-height: 50px;
+    text-decoration: none;
+}
+*/
+/*
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.affix + .container-fluid {
+  padding-top: 70px;
+}
+*/
+
+
 /*  > li {
     float: none;
     display: inline-block;
@@ -54,38 +70,10 @@ bsamela@talener.com
     color: #F57676;
 }*/
 
-#navBarRight{
-    float: right;
-}
 
-#board{
-	table-layout:fixed;
-	width:100%;
-}
-.navbar-brand {
-    padding: 0px;
-}
-#casaLogo {
-
-	height: 40px;
-	margin: 4px 0px 0px 20px;
-}
-
-#beta {
-    color: #A5B1B5;
-    float: left;
-    margin-left: 15px;
-    margin-right: 20px;
-    font-size:150%;
-    line-height: 50px;
-    text-decoration: none;
-
-}
-.navbar.navbar-default {
+/*.navbar.navbar-default {
 	 cursor: pointer;
-}
-
-
+}*/
 /*=================Login=================*/
 #loginWarning {
     text-align: center;
@@ -112,154 +100,9 @@ bsamela@talener.com
 }
 
 /*=================Sign Up=================*/
-#termsList {
-    list-style-type: disc;
-}
 
-.termsWarning {
-    color: red;
-}
-
-.signUpWarning{
-	color: red;
-	text-align: center;
-
-}
-
-.typeahead.dropdown-menu.ng-scope.am-fade.bottom-left{
-	cursor: pointer;
-}
 
 /*=================Board=================*/
-#boardHeader {
-    margin: 0 auto 30px auto;
-    width: 40%;
-    text-align: center;
-}
-
-#boardHead {
-
-	   padding-bottom: 5px;
-
-}
-
-#boardLine{
-	height:0px;
-	border-bottom-style: solid;
-	border-bottom-width: 2px;
-	border-bottom-color: #E1DFDF;
-}
-
-#searchLabels{
-	text-align: center;
-}
-
-#boardRow{
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: #E1DFDF;
-	padding: 5px 0px 5px 0px;
-}
-
-#boardRow:last-of-type{
-	border-bottom-width: 0px;
-}
-
-.searchBoard {
-	     width: 50%;
-	     margin: 0 auto;
-}
-
-.mobileSearch{
-	text-align: center;
-}
-
-.mobileLabel{
-	margin-top: 8px;
-}
-
-#bigContactLabel{
-	text-align: right;
-s}
-#mobileContactLabel{
-	margin-right: 4px;
-}
-
-#tbody {
-       height: 1100;
-}
-#bio {
-	width: 500px;
-	height: 100px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#contact {
-    text-align: center;
-}
-
-#contactGlyph {
-	      color: #F57676;
-	      cursor: pointer;
-	      margin: 0 auto;
-}
-
-#board img{
-	height: 70px;
-	width: 70px;
-
-}
-
-
-#firstName {
-	width: 500px
-}
-#signUp {
-	margin: 30px auto 30px auto;
-}
-
-#signUp img, a, p, form, input, button {
-	max-width: 500px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#skillsTL {
-
-}
-
-
-.boardSkills {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #F57676;
-	margin: 1px;
-	display: inline-block;
-	padding: 1px 3px 1px 3px;
-}
-
-
-.form-control {
-	margin-bottom: 8px;
-}
-
-.skillButton {
-	color: black;
-	cursor: pointer;
-}
-
-.skillsToShow {
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 3px;
-	color: #F57676;
-	margin: 3px;
-	padding: 4px;
-	display: inline-block;
-}
 
 
 /*=================Profile=================*/
@@ -321,7 +164,3 @@ ul {
 }
 
 /*=================User=================*/
-#userPhoto {
-  height: 120px;
-  width: 120px;
-}

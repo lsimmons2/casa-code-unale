@@ -20,8 +20,12 @@ gulp.task('front', function(done){
   }, done).start();
 })
 
+gulp.task('watchBack', function(){
+	gulp.watch('/test/server/server.spec.js', ['back']);
+});
+
 gulp.task('back', function(){
-  gulp.src(['test/server/controller.spec.js'], {read: false})
+  gulp.src(['test/server/server.spec.js'], {read: false})
   .pipe(mocha())
   .on('error', gutil.log);
 });

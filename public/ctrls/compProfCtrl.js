@@ -4,6 +4,10 @@ angular.module('compProfCtrl', [
   'signUpModalCtrl'
 ])
 .controller('CompProfController', function($scope, $rootScope, $location, $http, AuthService, $uibModal, tags){
+
+  $scope.userExists = false;
+  $scope.pressed = false;
+
   $scope.$on('$typeahead.select', function(event, value, index, elem){
 		if(elem.$id == 'skillsTO'){
 			$scope.selectedSkillsTO.push(value);
@@ -21,53 +25,50 @@ angular.module('compProfCtrl', [
 		}
 		$scope.$digest();
 	});
-  $scope.username = 'lsimmons';
-  $scope.bio = 'sah?';
-  $scope.photoURL = '';
+
   $scope.skillsListTO = tags;
 	$scope.skillsListTL = tags;
-	$scope.selectedSkillTO = [];
-	$scope.selectedSkillsTO = ["jquery", "javascript"];
+	$scope.selectedSkillTO = '';
+	$scope.selectedSkillsTO = [];
 	$scope.selectedSkillTL = '';
-	$scope.selectedSkillsTL = ["jquery", "javascript"];
+	$scope.selectedSkillsTL = [];
 	$scope.terms = false;
 
-  $scope.compProf = function () {
-  $scope.pressed = true;
-  $scope.userExists = false;
-  if($scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0 && $scope.userForm.$valid){
-    console.log('ok then');
-    var userData = {
-      'firstName': $scope.firstName,
-      'lastName': $scope.lastName,
-      'username': $scope.username,
-      'photoURL': $scope.photoURL,
-      'email': $scope.email,
-      'skillsTO': $scope.selectedSkillsTO,
-      'skillsTL': $scope.selectedSkillsTL,
-      'bio': $scope.bio
+  $scope.compProf = function(){
+    $scope.pressed = true;
+    $scope.userExists = false;
+    if($scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0 && $scope.userForm.$valid){
+      console.log('ok then');
+      var userData = {
+        'firstName': $scope.firstName,
+        'lastName': $scope.lastName,
+        'username': $scope.username,
+        'photoURL': $scope.photoURL,
+        'email': $scope.email,
+        'skillsTO': $scope.selectedSkillsTO,
+        'skillsTL': $scope.selectedSkillsTL,
+        'bio': $scope.bio
+      };
+      $http.post('/user/compProf', userData)
+      .then(function(data){
+        $rootScope.in = true;
+        $location.path(('/user/' + $scope.username));
+      }, function(data){
+        console.log('Error signing up new user: ', data);
+        if(data.data.message == 'username already exists'){
+          $scope.userExists = true;
+        }
+        else {
+          console.log('res.data.message: ', data.data.message);
+          alert('Woops! There\'s a problem with our server. Please try again later');
+        }
+      });
+    } else if(!$scope.terms) {
+      angular.element('#termsWarning').css('display', 'block');
+    } else {
+      angular.element('#passConfWarning').css('display', 'block');
     };
-    $http.post('/app/compProf', userData)
-    .then(function(data){
-      $rootScope.in = true;
-      $location.path(('/user/' + $scope.username));
-    }, function(data){
-      console.log('Error signing up new user: ', data);
-      //Make error modals for this
-      if(data.data.message == 'email already exists'){
-        $scope.userExists = true;
-      }
-      //and this
-      else {
-        console.log('res.data.message: ', data.data.message);
-      }
-    });
-  } else if(!$scope.terms) {
-    angular.element('#termsWarning').css('display', 'block');
-  } else {
-    angular.element('#passConfWarning').css('display', 'block');
   };
-};
 
 
 

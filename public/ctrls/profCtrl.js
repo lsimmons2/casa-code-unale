@@ -11,7 +11,7 @@ angular.module('profCtrl', [
 			name: file.name,
 			type: file.type
 		}
-		$http.post('/app/signature', postParams)
+		$http.post('/aws/signature', postParams)
 		.then(function(data){
 			var config = {
 				headers: {
@@ -44,7 +44,7 @@ angular.module('profCtrl', [
 
 	$scope.deleteUser = function(){
 		console.log('deleteUser() activated');
-		$http.delete('/app/user')
+		$http.delete('/user')
 		.then(function(data){
 			console.log('user deleted');
 			$location.path('/');
@@ -179,7 +179,7 @@ angular.module('profCtrl', [
 			'skillsTO' : $scope.userData.skillsTO,
 			'bio' : $scope.userData.bio
 		}
-		$http.put('/app/users', userData)
+		$http.put('/user', userData)
 		.then(function(res){
 			console.log(res);
 
@@ -189,7 +189,7 @@ angular.module('profCtrl', [
 		angular.element('#updateButton').css('display', 'none');
 		angular.element('#confirm').css('display', 'inline-block');
 
-	};
+	}
 
 	$scope.$on('$typeahead.select', function(event, value, index, elem){
 		       if(elem.$id == 'skillsTOInput'){

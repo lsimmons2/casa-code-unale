@@ -26,7 +26,7 @@ function imageUpload(req, res, next){
 				return res.status(404).json('User not found in db');
 			}
 			var s3Url = bucketConfig.bucketURL + req.body.name;
-			user.photoURL = s3Url;
+			user.local.photoURL = s3Url;
 			user.save(function(err, user){
 				if(err){
 					return next(err);

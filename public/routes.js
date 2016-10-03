@@ -21,34 +21,20 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 			restricted: false
 		}
 	})
-	.when('/signup/linkedin', {
-		templateUrl: 'public/views/signUpLinkedin.html',
-		controller: 'SignUpController',
-		access: {
-			restricted: false
-		}
-	})
-	.when('/signedup', {
-		templateUrl: 'public/views/signedUp.html',
-		controller: 'SignUpController',
-		access: {
-			restricted: false
-		}
-	})
 	.when('/settings', {
 		templateUrl: 'public/views/settings.html',
-		controller: 'ProfileController',
+		controller: 'SettingsController',
 		access: {
 			restricted: true
 		},
 		resolve: {
 			userData : ['$http', function($http){
-				return $http.get('/app/profile')
+				return $http.get('/user')
 				.then(function(data){
 					return data.data;
 				},
 				function(data){
-					console.log('Error getting data on route change to /profile: ', data);
+					console.log('Error getting data on route change to /settings: ', data);
 				});
 			}]
 		}
@@ -58,38 +44,6 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 		controller: 'LogInController',
 		access: {
 			restricted: false
-		}
-	})
-	.when('/login/linkedin', {
-		templateUrl: 'public/views/loginLinkedin.html',
-		controller: 'LogInController',
-		access: {
-			restricted: false
-		}
-	})
-	.when('/login/github', {
-		templateUrl: 'public/views/loginGithub.html',
-		controller: 'LogInController',
-		access: {
-			restricted: false
-		}
-	})
-	.when('/profile', {
-		templateUrl: 'public/views/prof.html',
-		controller: 'ProfileController',
-		access: {
-			restricted: true
-		},
-		resolve: {
-			userData : ['$http', function($http){
-				return $http.get('/app/profile')
-				.then(function(data){
-					return data.data;
-				},
-				function(data){
-					console.log('Error getting data on route change to /profile: ', data);
-				});
-			}]
 		}
 	})
 	.when('/completeprofile', {
@@ -103,13 +57,6 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 		templateUrl: 'public/views/user.html',
 		controller: 'UserController',
 		access: {
-			restricted: true
-		}
-	})
-	.when('/welcome', {
-		templateUrl: 'public/views/welcome.html',
-		controller: 'SignUpController',
-		access: {
 			restricted: false
 		}
 	})
@@ -121,11 +68,14 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 		},
 		resolve: {
 			users: ['$http', function($http){
-				return $http.get('/app/users')
+				return $http.get('/users')
 				.then(function(response){
 					return response.data;
 				});
 			}]
 		}
+	})
+	.otherwise({
+		redirectTo: '/'
 	});
 }]);
