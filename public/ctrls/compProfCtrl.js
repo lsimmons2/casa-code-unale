@@ -16,6 +16,7 @@ angular.module('compProfCtrl', [
 
     })
 
+
   $scope.$on('$typeahead.select', function(event, value, index, elem){
 		if(elem.$id == 'skillsTO'){
 			$scope.selectedSkillsTO.push(value);
@@ -46,7 +47,6 @@ angular.module('compProfCtrl', [
     $scope.pressed = true;
     $scope.userExists = false;
     if($scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0 && $scope.userForm.$valid){
-      console.log('ok then');
       var userData = {
         'firstName': $scope.firstName,
         'lastName': $scope.lastName,
@@ -57,7 +57,7 @@ angular.module('compProfCtrl', [
         'skillsTL': $scope.selectedSkillsTL,
         'bio': $scope.bio
       };
-      $http.post('/user/completeprofile', $scope.user)
+      $http.post('/user/completeprofile', userData)
       .then(function(data){
         $rootScope.in = true;
         $location.path(('/user/' + $scope.username));
