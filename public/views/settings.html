@@ -3,7 +3,7 @@
 <h3>Settings</h3>
 <div class="row">
 
-  <div class="well col-md-4 col-xs-12" id="photo-container">
+  <div class="well col-sm-4 col-xs-12" id="photo-container">
     <h4>Profile Picture</h4>
     <img id="profile-picture" src="{{userData.local.photoURL || userData.social.github.photoURL || userData.social.linkedin.photoURL || avatar}}"><br>
 
@@ -17,12 +17,12 @@
 
   </div>
 
-  <div class="well col-md-8 col-xs-12" id="bio-container">
+  <div class="well col-sm-8 col-xs-12" id="bio-container">
     <h4>Edit description</h4>
     <textarea class="form-control" placeholder="Enter description of what you can offer and/or what you're looking for help with" type="text" ng-change="modified=true" ng-model="userData.bio"></textarea>
   </div>
 
-  <div class="form-group skills col-md-6 col-xs-12 well" id="skillsTL-container" ng-class="{ 'has-error': !!!userData.skillsTL.length}">
+  <div class="form-group skills col-sm-6 col-xs-12 well" id="skillsTL-container" ng-class="{ 'has-error': !!!userData.skillsTL.length}">
     <h4>Edit technologies that you would like help with</h4>
     <ul class="skillsList">
       <li ng-repeat="skill in userData.skillsTL track by $index">{{skill}}<b class="remove-button" ng-click='remSkillTL($index)'> x</b></li>
@@ -31,7 +31,7 @@
     <p class="help-block" ng-show="!!!userData.skillsTL.length">Need to choose at least one technology</p>
   </div>
 
-  <div class="form-group skills col-md-6 col-xs-12 well" ng-class="{ 'has-error': !!!userData.skillsTO.length}">
+  <div class="form-group skills col-sm-6 col-xs-12 well" ng-class="{ 'has-error': !!!userData.skillsTO.length}">
     <h4>Edit technologies that you could help other users with</h4>
     <ul class="skillsList">
       <li ng-repeat="skill in userData.skillsTO track by $index">{{skill}}<b class="remove-button" ng-click='remSkillTO($index)'> x</b></li>

@@ -14,10 +14,10 @@ input {
   margin-top: 30px;
 }
 .login-container {
-  /*height: 220px;*/
+  height: 240px;
   text-align: center;
   padding-top: 40px;
-  /*padding-bottom: 40px;*/
+  padding-bottom: 40px;
 }
 
 #local {
