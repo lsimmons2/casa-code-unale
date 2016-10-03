@@ -71,10 +71,9 @@ angular.module('compProfCtrl', [
           alert('Woops! There\'s a problem with our server. Please try again later');
         }
       });
-    } else if(!$scope.terms) {
-      angular.element('#termsWarning').css('display', 'block');
-    } else {
-      angular.element('#passConfWarning').css('display', 'block');
+    } else{
+      console.log('scope valid? ', $scope.userForm.$valid);
+      console.log('skills?: ', $scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0);
     };
   };
 

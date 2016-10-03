@@ -4,34 +4,34 @@
 
 <form name="userForm" novalidate>
 
-	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine || pressed && userForm.username.$invalid || userExists, 'has-success': userForm.username.$valid && userForm.username.$dirty }" ng-show="missing.username">
+	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine || pressed && userForm.username.$invalid || userExists, 'has-success': userForm.username.$valid && userForm.username.$dirty }" ng-show="missing.username" ng-if="missing.username">
 		<label>Username</label>
 		<input class='form-control' name='username' type='text' ng-model='username' placeholder='Enter username' required>
 		<p ng-show="userForm.username.$invalid && userForm.username.$dirty || pressed && userForm.username.$invalid" class="help-block">Username required</p>
 		<p ng-show="userExists" class="help-block">Another user has already registered with this username, please choose another username</p>
 	</div>
 
-	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine || pressed && userForm.email.$invalid || userExists, 'has-success': userForm.email.$valid && userForm.email.$dirty }" ng-show="missing.email">
+	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine || pressed && userForm.email.$invalid || userExists, 'has-success': userForm.email.$valid && userForm.email.$dirty }" ng-show="missing.email" ng-if="missing.email">
 		<label>Email</label>
 		<input class='form-control' name='email' type='text' ng-model='email' placeholder='Enter email' required>
 		<p ng-show="userForm.email.$invalid && userForm.email.$dirty || pressed && userForm.email.$invalid" class="help-block">Email required</p>
 	</div>
 
-	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTL.length && userForm.skillsTL.$touched || !!!selectedSkillsTL.length && pressed}" ng-show="missing.skills">
+	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTL.length && userForm.skillsTL.$touched || !!!selectedSkillsTL.length && pressed}" ng-show="missing.skills" ng-if="missing.skills">
 		<label>Technologies that you would like help with</label>
 		<input class='form-control' id="skillsTL" name='skillsTL' type='text' ng-model='selectedSkillTL' bs-options='state for state in skillsListTL' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTL track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTL($index)'>  x</span></span>
 		<p ng-show="userForm.skillsTL.$touched && !!!selectedSkillsTL.length || pressed && !!!selectedSkillsTL.length" class="help-block">Need to choose at least one technology</p>
 	</div>
 
-	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTO.length && userForm.skillsTO.$touched || !!!selectedSkillsTO.length && pressed }" ng-show="missing.skills">
+	<div class="form-group" ng-class="{ 'has-error' : !!!selectedSkillsTO.length && userForm.skillsTO.$touched || !!!selectedSkillsTO.length && pressed }" ng-show="missing.skills" ng-if="missing.skills">
 		<label>Technologies that you could help other users with</label>
 		<input name='skillsTO' type='text' class='form-control' id="skillsTO" ng-model='selectedSkillTO' bs-options='state for state in skillsListTO' placeholder='Enter technologies' bs-typeahead data-limit=15 >
 		<span class='skillsToShow' ng-repeat='skill in selectedSkillsTO track by $index'>{{skill}}<span class='skillButton' ng-click='remSkillTO($index)'>  x</span></span>
 		<p ng-show="userForm.skillsTO.$touched && !!!selectedSkillsTO.length || pressed && !!!selectedSkillsTO.length" class="help-block">Need to choose at least one technology</p>
 	</div>
 
-	<div class="form-group" ng-show="missing.bio">
+	<div class="form-group" ng-show="missing.bio" ng-if="missing.bio">
 		<label>More details about what you can offer and/or what you're looking for (optional)</label>
 		<textarea type="text" class="form-control" ng-model="bio" placeholder="Describe what you can offer and/or what you're looking for help with"></textarea>
 	</div>
