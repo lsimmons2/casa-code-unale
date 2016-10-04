@@ -47,6 +47,11 @@
       <center>Changes saved!</center>
     </div>
   </div>
+  <div class="col-xs-12 well list" ng-show="saveError">
+    <div class="alert alert-danger">
+      <center>There was an error saving your changes. Please try again later!</center>
+    </div>
+  </div>
   <div class="col-xs-12 well list" ng-hide="{{linkStatus.linkedin}}">
     <a href="/auth/linkedin" tooltip-placement="right">Connect your LinkedIn account</a>
   </div>
