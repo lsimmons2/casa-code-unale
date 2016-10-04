@@ -26,6 +26,10 @@ textarea.form-control {
   cursor: pointer;
 }
 
+.dropdown-menu > li {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px){
 
   .row {

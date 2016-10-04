@@ -18,6 +18,10 @@ form {
     cursor: pointer;
 }
 
+.dropdown-menu > li {
+  cursor: pointer;
+}
+
 #skillsTL, #skillsTO {
   margin-bottom: 3px;;
 }

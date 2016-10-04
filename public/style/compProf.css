@@ -30,3 +30,7 @@ form {
   font-weight: bold;
 	cursor: pointer;
 }
+
+.dropdown-menu > li {
+  cursor: pointer;
+}
