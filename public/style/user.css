@@ -17,6 +17,10 @@
 	padding: 1px 3px 1px 3px;
 }
 
+#empty-bio-contact {
+  margin-top: 0px;
+}
+
 #description {
   border-width: 1px;
 	border-style: solid;
@@ -36,7 +40,6 @@
 }
 
 #signup-link {
-  margin-top: 30px;
   display: inline-block;
 }
 
@@ -125,6 +128,12 @@ a {
   color: black;
 }
 
+.link-for-repo {
+  display: inline-block;
+  margin-top:15px;
+  margin-left: -10px;
+}
+
 @media only screen and (min-width: 768px){
 
   #user-photo {
@@ -134,10 +143,6 @@ a {
 
   .skills-tl-header {
     margin-top: 0;
-  }
-
-  .link-for-repo {
-    width: 400px;
   }
 
 }
