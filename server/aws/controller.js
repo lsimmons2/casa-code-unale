@@ -3,6 +3,7 @@ var request = require('request');
 
 var aws = require('aws-sdk');
 aws.config.loadFromPath('./server/config/awsConfig.json');
+//aws.config.loadFromPath('../../server/config/awsConfig.json');
 var s3 = new aws.S3();
 var bucketConfig = require('../config/aws.js');
 

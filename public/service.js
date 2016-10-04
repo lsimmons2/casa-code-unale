@@ -1,4 +1,4 @@
-angular.module('myServ', []).factory('AuthService', ['$q', '$timeout', '$http', '$location',
+angular.module('authService', []).factory('AuthService', ['$q', '$timeout', '$http', '$location',
 function ($q, $timeout, $http, $location) {
 
   function getUserStatus() {

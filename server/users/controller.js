@@ -49,7 +49,7 @@ function findUser(req, res, next){
 };
 
 function viewAllUsers(req, res, next) {
-  return UserModel.find({},
+  return UserModel.find({username:{$exists:true}},
   function (err, users) {
     if(err) {
       return next(err);

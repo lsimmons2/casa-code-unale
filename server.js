@@ -1,24 +1,24 @@
 var path = require('path');
 var bodyParser = require('body-parser');
-var config = require('./server/config/config.js');
+var methodOverride = require('method-override');
 var express = require('express');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var connect = require('connect');
-//var routes = require('./server/routes.js');
+
+
+var env = process.env.NODE_ENV || 'dev';
+var config = require('./server/config/config.js');
+
+
 var userRoutes = require('./server/users/index.js');
 var usersRoutes = require('./server/user/index.js');
 var authRoutes = require('./server/auth/index.js');
 var mongoStore = require('connect-mongo')(session);
 
-var env = process.env.NODE_ENV || 'development';
-var sessionSecret = config.gen.sessionSecret;
-var port = process.env.PORT || 8080;
+
 var dbUri = config.dbURI;
-
-
-//mongoose.Promise = global.Promise;
 mongoose.connect(dbUri);
 var db = mongoose.connection;
 db.on('error', function(err){
@@ -38,19 +38,16 @@ process.on('SIGINT', function(){
   });
 });
 
+
+var app = express();
+
+
+var sessionSecret = config.gen.sessionSecret;
 var sessionStore = new mongoStore({
   mongooseConnection: mongoose.connection,
   //any unmodified session is updated to store after 24hr
   touchAfter: 24 * 3600
 })
-
-var app = express();
-if(env == 'prod'){
-  app.use('/', express.static('./site/'));
-}
-
-app.use('/app', express.static('./'));
-
 app.use(session({
   name: 'simpleLib.sess',
   store: sessionStore,
@@ -60,31 +57,34 @@ app.use(session({
   cookie: {maxAge: 1000 * 60 * 15}
 }));
 
-app.use(cookieParser());
+
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(bodyParser.urlencoded({extended: true}));
-////app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(cookieParser());
 
-/*
-app.use(session({
-  secret: sessionSecret,
-  resave: false,
-  saveUninitialized: false
-}));
-*/
+
+if(env == 'dev'){
+  var port = 8080;
+} else {
+  var port = process.env.PORT || 80;
+  app.use('/', express.static('./site/'));
+}
+app.use('/app', express.static('./'));
 
 function logReq(req, res, next){
-  console.log(req.method, req.url);
+  console.log(req.method, req.baseUrl + req.url);
   next();
-}
+};
 
-//app.use('/app', logReq, routes);
 
 app.use('/user', logReq, require('./server/user/index.js'));
 app.use('/users', logReq, require('./server/users/index.js'));
 app.use('/auth', logReq, require('./server/auth/index.js'));
 app.use('/aws', logReq, require('./server/aws/index.js'));
+//http request message for personal website
+app.use('/message', require('./site/message.js'));
 
 app.listen(port, function(){
   console.log('\n💥💥💥  app listening on port ' + port + ' in ' + env + ' mode 💥💥💥');

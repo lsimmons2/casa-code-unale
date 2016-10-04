@@ -4,7 +4,6 @@
   "author": "Leo Simmons",
   "scripts": {
     "test": "mocha test.js",
-    "watch": "gulp watch",
     "dev": "sudo NODE_ENV=dev nodemon server.js",
     "stage": "sudo NODE_ENV=stage nodemon server.js",
     "prod": "sudo NODE_ENV=prod nodemon server.js"

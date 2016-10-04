@@ -15,7 +15,7 @@ gulp.task('lint', function(){
 
 gulp.task('front', function(done){
   new Server({
-    configFile: __dirname + '/test/karma.conf.js',
+    configFile: __dirname + '/test/public/karma.conf.js',
     singleRun: true
   }, done).start();
 })
@@ -25,14 +25,11 @@ gulp.task('watchBack', function(){
 });
 
 gulp.task('back', function(){
-  gulp.src(['test/server/server.spec.js'], {read: false})
+  gulp.src(['test/server/auth.js'], {read: false})
   .pipe(mocha())
   .on('error', gutil.log);
 });
 
-gulp.task('lt', function(){
-	gulp.watch('*', ['front', 'lint'])
-})
 
 gulp.task('dev', function(){
 	nodemon({
