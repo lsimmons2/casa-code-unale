@@ -32,13 +32,12 @@ router.route('/signup')
 router.route('/login')
 .post(function(req, res, next){
   passport.authenticate('local-login', function(err, user, info) {
-    console.log('info: ', info);
     if (err) {//error checking if user is authenticated with passport
-      console.log('error handling passport local-login callback');
+      console.error('Error handling passport local-login callback');
       return next(err);//500 status code
     }
     if (!user) {//user cannot be authenticated by passport
-      console.log('user not found in local-login ', info.errMsg);
+      console.log('User not found in local-login');
       return res.status(409).json({
         message: 'invalid combo',
         authenticated: false
@@ -98,16 +97,16 @@ router.get('/resetPass', function(req, res, next){
 
 router.get('/status', function(req, res){
   if (!req.isAuthenticated()) {//is authenticated if in session
-		console.log('User is not authenticated back here on the server');
+		//console.log('User is not authenticated back here on the server');
     return res.status(200).json({
       authenticated: false
     });
   }
   var incomplete = false;
-  if(!req.user.skillsTO.length > 0 || !req.user.skillsTL.length > 0 || !req.user.local.email && !req.user.social.github.email && !req.user.social.linkedin.emal){
+  if(!req.user.skillsTO.length > 0 || !req.user.skillsTL.length > 0 || !req.user.local.email && !req.user.social.github.email && !req.user.social.linkedin.email){
     incomplete = true;
   }
-  console.log('User is authenticated back here on the server');
+  //console.log('User is authenticated back here on the server');
   res.status(200).json({
     authenticated: true,
     incomplete: incomplete,

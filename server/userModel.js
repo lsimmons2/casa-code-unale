@@ -49,11 +49,11 @@ var User = new Schema({
 });
 
 User.methods.generateHash = function(password) {
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
 User.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.local.password);
 };
 
 module.exports = mongoose.model('User', User);

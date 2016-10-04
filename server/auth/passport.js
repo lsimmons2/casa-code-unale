@@ -117,6 +117,12 @@ function(req, email, password, done) {
       console.log('user doesn\'t exist when trying to log in locally');
       return done(null, false);
     }
+    console.log('got herrrrrrrrrrrrrrrrrrrrrrrrre');
+    console.log('correct password? ', user.validPassword(password));
+    if(!user.validPassword(password)){
+      console.error('Invalid password');
+      return done(null, false);
+    }
     return done(null, user);
   });
 })
