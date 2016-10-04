@@ -1,10 +1,14 @@
 /node_modules
 /site
 /server/config/
+/public/images/
 
 .scraps.js
 .notes.txt
 .DS_Store
+
+out.log
+err.log
 
 *.jpg
 *.jpeg
