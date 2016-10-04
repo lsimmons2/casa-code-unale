@@ -13,11 +13,15 @@ input {
 .row {
   margin-top: 30px;
 }
-.login-container {
-  height: 240px;
+
+.well {
   text-align: center;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.login-container {
+  height: 235px;
 }
 
 #local {
@@ -26,4 +30,15 @@ input {
 
 #linkedin-logo {
   padding-left: 12px;
+}
+
+@media only screen and (max-width: 767px){
+
+  .form-control {
+    width: 50%;
+    min-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
