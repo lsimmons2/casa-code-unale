@@ -28,8 +28,7 @@
       <h4>Technologies user needs help with</h4>
     </div>
   </div>
-
-  <div class="row user" ng-repeat="user in users | filter: search:strict | orderObjectBy : 'username'">
+  <div class="row user" ng-repeat="user in userGroup=(users | filter: search:strict | orderObjectBy : 'username')">
     <!-- Above xs -->
     <div ng-click="goToUser(user.username)" class="hidden-xs col-sm-1 username-container">
       <b class="username">{{user.username}}</b>
@@ -54,6 +53,10 @@
       <b class="mobile-skill-label">User needs help with</b>
       <span class='skills' ng-repeat="skill in user.skillsTL track by $index">{{skill}}</span>
     </div>
+  </div>
+
+  <div class="row well" id="no-users" ng-show="!userGroup.length">
+    No users with this filter!
   </div>
 
 </div>

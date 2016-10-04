@@ -57,6 +57,11 @@ div.row.user {
   margin: 1px;
 }
 
+#no-users {
+  background-color: white;
+  border-color: #F57676;
+}
+
 @media only screen and (min-width: 768px){
 
   h3 {
@@ -66,10 +71,6 @@ div.row.user {
   div.row.user {
     display: flex;
     align-items: center;
-  }
-
-  .profile-picture {
-
   }
 
 }
@@ -89,6 +90,14 @@ div.row.user {
 
   .mobile-skill-label {
     display: block;
+  }
+
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  
+  .username-container {
+    width: 10%;
   }
 
 }
