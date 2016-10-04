@@ -57,16 +57,10 @@
 				-->
 				<ul class="nav navbar-nav" id="nav-right">
 					<li>
-						<a>in: {{in}}</a>
-					</li>
-					<li>
-						<a class="nav-link" href="#/board" tooltip-placement='left' uib-tooltip="Visit the board to connect with other programmers">Board</a>
+						<a class="nav-link" href="#/board">Board</a>
 					</li>
 					<li ng-show="in">
-						<a class='nav-link nav-glyphicon glyphicon glyphicon-user' id='nav-profile' ng-href="#/user/{{username}}"></a>
-					</li>
-					<li ng-show="in">
-						<a class='nav-link nav-glyphicon glyphicon glyphicon-cog' id='nav-settings' href="#/settings"></a>
+						<a class='nav-link' id='nav-settings' href="#/settings">Settings</a>
 					</li>
 					<li ng-show="in">
 						<a class="nav-link" id='nav-logout' ng-click="logout()">Log out</a>

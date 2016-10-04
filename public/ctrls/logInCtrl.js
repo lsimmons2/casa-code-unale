@@ -29,27 +29,5 @@ angular.module('logInCtrl', []).controller('LogInController', function($http, $l
 				$rootScope.in = false;
 				$scope.genError = true;
 			});
-
-		/*
-		AuthService.login($scope.email, $scope.password)
-		.then(function (data) {
-			console.log('no error making call');
-			$rootScope.in = true;
-			$scope.disabled = false;
-			$scope.loginForm = {};
-			$location.path('/board');
-		})
-		.catch(function(resp) {
-			if(resp.data.message = 'email does\'nt exist'){
-				$scope.noEmail = true;
-			}
-			console.log('error making call', data);
-			$scope.badCombo = true
-			$scope.error = true;
-			$scope.disabled = false;
-			$scope.loginForm = {};
-		});
-		*/
-
 	};
 });

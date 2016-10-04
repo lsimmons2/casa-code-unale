@@ -13,7 +13,7 @@ angular.module('App', [
 	'signUpModalCtrl',
 	'profCtrl',
 	'compProfCtrl',
-	'myServ',
+	'authService',
 	'boardFilter'
 ])
 .run(function ($rootScope, $location, $route, AuthService) {
