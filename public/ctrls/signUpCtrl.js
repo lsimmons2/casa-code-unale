@@ -64,37 +64,42 @@ angular.module('signUpCtrl', [
 			};
 			$http.post('/auth/signup', userData)
 			.then(function(data){
-				var file = $scope.file;
-				var fileLength = file.name.length;
-				var username = userData.username;
-				file.name = username + '_image' + file.name.slice((fileLength-4), fileLength);
-				var signatureForm = {
-					name: file.name,
-					type: file.type
-				}
-				$http.post('/aws/signature', signatureForm)
-				.then(function(resp){
-					var config = {
-						headers: {
-							'Content-Type': file.type
-						}
-					};
-					var s3Url = resp.data.s3Url;
-					$http.put(resp.data.signedUrl, file, config)
+				if($scope.file){
+					var file = $scope.file;
+					var fileLength = file.name.length;
+					var username = userData.username;
+					file.name = username + '_image' + file.name.slice((fileLength-4), fileLength);
+					var signatureForm = {
+						name: file.name,
+						type: file.type
+					}
+					$http.post('/aws/signature', signatureForm)
 					.then(function(resp){
-						console.log('Succeess uploading file: ', resp);
-						$rootScope.in = true;
-						$location.path(('/user/' + $scope.username));
+						var config = {
+							headers: {
+								'Content-Type': file.type
+							}
+						};
+						var s3Url = resp.data.s3Url;
+						$http.put(resp.data.signedUrl, file, config)
+						.then(function(resp){
+							console.log('Succeess uploading file: ', resp);
+							$rootScope.in = true;
+							$location.path(('/user/' + $scope.username));
+						}, function(resp){
+							$rootScope.in = true;
+							$location.path(('/user/' + $scope.username));
+							alert('Error uploading your file. Sorry!');
+						})
 					}, function(resp){
 						$rootScope.in = true;
 						$location.path(('/user/' + $scope.username));
 						alert('Error uploading your file. Sorry!');
 					})
-				}, function(resp){
+				} else {
 					$rootScope.in = true;
-					$location.path(('/user/' + $scope.username));
-					alert('Error uploading your file. Sorry!');
-				})
+					$location.path(('/user/' + $scope.username));					
+				}
 			}, function(data){
 				console.log('Error signing up new user: ', data);
 				if(data.data.message == 'email already exists'){

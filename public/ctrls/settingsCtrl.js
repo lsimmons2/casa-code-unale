@@ -55,6 +55,7 @@ angular.module('settingsCtrl', [
     }
     $scope.modified = true;
     $scope.saved = false;
+    $scope.saveError = false;
     $scope.$digest();
   });
 
@@ -62,12 +63,14 @@ angular.module('settingsCtrl', [
       $scope.userData.skillsTL.splice(place, 1);
       $scope.modified = true;
       $scope.saved = false;
+      $scope.saveError = false;
   }
 
   $scope.remSkillTO = function(place) {
       $scope.userData.skillsTO.splice(place, 1);
       $scope.modified = true;
       $scope.saved = false;
+      $scope.saveError = false;
   }
 
   $scope.deleteUser = function(){
@@ -82,20 +85,20 @@ angular.module('settingsCtrl', [
   }
 
   $scope.updateUserData = function(){
-    if($scope.userData.skillsTO.length > 0 && $scope.userData.skillsTL.length > 0)
-    var userData = {
-      'email' : $scope.userData.email,
-      'skillsTL' : $scope.userData.skillsTL,
-      'skillsTO' : $scope.userData.skillsTO,
-      'bio' : $scope.userData.bio
+    if($scope.userData.skillsTO.length > 0 && $scope.userData.skillsTL.length > 0){
+      var userData = {
+        'email' : $scope.userData.email,
+        'skillsTL' : $scope.userData.skillsTL,
+        'skillsTO' : $scope.userData.skillsTO,
+        'bio' : $scope.userData.bio
+      }
+      $http.put('/user', userData)
+      .then(function(res){
+        $scope.saved = true;
+      }, function(err){
+        $scope.saveError = true;
+      })
     }
-    $http.put('/user', userData)
-    .then(function(res){
-      console.log(res);
-      $scope.saved = true;
-    }, function(err){
-      console.log(err);
-    })
   }
 
 
