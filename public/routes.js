@@ -34,7 +34,6 @@ angular.module('routes', []).config(['$routeProvider', '$locationProvider', func
 					return data.data;
 				},
 				function(data){
-					console.log('Error getting data on route change to /settings: ', data);
 				});
 			}]
 		}

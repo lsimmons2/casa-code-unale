@@ -20,7 +20,7 @@ function disconnectLinkedin(req, res, next){
 		user.social.linkedin.photoURL = null;
 		user.save(function(err, user){
 			if(err){
-				console.log('Unable to disconnect user\'s linkedin account');
+				console.error('Unable to disconnect user\'s linkedin account');
 				return next(err);
 			}
 			return res.redirect('/app/#/settings');
@@ -46,7 +46,7 @@ function disconnectGithub(req, res, next){
 		user.social.github.photoURL = null;
 		user.save(function(err, user){
 			if(err){
-				console.log('Unable to disconnect user\'s linkedin account');
+				console.error('Unable to disconnect user\'s linkedin account: ', err);
 				return next(err);
 			}
 			return res.redirect('/app/#/settings');

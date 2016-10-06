@@ -48,7 +48,6 @@ function getIncompleteProf(req, res, next){
   if(!profile.local.photoURL && !profile.social.linkedin.photoURL && !profile.social.github.photoURL){
     missing.photo = true;
   }
-  console.log('missing: ', missing);
   return res.status(200).json({
     profile: profile,
     missing: missing
@@ -79,26 +78,19 @@ function updateUser(req, res, next) {
 }
 
 function deleteUser(req, res, next) {
-	console.log('api deleteUser() activated', req.user);
-	//better if this searches for a email as param, is it more fool-proof that way?
 	if(req.user.local.email){
-		console.log('req.user', req.user);
-		console.log('yep the user has a local email');
 		return UserModel.findOneAndRemove({'local.email': req.user.local.email}, function (err, user) {
 			if(err) {
-				console.log('error deleting user from db: ', err);
+				console.errpr('Error deleting user from db: ', err);
 				 return next(err);
 			 }
 			 if(user == null) {
-				 console.log('can\'t delete user b/c they\'re not in the db!!!!!');
+				 console.log('User doesn\'t exist in db');
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 console.log('success deleted user from db!!!');
 			 return res.json(user);
-			 //return res.redirect('/app/#/home');
 		});
 	} else if (req.user.social.linkedin.email){
-		console.log('yep, gotta delete user with their linkedin address');
 		return UserModel.findOneAndRemove({'social.linkedin.email': req.user.social.linkedin.email}, function (err, user) {
 			if(err) {
 				 return next(err);
@@ -106,13 +98,10 @@ function deleteUser(req, res, next) {
 			 if(user == null) {
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 console.log('success deleted user from db!!!');
-			 //return res.redirect('/app/#/home');
 			 return res.json(user);
 		});
 	}
 	else {
-		console.log('yep, gotta delete user with their github address');
 		return UserModel.findOneAndRemove({'social.github.id': req.user.social.github.id}, function (err, user) {
 			if(err) {
 				 return next(err);
@@ -120,8 +109,6 @@ function deleteUser(req, res, next) {
 			 if(user == null) {
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 console.log('success deleted user from db!!!');
-			 //return res.redirect('/app/#/home');
 			 return res.json(user);
 		});
 	}
@@ -130,7 +117,7 @@ function deleteUser(req, res, next) {
 function compProf(req, res, next){
 	UserModel.findOne({'username': req.body.username}, function(err, user){
 		if(err){
-			console.log('Error finding user in complete profile');
+			console.error('Error finding user in complete profile: ', err);
 			return next(err);
 		}
 		if(user){
@@ -155,10 +142,9 @@ function compProf(req, res, next){
 				user.bio = req.body.bio;
 				user.save(function(err, user){
 					if(err){
-						console.log('Unable to save users completed profile');
+						console.error('Unable to save users completed profile');
 						return next(err);
 					}
-					console.log('Skills, username, and bio added');
 					return res.redirect(('/app/#/user/' + user.username));
 				})
 			})
@@ -177,7 +163,7 @@ function compProf(req, res, next){
 			user.bio = req.body.bio;
 			user.save(function(err, user){
 				if(err){
-					console.log('Unable to save users completed profile');
+					console.error('Unable to save users completed profile');
 					return next(err);
 				}
 				return res.redirect(('/app/#/user/' + user.username));

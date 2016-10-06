@@ -25,7 +25,6 @@ angular.module('App', [
 			if(!data.authenticated){
 				$rootScope.in = false;
 				if(next.$$route.access.restricted){
-					console.log('not logged in and next path restricted, to login');
 					$location.path('/login');
 				}
 			}
@@ -35,14 +34,12 @@ angular.module('App', [
 				$rootScope.username = data.username;
 				//user hasn't completed profile
 				if(data.incomplete && next.$$route.access.restricted){
-					console.log('no skills, complete prof');
 					$location.path('/completeprofile');
 				}
 			}
 		}, function(data){
 			$rootScope.in = false;
 			$location.path('/home');
-			console.log('failure resp from app.js: ', data);
 			alert('Woops! We\'re having some issues with our server. Please try back later!');
 		});
 	});

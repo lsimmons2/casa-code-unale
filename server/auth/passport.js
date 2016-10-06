@@ -42,7 +42,7 @@ function(req, email, password, done) {
     if(!req.user) {
       User.findOne({'username': req.body.username}, function(err, user){
         if(err){
-          console.log('Error finding user by username: ', err);
+          console.error('Error finding user by username: ', err);
           return done(err);
         }
         if(user){
@@ -58,7 +58,6 @@ function(req, email, password, done) {
             return done(null, false, {errMsg: 'email already exists'});
           }
           else {
-            console.log('Registering new user');
             var newUser = new User();
             newUser.local.firstName = req.body.firstName;
             newUser.local.lastName = req.body.lastName;
@@ -70,7 +69,7 @@ function(req, email, password, done) {
             newUser.bio = req.body.bio;
             newUser.save(function(err) {
               if(err) {
-                console.log('Error saving new user: ', err);
+                console.error('Error saving new user: ', err);
                 if(err.message == 'User validation failed') {
                   return done(null, false, {errMsg: 'Please fill all fields'});
                 }
@@ -110,15 +109,13 @@ passport.use('local-login', new LocalStrategy({
 function(req, email, password, done) {
   User.findOne({'local.email': email}, function(err, user) {
     if(err) {
-      console.log('err finding user in local-login');
+      console.error('err finding user in local-login');
       return done(err);
     }
     if(!user) {
-      console.log('user doesn\'t exist when trying to log in locally');
+      console.log('User doesn\'t exist in local-login');
       return done(null, false);
     }
-    console.log('got herrrrrrrrrrrrrrrrrrrrrrrrre');
-    console.log('correct password? ', user.validPassword(password));
     if(!user.validPassword(password)){
       console.error('Invalid password');
       return done(null, false);
@@ -140,7 +137,7 @@ passport.use(new GitHubStrategy({
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){
-          console.log('There was an error accessing the db for linkedin auth: ', err);
+          console.error();('There was an error accessing the db for linkedin auth: ', err);
           return done(err);
         }
         if (user){
@@ -161,7 +158,7 @@ passport.use(new GitHubStrategy({
           newUser.social.github.profileUrl = profile.profileUrl;
           newUser.save(function(err) {
             if (err) {
-              console.log('Error saving new github user!!', err);
+              console.error('Error saving new github user!!', err);
               return done(err);
             }
             return done(null, newUser);
@@ -172,7 +169,7 @@ passport.use(new GitHubStrategy({
     else {//need to find out if github account created separately
       User.findOne({'social.github.id': profile.id}, function(err, user){
         if(err){
-          console.log('error finding github user: ', err);
+          console.error('error finding github user: ', err);
         }
         if(user){
           var currentUser = req.user;
@@ -189,12 +186,12 @@ passport.use(new GitHubStrategy({
           currentUser.social.github.profileUrl = profile.profileUrl;
           currentUser.save(function(err){
             if(err){
-              console.log('err updating user: ', err);
+              console.error('err updating user: ', err);
               return done(err);
             }
             User.findOneAndRemove({'social.github.id': profile.id}, function(err, deletedUser){
               if(err){
-                console.log('error deleting old user: ', err);
+                console.error('error deleting old user: ', err);
                 return done(err);
               }
               return done(null, currentUser);
@@ -237,13 +234,11 @@ passport.use(new LinkedInStrategy({
     passReqToCallback : true
   },
   function(req, token, tokenSecret, profile, done) {
-    //console.log('profile: ', profile);
-    console.log('got all the shit');
     process.nextTick(function() {
       if(!req.user) {//confirm that user not logged in
         User.findOne({'social.linkedin.id': profile.id}, function(err, user){
         if(err){
-          console.log('There was an error accessing the db for linkedin auth: ', err);
+          console.error('There was an error accessing the db for linkedin auth: ', err);
           return done(err);
         }
         if (user){
@@ -263,10 +258,9 @@ passport.use(new LinkedInStrategy({
           newUser.social.linkedin.profileURL = profile._json.publicProfileUrl;
           newUser.save(function(err) {
             if (err) {
-              console.log('Error saving new user!!', err);
+              console.error('Error saving new user!!', err);
               return done(err);
             }
-            console.log('\nnew user created\n');
             return done(null, newUser);
           });
         }
@@ -275,7 +269,7 @@ passport.use(new LinkedInStrategy({
     else {//need to find out if linkedin account created separately
       User.findOne({'social.linkedin.id': profile.id}, function(err, user){
         if(err){
-          console.log('error finding linkedin user: ', err);
+          console.error('error finding linkedin user: ', err);
         }
         if(user){//user logged in with local or github account, and their linkedin account already exists
           var currentUser = req.user;
@@ -290,15 +284,14 @@ passport.use(new LinkedInStrategy({
           currentUser.social.linkedin.profileURL = profile._json.publicProfileUrl;
           currentUser.save(function(err){
             if(err){
-              console.log('err updating user: ', err);
+              console.error('err updating user: ', err);
               return done(err);
             }
             User.findOneAndRemove({'social.linkedin.id': profile.id}, function(err, deletedUser){
               if(err){
-                console.log('error deleting old user: ', err);
+                console.error('error deleting old user: ', err);
                 return done(err);
               }
-              console.log('old linkedin account deleted, linkedin info added to current user');
               return done(null, currentUser);
             })
           })
@@ -319,7 +312,6 @@ passport.use(new LinkedInStrategy({
               console.error(err);
               return done(err);
             }
-            console.log('new linkedin user created');
             return done(null, user);
           });
         }

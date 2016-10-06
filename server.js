@@ -25,7 +25,6 @@ var dbUri = config.dbURI;
 mongoose.connect(dbUri);
 var db = mongoose.connection;
 db.on('error', function(err){
-  console.log('Error connecting to db');
   return console.error(err.message);
 });
 db.once('connected', function(){
@@ -76,17 +75,17 @@ if(env == 'dev'){
 }
 app.use('/app', express.static('./'));
 
-
-var logDir = path.join(__dirname, 'logs');
-fs.existsSync(logDir) || fs.mkdirSync(logDir);
-var logStream = fileStreamRotator.getStream({
-  date_format: 'YYYYMMDD',
-  filename: path.join(logDir, 'access-%DATE%.log'),
-  frequency: 'daily',
-  verbose: false
-});
-app.use(morgan('combined', {stream: logStream}));
-
+if(env == 'prod'){
+  var logDir = path.join(__dirname, 'logs');
+  fs.existsSync(logDir) || fs.mkdirSync(logDir);
+  var logStream = fileStreamRotator.getStream({
+    date_format: 'YYYYMMDD',
+    filename: path.join(logDir, 'access-%DATE%.log'),
+    frequency: 'daily',
+    verbose: false
+  });
+  app.use(morgan('combined', {stream: logStream}));
+};
 
 app.use('/user', require('./server/user/index.js'));
 app.use('/users', require('./server/users/index.js'));

@@ -19,7 +19,7 @@ router.route('/signup')
 		//user has been created, log them in
 		req.login(user, function(err){
 			if(err){
-				console.log('Error logging in user after registering: ', err);
+				console.error('Error logging in user after registering: ', err);
 				return next(err);
 			}
 			return res.status(200).json({
@@ -43,14 +43,11 @@ router.route('/login')
         authenticated: false
       });
     }
-    console.log('trying hereee please');
     req.logIn(user, function(err) {//user is authenticated, record session
-      console.log('tryinnng here');
       if (err) {
-				console.log('Error logging in user locally: ', err);
+				console.error('Error logging in user locally: ', err);
         return next(err);
       }
-      console.log('no error then?');
       return res.status(200).json({//maybe use 302 and redirect
         message: 'Logged in successfully',
         authenticated: true
@@ -97,7 +94,6 @@ router.get('/resetPass', function(req, res, next){
 
 router.get('/status', function(req, res){
   if (!req.isAuthenticated()) {//is authenticated if in session
-		//console.log('User is not authenticated back here on the server');
     return res.status(200).json({
       authenticated: false
     });
@@ -106,7 +102,6 @@ router.get('/status', function(req, res){
   if(!req.user.skillsTO.length > 0 || !req.user.skillsTL.length > 0 || !req.user.local.email && !req.user.social.github.email && !req.user.social.linkedin.email){
     incomplete = true;
   }
-  //console.log('User is authenticated back here on the server');
   res.status(200).json({
     authenticated: true,
     incomplete: incomplete,

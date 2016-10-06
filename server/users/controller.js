@@ -4,11 +4,11 @@ var request = require('request');
 function findUser(req, res, next){
 	return UserModel.findOne({'username': req.params.username}, function(err, user){
 		if(err){
-			console.log('Error making db query: ', err);
+			console.error('Error making db query: ', err);
 			return next(err);
 		}
 		if(user == null){
-			console.log('No user found in db');
+			console.log('User doesn\'t exist in db');
 			return res.status(404).json({'message': 'User not in db'});
 		}
 		if(user.social.github.token){
@@ -26,7 +26,7 @@ function findUser(req, res, next){
 					}
 					return request(githubReq, function(error, response, body){
 						if(error){
-              console.log('Error making req for repos');
+              console.error('Error making req for repos');
 							return next(error);
 						}
 						var repos = JSON.parse(body);

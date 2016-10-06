@@ -13,12 +13,10 @@ function imageUpload(req, res, next){
 		Key: req.body.name,
 		ContentType: req.body.type
 	}
-	console.log('params: ', params);
 	return s3.getSignedUrl('putObject', params, function(err, url){
 		if(err){
 			res.send(err);
 		}
-		console.log('url made: ', url);
 		UserModel.findOne({'username': req.user.username}, 'photoURL', function(err, user){
 			if(err){
 				return next(err);
