@@ -6,6 +6,9 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var connect = require('connect');
+var morgan = require('morgan');
+var fs = require('fs');
+var fileStreamRotator = require('file-stream-rotator');
 
 
 var env = process.env.NODE_ENV || 'dev';
@@ -73,18 +76,25 @@ if(env == 'dev'){
 }
 app.use('/app', express.static('./'));
 
-function logReq(req, res, next){
-  console.log(req.method, req.baseUrl + req.url);
-  next();
-};
+
+var logDir = path.join(__dirname, 'logs');
+fs.existsSync(logDir) || fs.mkdirSync(logDir);
+var logStream = fileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: path.join(logDir, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+});
+app.use(morgan('combined', {stream: logStream}));
 
 
-app.use('/user', logReq, require('./server/user/index.js'));
-app.use('/users', logReq, require('./server/users/index.js'));
-app.use('/auth', logReq, require('./server/auth/index.js'));
-app.use('/aws', logReq, require('./server/aws/index.js'));
+app.use('/user', require('./server/user/index.js'));
+app.use('/users', require('./server/users/index.js'));
+app.use('/auth', require('./server/auth/index.js'));
+app.use('/aws', require('./server/aws/index.js'));
 //http request message for personal website
 app.use('/message', require('./site/message.js'));
+
 
 app.listen(port, function(){
   console.log('\n💥💥💥  app listening on port ' + port + ' in ' + env + ' mode 💥💥💥');
