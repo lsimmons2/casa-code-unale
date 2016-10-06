@@ -6,7 +6,6 @@ function ($q, $timeout, $http, $location) {
     .then(function(resp){
       return resp.data;
     }, function(resp){
-      console.log('fail resp from getUserStatus():', resp);
       return resp.data;
     });
   }
@@ -16,16 +15,12 @@ function ($q, $timeout, $http, $location) {
     $http.post('/auth/login',
     {email: email, password: password})
     .then(function(data){
-      console.log('data and status', data, status);
       if(data.status === 200 && data.data.authenticated){
         deferred.resolve();
-        console.log('data: ', data);
       } else {
-        console.log('Error logging in user: ', data);
         deferred.reject();
       }
     }, function(data){
-      console.log('Error making /app/login request: ', data);
       user = false;
       deferred.reject();
     });

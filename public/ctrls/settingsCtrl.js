@@ -13,7 +13,6 @@ angular.module('settingsCtrl', [
     var fileLength = file.name.length;
     var username = $scope.userData.username;
     file.name = username + '_image' + file.name.slice((fileLength-4), fileLength);
-    console.log('file.name: ', file.name);
     var signatureForm = {
       name: file.name,
       type: file.type
@@ -28,7 +27,6 @@ angular.module('settingsCtrl', [
       var s3Url = resp.data.s3Url;
       $http.put(resp.data.signedUrl, file, config)
       .then(function(resp){
-        console.log('Succeess uploading file: ', resp);
         $scope.userData.local.photoURL = s3Url;
       }, function(resp){
         alert('Error uploading your file. Sorry!');
@@ -74,13 +72,10 @@ angular.module('settingsCtrl', [
   }
 
   $scope.deleteUser = function(){
-    console.log('deleteUser() activated');
     $http.delete('/user')
     .then(function(data){
-      console.log('user deleted');
       $location.path('/');
     }, function(data){
-      console.log('user not deleted');
     });
   }
 

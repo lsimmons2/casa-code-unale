@@ -21,12 +21,9 @@ angular.module('profCtrl', [
 			};
 			$http.put(data.data, file, config)
 			.then(function(data){
-				console.log('Success uploading file to S3: ', data);
 			}, function(data){
-				console.log('Error uploading file to S3: ', data);
 			})
 		}, function(data){
-			console.log('Error getting signature from server: ', data);
 		})
 	}
 
@@ -43,13 +40,10 @@ angular.module('profCtrl', [
     });
 
 	$scope.deleteUser = function(){
-		console.log('deleteUser() activated');
 		$http.delete('/user')
 		.then(function(data){
-			console.log('user deleted');
 			$location.path('/');
 		}, function(data){
-			console.log('user not deleted');
 			//$location.path('/home');
 		});
 	}
@@ -181,10 +175,8 @@ angular.module('profCtrl', [
 		}
 		$http.put('/user', userData)
 		.then(function(res){
-			console.log(res);
 
 		}, function(err){
-			console.log(err);
 		})
 		angular.element('#updateButton').css('display', 'none');
 		angular.element('#confirm').css('display', 'inline-block');
