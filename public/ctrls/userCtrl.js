@@ -8,9 +8,7 @@ angular.module('userCtrl', [
   .then(function(resp){
     $scope.user = resp.data.user;
     $scope.repos = resp.data.repos;
-    console.log($scope.repos);
   }, function(resp){
-    console.log('Error getting user profile: ', resp);
     alert('Woops! This user\'s profile is unavailable right now. Bringing you back to the board.')
     $location.path('/board');
   });

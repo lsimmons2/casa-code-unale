@@ -1,7 +1,6 @@
 angular.module('boardCtrl', []).controller('BoardController', function($scope, $log, users, $uibModal, $filter, $location, AuthService){
 
 	$scope.goToUser = function(username){
-		console.log('username: ', username);
 		var path = '/user/' + username;
 		$location.path(path);
 	};

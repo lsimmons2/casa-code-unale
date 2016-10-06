@@ -62,18 +62,14 @@ angular.module('compProfCtrl', [
         $rootScope.in = true;
         $location.path(('/user/' + $scope.username));
       }, function(data){
-        console.log('Error signing up new user: ', data);
         if(data.data.message == 'username already exists'){
           $scope.userExists = true;
         }
         else {
-          console.log('res.data.message: ', data.data.message);
           alert('Woops! There\'s a problem with our server. Please try again later');
         }
       });
     } else{
-      console.log('scope valid? ', $scope.userForm.$valid);
-      console.log('skills?: ', $scope.selectedSkillsTO.length > 0 && $scope.selectedSkillsTL.length > 0);
     };
   };
 

@@ -56,7 +56,7 @@
       <p>
         {{user.social.linkedin.summary}}
       </p>
-      <div class="linkedin-in-subheader">Current Position</div>
+      <div class="linkedin-in-subheader" ng-show="user.social.linkedin.positions">Current Position</div>
       <div ng-repeat='position in user.social.linkedin.positions'>
         <b>{{position.title}}, {{position.company.name}}</b>
         <p>{{position.summary}}</p>

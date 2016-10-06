@@ -9,7 +9,8 @@ angular.module('signUpCtrl', [
 	$scope.emailExists = false;
 	$scope.usernameExists = false;
 	$scope.otherError = false;
-
+    
+    $scope.username = '';
 	$scope.skillsListTO = tags;
 	$scope.skillsListTL = tags;
 	$scope.selectedSkillTO = '';
@@ -83,7 +84,6 @@ angular.module('signUpCtrl', [
 						var s3Url = resp.data.s3Url;
 						$http.put(resp.data.signedUrl, file, config)
 						.then(function(resp){
-							console.log('Succeess uploading file: ', resp);
 							$rootScope.in = true;
 							$location.path(('/user/' + $scope.username));
 						}, function(resp){
@@ -101,7 +101,6 @@ angular.module('signUpCtrl', [
 					$location.path(('/user/' + $scope.username));					
 				}
 			}, function(data){
-				console.log('Error signing up new user: ', data);
 				if(data.data.message == 'email already exists'){
 					$scope.emailExists = true;
 				}
@@ -109,13 +108,10 @@ angular.module('signUpCtrl', [
 					$scope.usernameExists = true;
 				}
 				else {
-					console.log('Error signing up new user: ', res.data.message);
 					$scope.otherError = true;
 				}
 			});
 		} else {
-			console.log('valid? ', $scope.userForm.$valid);
-			console.log('match? ', $scope.password === $scope.passwordConf);
 		}
 	};
 

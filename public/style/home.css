@@ -2,6 +2,7 @@
   text-align: center;
   margin: 0 auto;
   width: 60vw;
+  max-width: 625px;
 }
 
 .home-link {
@@ -12,4 +13,5 @@
 #home-logo {
   width: 55vw;
   margin-bottom: 30px;
+  max-width: 625px;
 }
