@@ -67,7 +67,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
 
 
-if(env == 'dev'){
+if(env == 'dev' || 'test'){
   var port = 8080;
 } else {
   var port = process.env.PORT || 80;
