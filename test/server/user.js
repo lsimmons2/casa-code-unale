@@ -1,25 +1,39 @@
 var request = require('supertest');
 var chai = require('chai');
 var should = chai.should();
+
+
 var app = require('../../server.js');
+var config = require('../../server/config/config.js');
+var UserModel = require('../../server/userModel.js');
+var agent = request.agent(app);
+
+
+beforeEach(function(done){
+
+  agent
+    .post('/auth/signup')
+    .send(config.testData.signUpData)
+    .expect(200)
+    .end(function(err, res){
+      if(err) return done(err);
+      should.exist(res.headers['set-cookie']);
+      done();
+    });
+
+});
+
+
+afterEach(function(done){
+
+  UserModel.remove(function(){
+    done();
+  });
+
+});
 
 
 describe('GET /user', function(){
-
-  var agent = request.agent(app);
-
-  it('login', function(done){
-    agent
-      .post('/auth/login')
-      .send({email: 'abe@gmail.com', password: 'sah'})
-      .expect(200)
-      .end(function(err, res){
-        if(err) return done(err);
-        should.exist(res.headers['set-cookie']);
-        res.body.should.have.property('authenticated');
-        done();
-      });
-  })
 
   it('returns user', function(done){
     agent
@@ -34,6 +48,7 @@ describe('GET /user', function(){
         linkStatus.should.have.property('local');
         linkStatus.should.have.property('linkedin');
         linkStatus.should.have.property('github');
+        console.log('profile: ', profile);
         profile.should.have.property('username');
         profile.should.have.property('skillsTO');
         profile.should.have.property('skillsTL');
@@ -43,22 +58,8 @@ describe('GET /user', function(){
 
 });
 
+
 describe('PUT /user', function(){
-
-  var agent = request.agent(app);
-
-  it('login', function(done){
-    agent
-      .post('/auth/login')
-      .send({email: 'abe@gmail.com', password: 'sah'})
-      .expect(200)
-      .end(function(err, res){
-        if(err) return done(err);
-        should.exist(res.headers['set-cookie']);
-        res.body.should.have.property('authenticated');
-        done();
-      });
-  })
 
   it('returns user', function(done){
     agent
