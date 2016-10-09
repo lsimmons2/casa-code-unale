@@ -72,7 +72,7 @@ function updateUser(req, res, next) {
       if(err) {
         return next(err);
       }
-      return res.json(user);
+      return res.status(200).json(user);
     });
   });
 }
@@ -88,7 +88,7 @@ function deleteUser(req, res, next) {
 				 console.log('User doesn\'t exist in db');
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 return res.json(user);
+			 return res.status(200).json(user);
 		});
 	} else if (req.user.social.linkedin.email){
 		return UserModel.findOneAndRemove({'social.linkedin.email': req.user.social.linkedin.email}, function (err, user) {
@@ -98,7 +98,7 @@ function deleteUser(req, res, next) {
 			 if(user == null) {
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 return res.json(user);
+			 return res.status(200).json(user);
 		});
 	}
 	else {
@@ -109,7 +109,7 @@ function deleteUser(req, res, next) {
 			 if(user == null) {
 				 return res.status(404).json('User not found in the dBase');
 			 }
-			 return res.json(user);
+			 return res.status(200).json(user);
 		});
 	}
 }
@@ -145,7 +145,7 @@ function compProf(req, res, next){
 						console.error('Unable to save users completed profile');
 						return next(err);
 					}
-					return res.redirect(('/app/#/user/' + user.username));
+					return res.status(302).redirect(('/app/#/user/' + user.username));
 				})
 			})
 		}
@@ -166,7 +166,7 @@ function compProf(req, res, next){
 					console.error('Unable to save users completed profile');
 					return next(err);
 				}
-				return res.redirect(('/app/#/user/' + user.username));
+				return res.status(302).redirect(('/app/#/user/' + user.username));
 			})
 		})
 	})

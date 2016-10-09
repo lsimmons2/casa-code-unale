@@ -57,7 +57,7 @@ function viewAllUsers(req, res, next) {
     if(users == null) {
       return res.status(404).json('No users in the dBase');
     }
-    return res.json(users);
+    return res.status(200).json(users);
   });
 }
 
