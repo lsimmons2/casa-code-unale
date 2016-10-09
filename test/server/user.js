@@ -48,7 +48,6 @@ describe('GET /user', function(){
         linkStatus.should.have.property('local');
         linkStatus.should.have.property('linkedin');
         linkStatus.should.have.property('github');
-        console.log('profile: ', profile);
         profile.should.have.property('username');
         profile.should.have.property('skillsTO');
         profile.should.have.property('skillsTL');
@@ -61,7 +60,7 @@ describe('GET /user', function(){
 
 describe('PUT /user', function(){
 
-  it('returns user', function(done){
+  it('updates user', function(done){
     agent
       .get('/user')
       .expect(200)
@@ -77,6 +76,60 @@ describe('PUT /user', function(){
         profile.should.have.property('username');
         profile.should.have.property('skillsTO');
         profile.should.have.property('skillsTL');
+        done();
+      });
+  });
+
+});
+
+
+describe('DELETE /user', function(){
+
+  it('deletes user', function(done){
+    agent
+      .delete('/user')
+      .expect(200)
+      .end(function(err, res){
+        if(err) return done(err);
+        res.body.should.have.property('username');
+        res.body.should.have.property('skillsTL');
+        res.body.should.have.property('skillsTO');
+        done();
+      });
+  });
+
+});
+
+
+describe('GET /completeprofile/user', function(){
+
+  it('gets profile and missing objects', function(done){
+    agent
+      .get('/user/completeprofile')
+      .expect(200)
+      .end(function(err, res){
+        if(err) return done(err);
+        var profile = res.body.profile;
+        should.exist(profile);
+        profile.should.have.property('username');
+        profile.should.have.property('skillsTL');
+        profile.should.have.property('skillsTO');
+        res.body.should.have.property('missing');
+        done();
+      });
+  });
+
+});
+
+
+describe('POST /completeprofile/user', function(){
+
+  it('gets profile and missing objects', function(done){
+    agent
+      .post('/user/completeprofile')
+      .expect(302)
+      .end(function(err, res){
+        if(err) return done(err);
         done();
       });
   });
