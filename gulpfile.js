@@ -19,7 +19,7 @@ gulp.task('lint', function(){
 })
 
 
-gulp.task('front', function(done){
+gulp.task('front-test', ['set-test-env'], function(done){
   new Server({
     configFile: __dirname + '/test/public/karma.conf.js',
     singleRun: true
@@ -27,8 +27,8 @@ gulp.task('front', function(done){
 })
 
 
-gulp.task('back', ['set-test-env'], function(){
-	gulp.src('test/server/auth.js')
+gulp.task('back-test', ['set-test-env'], function(){
+	gulp.src('test/server/*.js')
 		.pipe(mocha())
 		.on('error', gutil.log);
 });

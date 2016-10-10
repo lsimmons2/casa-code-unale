@@ -49,7 +49,6 @@ describe('GET /auth/login', function(){
       .expect(200)
       .end(function(err, res){
         if(err) return done(err);
-        should.exist(res.headers['set-cookie']);
         done();
       })
   });

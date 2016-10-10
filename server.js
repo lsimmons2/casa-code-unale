@@ -28,14 +28,14 @@ db.on('error', function(err){
   return console.error(err.message);
 });
 db.once('connected', function(){
-  return console.log('Successfully connected to ' + dbUri);
+  return;// console.log('Successfully connected to ' + dbUri);
 });
 db.once('disconnected', function(){
   return console.error();
 });
 process.on('SIGINT', function(){
   mongoose.connection.close(function(){
-    console.error('db connection close due to app termination');
+    //console.error('db connection close due to app termination');
     return process.exit(0);
   });
 });
